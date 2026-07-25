@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="OMDI ajans sitesi statik arayüz demosu" />
+    <title>OMDI — Dijital Sistemler</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#anasayfa" aria-label="OMDI ana sayfa">
+          <span class="brand-orbit"></span>
+        </a>
+        <nav aria-label="Ana menü">
+          <a href="#anasayfa" data-route="anasayfa">Anasayfa</a>
+          <a href="#hizmetler" data-route="hizmetler">Hizmetler</a>
+          <a href="#projeler" data-route="projeler">Projeler</a>
+          <a href="#blog" data-route="blog">Blog</a>
+          <a href="#iletisim" data-route="iletisim">İletişim</a>
+          <a href="#toplanti" data-route="toplanti">Toplantı</a>
+        </nav>
+        <div class="header-actions">
+          <a class="button button-light" href="#iletisim"><span>➤</span> Bize Ulaş</a>
+          <a class="button button-dark" href="#toplanti"><span>▣</span> Toplantı Planla</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="page home-page grid-surface" data-page="anasayfa">
+        <div class="home-layout">
+          <div class="hero-copy">
+            <div class="eyebrow"><span>♢</span> Web, form, toplantı ve otomasyon tek akışta</div>
+            <h1>Web sitenizi,<br />otomasyonlarınızı<br />ve müşteri<br />akışınızı tek<br />sistemde<br />toparlayın.</h1>
+            <p>OMDI; işletmeler için modern web siteleri, n8n otomasyonları ve chatbot sistemleri kurar. Formdan toplantıya, bildirimden müşteri takibine kadar dijital süreciniz düzenli çalışır.</p>
+            <div class="hero-actions">
+              <a class="button button-dark" href="#iletisim"><span>➤</span> Web Sitesi Kurulumunu Konuşalım</a>
+              <a class="button button-light" href="#toplanti"><span>▣</span> Toplantı Planla</a>
+            </div>
+          </div>
+
+          <div class="system-panel">
+            <div class="panel-title">
+              <div><strong>OMDI sistem panosu</strong><small>Canlı talep akışı</small></div>
+              <span class="status">7/24 aktif</span>
+            </div>
+            <div class="module-row">
+              <div class="module"><i>▭</i><b>Web sitesi</b></div>
+              <div class="module"><i>⌁</i><b>Form</b></div>
+              <div class="module"><i>◉</i><b>n8n</b></div>
+              <div class="module"><i>✉</i><b>Takip</b></div>
+            </div>
+            <div class="panel-grid">
+              <div class="request-card">
+                <div class="request-title"><b>Yeni talep</b><span>✓</span></div>
+                <span class="line line-long"></span>
+                <span class="line line-mid"></span>
+                <span class="line line-short"></span>
+                <div class="request-actions"><button>E-posta</button><button>CRM kaydı</button></div>
+              </div>
+              <div class="mini-card meeting">
+                <i>▣</i><b>Toplantı CTA</b><p>Uygun ziyaretçiyi takvime taşır.</p>
+              </div>
+              <div class="mini-card chatbot">
+                <i>♙</i><b>Chatbot karşılama</b><p>Hizmeti sorar, kapsamı toparlar.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page contact-page" data-page="iletisim" hidden>
+        <div class="content-layout contact-layout">
+          <div class="contact-copy">
+            <span class="section-kicker">İLETİŞİM</span>
+            <h2>İhtiyacınızı<br />anlatın, doğru<br />dijital akışı birlikte<br />netleştirelim.</h2>
+            <p>Formu gönderdiğinizde mesajınız OMDI iletişim e-postasına Resend üzerinden iletilir.</p>
+            <div class="info-stack">
+              <article><span class="info-icon">⌁</span><div><b>Formdan sonra ne olacak?</b><p>Mesajınız e-posta olarak iletilir; istenirse n8n ile tablo, CRM ve bildirim akışına bağlanır.</p></div></article>
+              <article><span class="info-icon">↪</span><div><b>Kapsam nasıl netleşir?</b><p>Hedef, mevcut durum ve öncelikli hizmet üzerinden ilk öneri kısa sürede hazırlanır.</p></div></article>
+              <article><span class="info-icon">▣</span><div><b>Toplantıya geçilebilir mi?</b><p>Cal.com linki tanımlandığında form sonrası doğrudan toplantı planlama akışı kullanılabilir.</p></div></article>
+            </div>
+          </div>
+
+          <form class="contact-form" id="contact-form">
+            <div class="field-grid">
+              <label>Ad Soyad<input name="name" required /></label>
+              <label>E-posta<input type="email" name="email" required /></label>
+              <label>Telefon<input name="phone" /></label>
+              <label>Şirket / Marka<input name="company" /></label>
+              <label>Hizmet seçimi<select name="service"><option>Hizmet seçin</option><option>Web Sitesi Tasarımı</option><option>n8n Otomasyon Kurulumu</option><option>Chatbot ve AI Asistan</option></select></label>
+              <label>Bütçe / kapsam notu<input name="budget" /></label>
+            </div>
+            <label>Web sitesi<input name="website" placeholder="ornek.com" /></label>
+            <label>Mesaj<textarea name="message"></textarea></label>
+            <button class="button button-dark submit-button" type="submit">➤ Formu Gönder</button>
+            <p class="form-note" role="status"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="page services-page" data-page="hizmetler" hidden>
+        <div class="services-wrap">
+          <div class="services-intro">
+            <span class="section-kicker">HİZMETLER</span>
+            <h2>Dijital yapınızı parça parça değil,<br />tek bir sistem olarak kuruyoruz.</h2>
+          </div>
+          <div class="service-list">
+            <article class="service-card">
+              <div class="service-main"><span class="service-icon">♧</span><h3>Web Sitesi Tasarımı</h3><a href="#iletisim">→ &nbsp;Web Sitesi Kurulumunu Konuşalım</a></div>
+              <div class="service-details">
+                <div><b>Kime uygun?</b><p>KOBİ’ler, yerel işletmeler ve hizmet veren markalar.</p></div>
+                <div><b>Hangi problemi çözer?</b><p>Eski, yavaş veya mobilde zayıf görünen sitenin güven kaybı yaratması.</p></div>
+                <div><b>Teslim kapsamı</b><p>Modern UI, mobil uyumluluk, hızlı sayfa yapısı, iletişim formu, toplantı CTA’ları ve SEO metadata.</p></div>
+                <div><b>Örnek kullanım</b><p>Hizmet sayfaları netleşir, ziyaretçi doğru forma veya toplantı sayfasına yönlendirilir.</p></div>
+              </div>
+            </article>
+            <article class="service-card">
+              <div class="service-main"><span class="service-icon">♙</span><h3>n8n Otomasyon Kurulumu</h3><a href="#iletisim">→ &nbsp;Otomasyon İhtiyacını Anlat</a></div>
+              <div class="service-details">
+                <div><b>Kime uygun?</b><p>Form, e-posta, tablo, CRM ve bildirim süreçleri dağınık ekipler.</p></div>
+                <div><b>Hangi problemi çözer?</b><p>Manuel takip yüzünden lead kaçması ve ekip içi bildirimin aksaması.</p></div>
+                <div><b>Teslim kapsamı</b><p>Form tetikleyicileri, e-posta bildirimi, Google Sheets/CRM kaydı ve mesajlaşma aracı bildirimleri.</p></div>
+                <div><b>Örnek kullanım</b><p>Form gönderildiğinde lead tabloya eklenir, ekip bilgilendirilir ve takip e-postası hazırlanır.</p></div>
+              </div>
+            </article>
+            <article class="service-card">
+              <div class="service-main"><span class="service-icon">▱</span><h3>Chatbot ve AI Asistan</h3><a href="#iletisim">→ &nbsp;Bize Ulaş</a></div>
+              <div class="service-details">
+                <div><b>Kime uygun?</b><p>Ziyaretçiyi hızlı yönlendirmek ve ilk bilgiyi toplamak isteyen işletmeler.</p></div>
+                <div><b>Hangi problemi çözer?</b><p>Ziyaretçinin hangi hizmeti seçeceğini bilememesi ve formu yarım bırakması.</p></div>
+                <div><b>Teslim kapsamı</b><p>Soru-cevap kurgusu, hizmet yönlendirme, lead qualification ve bilgi toplama senaryoları.</p></div>
+                <div><b>Örnek kullanım</b><p>Chatbot kullanıcıya uygun hizmeti önerir, gerekli bilgileri toplar ve form/toplantıya taşır.</p></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="page simple-page" data-page="projeler" hidden>
+        <div><span class="section-kicker">PROJELER</span><h2>Seçilmiş dijital sistemler.</h2><p>Bu bölüm içerik düzenleme aşamasında doldurulacak.</p></div>
+      </section>
+      <section class="page simple-page" data-page="blog" hidden>
+        <div><span class="section-kicker">BLOG</span><h2>Notlar ve rehberler.</h2><p>Bu bölüm içerik düzenleme aşamasında doldurulacak.</p></div>
+      </section>
+      <section class="page meeting-page grid-surface" data-page="toplanti" hidden>
+        <div class="meeting-demo">
+          <span class="section-kicker">TOPLANTI</span>
+          <h2>Uygun zamanı seçin,<br />detayları birlikte konuşalım.</h2>
+          <p>Gerçek sürümde Cal.com takvimi bu alana gömülecek.</p>
+          <div class="calendar-mock"><b>30 dakikalık görüşme</b><span>Pzt</span><span>Sal</span><span>Çar</span><span>Per</span><span>Cum</span><button>10:00</button><button>11:30</button><button>13:00</button><button>14:30</button><button>16:00</button></div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

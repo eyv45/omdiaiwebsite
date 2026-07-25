@@ -1,0 +1,304 @@
+<!doctype html>
+<!--
+THESIS: Reklamdan gelen müşterinin kaybolduğu karanlık boşluğu, canlı bir satış sohbetine dönüştürür.
+OWN-WORLD: Gece laciverti, sıcak altın, ince sinyal çizgileri ve büyük kesik tipografi.
+STORY: Ziyaretçi kaybı görür, asistanın hızını deneyimler, iki çözümü karşılaştırır ve başvurur.
+FIRST VIEWPORT: Sol tarafta güçlü teklif; sağda adım adım canlanan telefon sohbeti ve satış sinyali.
+FORM: Kinetik sohbet akışı; koyu sinematik sahne, kontrollü mesaj koreografisi ve tek odaklı CTA.
+-->
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="OMDI Yazılım ile reklamdan gelen müşterileri 7/24 karşılayın, satış sürecini otomatikleştirin.">
+  <title>OMDI Yazılım — 7/24 Satış Asistanı</title>
+  <style>
+    :root {
+      --navy:#19232d; --navy-2:#111922; --navy-3:#243342;
+      --cream:#f8f6f1; --gold:#dda23a; --gold-soft:#f2cc78;
+      --ink:#16212b; --muted:#a8b0b7; --line:rgba(255,255,255,.14);
+      --ease:cubic-bezier(.22,1,.36,1); --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--navy);color:var(--cream);font-family:"Aptos","Segoe UI",sans-serif;line-height:1.5;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    button,a{ -webkit-tap-highlight-color:transparent }
+    :focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+    .skip{position:fixed;left:16px;top:-60px;z-index:100;background:var(--gold);color:var(--ink);padding:10px 14px;font-weight:800}
+    .skip:focus{top:16px}
+    .wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
+    .nav{position:fixed;inset:0 0 auto;z-index:50;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(17,25,34,.78);backdrop-filter:blur(18px)}
+    .nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.02em}
+    .logo-mark{width:34px;height:34px;border:2px solid var(--gold);border-radius:50%;position:relative}
+    .logo-mark:before,.logo-mark:after{content:"";position:absolute;border-radius:50%;border:2px solid var(--cream)}
+    .logo-mark:before{width:12px;height:12px;left:-5px;top:8px;background:var(--navy-2)}
+    .logo-mark:after{width:5px;height:5px;right:-4px;bottom:4px;background:var(--gold);border-color:var(--gold)}
+    .logo em{color:var(--gold);font-style:normal}
+    .menu{display:flex;align-items:center;gap:28px;font-size:14px;color:#d6d9dc}
+    .menu a{transition:color .18s}
+    .menu a:hover{color:var(--gold-soft)}
+    .nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border:1px solid var(--gold);font-weight:800;letter-spacing:.01em;transition:transform .18s var(--ease),background .18s,color .18s}
+    .nav-cta{min-height:42px;background:var(--gold);color:var(--ink)}
+    .btn:hover,.nav-cta:hover{transform:translateY(-2px)}
+    .btn:active,.nav-cta:active{transform:scale(.97)}
+    .btn.primary{background:var(--gold);color:var(--ink)}
+    .btn.ghost{border-color:rgba(255,255,255,.25)}
+    .hero{min-height:100svh;display:grid;align-items:center;position:relative;padding:126px 0 72px;background:
+      radial-gradient(circle at 78% 36%,rgba(221,162,58,.14),transparent 27%),
+      linear-gradient(135deg,var(--navy-2),var(--navy) 58%,#1d2b37)}
+    .hero:before{content:"";position:absolute;inset:0;opacity:.24;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.11) 1px,transparent 0);background-size:34px 34px;mask-image:linear-gradient(to right,black,transparent 72%)}
+    .hero-layout{position:relative;display:grid;grid-template-columns:1.06fr .94fr;gap:70px;align-items:center}
+    .eyebrow{display:flex;align-items:center;gap:10px;color:var(--gold-soft);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:36px;height:1px;background:var(--gold)}
+    h1{font-family:"Bahnschrift Condensed","Arial Narrow",sans-serif;font-size:clamp(50px,6.2vw,91px);line-height:.93;letter-spacing:-.065em;margin:26px 0;max-width:760px}
+    .headline-line{display:block;overflow:hidden;padding-bottom:.08em}
+    .headline-line span{display:block;transform:translateY(110%);animation:line-in .85s var(--ease) forwards}
+    .headline-line:nth-child(2) span{animation-delay:.11s;color:var(--gold)}
+    .headline-line:nth-child(3) span{animation-delay:.22s}
+    @keyframes line-in{to{transform:translateY(0)}}
+    .hero-copy>p{font-size:18px;color:#c7cdd1;max-width:610px;margin:0 0 30px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .trust{display:flex;gap:26px;margin-top:42px;color:#dce0e2}
+    .trust span{display:flex;align-items:center;gap:8px;font-size:13px}
+    .trust i{color:var(--gold);font-style:normal}
+    .phone-stage{position:relative;min-height:610px;display:grid;place-items:center}
+    .orbit{position:absolute;width:510px;height:510px;border:1px solid rgba(221,162,58,.21);border-radius:50%}
+    .orbit:before,.orbit:after{content:"";position:absolute;border-radius:50%;border:1px dashed rgba(255,255,255,.13);inset:48px}
+    .orbit:after{inset:110px;border-style:solid}
+    .signal-dot{position:absolute;width:10px;height:10px;background:var(--gold);border-radius:50%;top:21px;left:50%;box-shadow:0 8px 18px rgba(0,0,0,.34);animation:orbit 13s linear infinite;transform-origin:0 234px}
+    @keyframes orbit{to{transform:rotate(360deg)}}
+    .phone{position:relative;z-index:2;width:min(350px,84vw);padding:14px;background:#080c10;border:1px solid #45525f;border-radius:38px;box-shadow:0 35px 80px rgba(0,0,0,.5);transform:rotate(2deg)}
+    .phone-screen{height:570px;border-radius:28px;overflow:hidden;background:#11171d;display:flex;flex-direction:column}
+    .chat-head{padding:18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #29333b;font-size:13px;font-weight:800}
+    .avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--ink)}
+    .online{margin-left:auto;font-size:11px;color:#84d6af}
+    .chat-body{padding:24px 17px;display:flex;flex-direction:column;gap:14px;flex:1;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:18px 18px}
+    .message{max-width:86%;padding:11px 13px;border-radius:14px;font-size:13px;opacity:0;transform:translateY(16px);animation:message-in .55s var(--ease) forwards}
+    .message.customer{background:#2a3035;border-bottom-left-radius:3px}
+    .message.bot{align-self:flex-end;background:#234c3b;border-bottom-right-radius:3px}
+    .message:nth-child(1){animation-delay:.6s}.message:nth-child(2){animation-delay:1.2s}
+    .message:nth-child(3){animation-delay:2s}.message:nth-child(4){animation-delay:2.7s}
+    @keyframes message-in{to{opacity:1;transform:none}}
+    .typing{align-self:flex-end;color:var(--gold-soft);font-size:11px;opacity:.75}
+    .chat-foot{padding:15px;border-top:1px solid #29333b}
+    .chat-input{height:42px;border-radius:22px;background:#222b31;color:#99a3aa;display:flex;align-items:center;padding:0 16px;font-size:12px}
+    .section{padding:120px 0}
+    .section.light{background:var(--cream);color:var(--ink)}
+    .section-head{display:grid;grid-template-columns:.7fr 1.3fr;gap:40px;align-items:start;margin-bottom:62px}
+    .kicker{color:var(--gold);font-weight:900;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+    h2{font-size:clamp(38px,5vw,68px);line-height:1;letter-spacing:-.045em;margin:0}
+    .section-lead{color:#66717a;font-size:18px;max-width:680px;margin:22px 0 0}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #d9d3c7}
+    .flow-card{padding:32px;min-height:250px;border-right:1px solid #d9d3c7;position:relative;overflow:hidden}
+    .flow-card:last-child{border:0}
+    .flow-card:after{content:"→";position:absolute;right:-13px;top:48%;z-index:2;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--gold);font-weight:900}
+    .flow-card:last-child:after{display:none}
+    .flow-icon{font-size:24px;color:var(--gold);margin-bottom:66px}
+    .flow-card b{display:block;font-size:20px;margin-bottom:8px}
+    .flow-card p{margin:0;color:#69747c;font-size:14px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:70px;border-top:1px solid #d9d3c7}
+    .stat{padding:36px 10px;border-right:1px solid #d9d3c7}
+    .stat:last-child{border:0}
+    .stat strong{display:block;font-size:clamp(44px,6vw,76px);line-height:1;color:var(--ink);letter-spacing:-.05em}
+    .stat span{color:#68737b}
+    .solutions{background:#101820}
+    .solutions .section-head{grid-template-columns:1fr 1fr}
+    .solutions .section-lead{color:#aeb7bd}
+    .package-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .package{min-height:530px;border:1px solid var(--line);padding:42px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform .3s var(--ease),border-color .3s}
+    .package:hover{transform:translateY(-8px);border-color:var(--gold)}
+    .package.featured{background:var(--gold);color:var(--ink)}
+    .package-label{font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+    .package h3{font-size:38px;line-height:1.06;letter-spacing:-.04em;margin:24px 0 20px;max-width:420px}
+    .package p{color:#abb4ba;max-width:460px}
+    .package.featured p{color:#4d4535}
+    .package ul{list-style:none;margin:28px 0 34px;padding:0;display:grid;gap:14px}
+    .package li{display:flex;gap:11px;align-items:flex-start}
+    .package li:before{content:"✓";color:var(--gold);font-weight:900}
+    .package.featured li:before{color:var(--ink)}
+    .commission{margin-top:auto;padding-top:26px;border-top:1px solid currentColor;display:flex;align-items:end;gap:12px}
+    .commission strong{font-size:58px;line-height:.8}
+    .commission span{font-size:13px;max-width:155px}
+    .offer{background:var(--cream);color:var(--ink)}
+    .offer-panel{display:grid;grid-template-columns:1.1fr .9fr;min-height:500px;border:1px solid #d7d0c2}
+    .offer-copy{padding:64px}
+    .offer-copy h2{margin-top:20px}
+    .offer-copy p{color:#66717a;font-size:18px;max-width:580px}
+    .risk-list{display:grid;gap:1px;background:#d7d0c2;border:1px solid #d7d0c2;margin-top:36px}
+    .risk{display:flex;justify-content:space-between;background:var(--cream);padding:19px 22px}
+    .risk strong{color:var(--gold)}
+    .apply{background:var(--navy);color:var(--cream);padding:54px;display:flex;flex-direction:column;justify-content:center}
+    .apply h3{font-size:33px;margin:0 0 24px;letter-spacing:-.03em}
+    .form{display:grid;gap:14px}
+    .form label{font-size:12px;color:#c9cfd2;font-weight:700}
+    .form input,.form select,.form textarea{width:100%;border:1px solid #44515d;background:#222f3a;color:white;padding:14px;border-radius:0;margin-top:7px}
+    .form textarea{min-height:100px;resize:vertical}
+    .form button{border:0;min-height:52px;background:var(--gold);color:var(--ink);font-weight:900;cursor:pointer}
+    .form-status{min-height:24px;margin:0;color:var(--gold-soft);font-size:13px}
+    footer{padding:38px 0;background:#0d141b;color:#b8c0c5;border-top:1px solid var(--line)}
+    .footer-inner{display:flex;justify-content:space-between;gap:24px;align-items:center}
+    .legal{font-size:12px;max-width:620px}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    @media(max-width:900px){
+      .menu a:not(.nav-cta){display:none}
+      .hero-layout,.section-head,.solutions .section-head,.offer-panel{grid-template-columns:1fr}
+      .hero-copy{padding-top:38px}.phone-stage{min-height:580px}.flow{grid-template-columns:1fr 1fr}
+      .flow-card:nth-child(2){border-right:0}.flow-card:nth-child(-n+2){border-bottom:1px solid #d9d3c7}
+      .flow-card:nth-child(2):after{display:none}.package-grid{grid-template-columns:1fr}.offer-copy{padding:44px}
+    }
+    @media(max-width:580px){
+      .wrap{width:min(100% - 28px,var(--max))}.nav-inner{height:66px}.nav-cta{padding:0 13px;font-size:12px}
+      .hero{padding-top:100px}h1{font-size:48px}.hero-copy>p{font-size:16px}.hero-actions{flex-direction:column}.btn{width:100%}
+      .trust{display:grid;grid-template-columns:1fr 1fr;gap:12px}.phone-stage{min-height:540px}.orbit{width:360px;height:360px}
+      .phone-screen{height:510px}.section{padding:82px 0}.flow{grid-template-columns:1fr}.flow-card{border-right:0;border-bottom:1px solid #d9d3c7}
+      .flow-card:after{display:none}.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid #d9d3c7}
+      .package{padding:30px;min-height:0}.package h3{font-size:32px}.offer-copy,.apply{padding:32px 24px}.footer-inner{align-items:flex-start;flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+      .headline-line span,.message,.reveal{opacity:1!important;transform:none!important}.signal-dot{display:none}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">İçeriğe geç</a>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="logo" href="#top" aria-label="OMDI ana sayfa"><span class="logo-mark" aria-hidden="true"></span><span>OMDI <em>Yazılım</em></span></a>
+      <nav class="menu" aria-label="Ana navigasyon">
+        <a href="#nasil">Nasıl çalışır?</a><a href="#cozumler">Çözümler</a><a href="#model">İş modeli</a>
+        <a class="nav-cta" href="#basvuru">Hemen başvurun <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-layout">
+        <div class="hero-copy">
+          <div class="eyebrow">Yapay zekâ destekli satış otomasyonu</div>
+          <h1>
+            <span class="headline-line"><span>Müşteri</span></span>
+            <span class="headline-line"><span>kaçırmaya</span></span>
+            <span class="headline-line"><span>son verin.</span></span>
+          </h1>
+          <p>Reklamdan gelen mesajları saniyeler içinde karşılayan, soruları yanıtlayan ve satışa dönüştüren 7/24 otomatik asistan.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#basvuru">Hemen başvurun <span aria-hidden="true">→</span></a>
+            <a class="btn ghost" href="#nasil">Sistemi keşfedin</a>
+          </div>
+          <div class="trust" aria-label="Temel avantajlar">
+            <span><i>✓</i> 0 TL kurulum</span><span><i>✓</i> Sonuç başına ödeme</span><span><i>✓</i> 7/24 yanıt</span>
+          </div>
+        </div>
+        <div class="phone-stage" aria-label="Örnek otomatik müşteri sohbeti">
+          <div class="orbit" aria-hidden="true"><span class="signal-dot"></span></div>
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="chat-head"><span class="avatar">O</span><span>OMDI Asistan</span><span class="online">● Çevrimiçi</span></div>
+              <div class="chat-body">
+                <div class="message customer">Merhaba, fiyat bilgisi alabilir miyim?</div>
+                <div class="message bot">Tabii. Size uygun seçeneği birlikte netleştirelim.</div>
+                <div class="message customer">Toplu sipariş düşünüyorum.</div>
+                <div class="message bot">Harika. Detayları aldım; şimdi randevunuzu oluşturalım.</div>
+                <div class="typing">Ortalama yanıt süresi: &lt;1 dk</div>
+              </div>
+              <div class="chat-foot"><div class="chat-input">Mesajınızı yazın…</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section light" id="nasil">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">Reklamdan sonuca</div>
+          <div><h2>Her mesaj, çalışan bir satış akışına dönüşür.</h2><p class="section-lead">Müşterinin ilk merakından satış ekibine teslimine veya ödemeye kadar süreç kesintisiz ilerler.</p></div>
+        </div>
+        <div class="flow reveal">
+          <article class="flow-card"><div class="flow-icon">01</div><b>Reklam mesajı gelir</b><p>Meta reklamından gelen potansiyel müşteri beklemez.</p></article>
+          <article class="flow-card"><div class="flow-icon">02</div><b>Asistan karşılar</b><p>Saniyeler içinde yanıt verir ve ihtiyacı anlar.</p></article>
+          <article class="flow-card"><div class="flow-icon">03</div><b>Süreç ilerler</b><p>Katalog, fiyat, itiraz ve randevu akışı yönetilir.</p></article>
+          <article class="flow-card"><div class="flow-icon">04</div><b>Sonuç oluşur</b><p>Sıcak lead teslim edilir veya satış tamamlanır.</p></article>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><strong>7/24</strong><span>Kesintisiz mesaj yanıtlama</span></div>
+          <div class="stat"><strong>&lt;1dk</strong><span>Ortalama ilk yanıt süresi</span></div>
+          <div class="stat"><strong>0 TL</strong><span>Peşin kurulum ücreti</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section solutions" id="cozumler">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><span class="kicker">İki otomasyon seviyesi</span><h2>İhtiyacınız kadar otomasyon.</h2></div>
+          <p class="section-lead">Ekibinize sıcak müşteri teslim eden hızlı bir karşılama katmanından, satışı uçtan uca tamamlayan sisteme kadar.</p>
+        </div>
+        <div class="package-grid">
+          <article class="package reveal">
+            <span class="package-label">Paket 1</span><h3>Hızlı Karşılama Asistanı</h3>
+            <p>Reklamdan gelen mesajları anında karşılar, müşteriyi tanır ve satış ekibinize sıcak lead olarak teslim eder.</p>
+            <ul><li>Saniyeler içinde otomatik ilk yanıt</li><li>Katalog ve fiyat bilgisini iletme</li><li>İletişim bilgisi toplama</li><li>Satış ekibine sıcak lead teslimi</li></ul>
+            <div class="commission"><strong>%5</strong><span>Tamamlanan satış veya kayıt başına</span></div>
+          </article>
+          <article class="package featured reveal">
+            <span class="package-label">Paket 2</span><h3>Satış Kapatan Tam Otomatik Chatbot</h3>
+            <p>Müşteri sorularını, itirazları, randevuyu ve ödemeyi yöneterek satışı kendi başına tamamlar.</p>
+            <ul><li>Soru ve itirazları uçtan uca yönetme</li><li>Takvime göre otomatik randevu</li><li>Ödeme veya kapora alma</li><li>Satışı otomatik tamamlama</li></ul>
+            <div class="commission"><strong>%15</strong><span>Tamamlanan satış veya kayıt başına</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section offer" id="model">
+      <div class="wrap offer-panel reveal">
+        <div class="offer-copy">
+          <span class="kicker">Risksiz iş ortaklığı</span><h2>Sistem çalışmazsa ödeme yapmazsınız.</h2>
+          <p>Yalnızca OMDI asistanı üzerinden gelip satışını veya kaydını tamamlayan müşteri için komisyon ödersiniz.</p>
+          <div class="risk-list">
+            <div class="risk"><span>Kurulum ücreti</span><strong>0 TL</strong></div>
+            <div class="risk"><span>Gizli masraf</span><strong>Yok</strong></div>
+            <div class="risk"><span>Ödeme şekli</span><strong>Sadece sonuç başına</strong></div>
+          </div>
+        </div>
+        <div class="apply" id="basvuru">
+          <h3>Kaybettiğiniz müşterileri geri kazanmaya hazır mısınız?</h3>
+          <form class="form" novalidate>
+            <label>Ad soyad<input name="name" autocomplete="name" required></label>
+            <label>E-posta<input name="email" type="email" autocomplete="email" required></label>
+            <label>İlgilendiğiniz çözüm<select name="package" required><option value="">Seçin</option><option>Paket 1 — Hızlı Karşılama</option><option>Paket 2 — Tam Otomatik</option></select></label>
+            <label>Kısaca ihtiyacınız<textarea name="message" required></textarea></label>
+            <button type="submit">Başvuruyu gönder →</button><p class="form-status" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><a class="logo" href="#top"><span>OMDI <em>Yazılım</em></span></a><p class="legal">Sistemin verimli çalışabilmesi için işletmenin aktif olarak Meta reklamı yayınlamaya devam etmesi gerekmektedir.</p></div></footer>
+  <script>
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reveals = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) reveals.forEach(el => el.classList.add('visible'));
+    else {
+      const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      }), { threshold: .14 });
+      reveals.forEach(el => observer.observe(el));
+    }
+    document.querySelector('.form').addEventListener('submit', event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const status = form.querySelector('.form-status');
+      if (!form.checkValidity()) { form.reportValidity(); status.textContent = 'Lütfen gerekli alanları doldurun.'; return; }
+      status.textContent = 'Başvurunuz demo olarak alındı. Gerçek gönderim için form servisi bağlanmalıdır.';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
