@@ -1,0 +1,30 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+import Brand from "./Brand.astro";
+---
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="site-footer__lead">
+      <div>
+        <Brand />
+        <p>Mesajdan satış fırsatına uzanan akıllı iletişim sistemi.</p>
+      </div>
+      <a class="footer-cta" href="/#demo-talep">
+        İşletmeniz için konuşalım
+        <ArrowUpRight aria-hidden="true" />
+      </a>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© {new Date().getFullYear()} OMDI. Tüm hakları saklıdır.</p>
+      <nav aria-label="Alt menü">
+        <a href="/cozumler">Çözümler</a>
+        <a href="/sektorler">Sektörler</a>
+        <a href="/hakkimizda">Hakkımızda</a>
+        <a href="/#sss">SSS</a>
+      </nav>
+      <p class="site-footer__tagline">Zekâ. Veri. Dönüşüm.</p>
+    </div>
+  </div>
+</footer>

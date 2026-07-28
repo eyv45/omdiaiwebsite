@@ -1,0 +1,145 @@
+---
+import {
+  ArrowRight,
+  Bot,
+  CircleCheckBig,
+  Gauge,
+  MessageCircle,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  Workflow,
+} from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="OMDI Hakkında — İşletmeler İçin Yapay Zekâ"
+  description="OMDI’nin işletmelerin WhatsApp ve dijital iletişim süreçlerini yapay zekâ ile güçlendiren yaklaşımını keşfedin."
+  bodyClass="about-page"
+>
+  <section class="subhero about-hero">
+    <div class="shell subhero__layout">
+      <div class="subhero__copy">
+        <p class="section-label section-label--gold">OMDI hakkında</p>
+        <h1>İletişim hızını, satış ekibinizin odağına dönüştürüyoruz.</h1>
+        <p>
+          OMDI, işletmelerin WhatsApp ve dijital iletişim süreçlerini yapay
+          zekâ ile güçlendiren bir satış asistanı ve iş otomasyonu platformudur.
+        </p>
+        <a class="button button--gold button--arrow" href="/#demo-talep">
+          Müşteri Akışınızı Konuşalım
+          <ArrowRight aria-hidden="true" />
+        </a>
+      </div>
+
+      <div class="about-manifesto" aria-label="OMDI marka yaklaşımı">
+        <div class="about-manifesto__signal" aria-hidden="true">
+          <MessageCircle />
+          <span></span>
+          <Sparkles />
+          <span></span>
+          <Target />
+        </div>
+        <p>Müşteri mesajından satışa hazır talebe.</p>
+        <h2>Zekâ.<br />Veri.<br /><strong>Dönüşüm.</strong></h2>
+        <small>İşletmenizi geleceğe taşıyoruz.</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-purpose">
+    <div class="shell about-purpose__layout">
+      <div class="about-purpose__lead" data-reveal>
+        <p class="section-label">Neyi çözüyoruz?</p>
+        <h2>Müşterileriniz cevap beklerken satış fırsatı kaybolmasın.</h2>
+      </div>
+      <div class="about-purpose__copy">
+        <p>
+          OMDI müşteri mesajlarını karşılar, sık sorulan soruları yanıtlar,
+          potansiyel müşterileri nitelendirir ve doğru ürün ya da hizmete
+          yönlendirir.
+        </p>
+        <p>
+          Satış ekiplerine görüşmeye hazır talepler bırakarak işletmelerin daha
+          hızlı yanıt vermesine, daha fazla talebi değerlendirmesine ve ekip
+          zamanını daha verimli kullanmasına yardımcı olur.
+        </p>
+        <div class="about-purpose__result">
+          <CircleCheckBig aria-hidden="true" />
+          <p>
+            Karmaşık teknolojiyi, günlük iş akışında anlaşılır ve somut faydaya
+            dönüştürür.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-approach">
+    <div class="shell">
+      <div class="section-heading section-heading--split section-heading--light" data-reveal>
+        <div>
+          <p class="section-label section-label--gold">OMDI yaklaşımı</p>
+          <h2>Teknolojiden önce işletme sonucunu konuşuruz.</h2>
+        </div>
+        <p>
+          Yapay zekânın teknik ayrıntıları yerine müşteri dönüş hızına, ekip
+          zamanına ve satış fırsatının doğru anda devredilmesine odaklanırız.
+        </p>
+      </div>
+
+      <div class="about-approach__rows">
+        <article>
+          <div><Bot aria-hidden="true" /></div>
+          <h3>Anlaşılır</h3>
+          <p>Karmaşık yapay zekâ süreçlerini sade, erişilebilir ve iş odaklı bir akışa dönüştürür.</p>
+        </article>
+        <article>
+          <div><Workflow aria-hidden="true" /></div>
+          <h3>Otomasyon odaklı</h3>
+          <p>Tekrarlanan ilk temas ve nitelendirme işlerini düzenleyerek ekibin zamanını korur.</p>
+        </article>
+        <article>
+          <div><ShieldCheck aria-hidden="true" /></div>
+          <h3>Güvenilir</h3>
+          <p>Müşteri bağlamını korur ve satış temsilcisine ihtiyacı netleştirilmiş bir talep bırakır.</p>
+        </article>
+        <article>
+          <div><Gauge aria-hidden="true" /></div>
+          <h3>Büyümeyi destekleyen</h3>
+          <p>İlk karşılamadan entegre satış operasyonuna kadar işletmeyle birlikte ölçeklenir.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-values">
+    <div class="shell about-values__layout">
+      <div>
+        <p class="section-label">Marka değerleri</p>
+        <h2>Akıllı, hızlı ve sonuç odaklı.</h2>
+      </div>
+      <div class="about-values__list" aria-label="OMDI marka değerleri">
+        <span>Akıllı</span>
+        <span>Hızlı</span>
+        <span>Güvenilir</span>
+        <span>Otomasyon odaklı</span>
+        <span>Büyümeyi destekleyen</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="shell closing-cta__inner">
+      <div>
+        <p>İşletmenizi geleceğe taşıyoruz.</p>
+        <h2>Müşteri iletişiminizi birlikte daha akıllı hâle getirelim.</h2>
+      </div>
+      <a class="button button--gold button--arrow" href="/#demo-talep">
+        Demo Talep Et
+        <ArrowRight aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>

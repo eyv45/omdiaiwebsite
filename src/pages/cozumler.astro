@@ -1,0 +1,218 @@
+---
+import {
+  ArrowRight,
+  Bot,
+  Boxes,
+  Check,
+  DatabaseZap,
+  MessageSquareText,
+  Sparkles,
+} from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PricingGrid from "../components/PricingGrid.astro";
+import { solutions } from "../data/content";
+
+const iconById = {
+  lead: MessageSquareText,
+  sales: Sparkles,
+  scale: DatabaseZap,
+  custom: Boxes,
+};
+---
+
+<BaseLayout
+  title="OMDI Çözümleri — Lead, Sales, Scale ve Custom"
+  description="OMDI Lead, Sales, Scale ve Custom çözümlerini karşılaştırın; işletmenizin müşteri iletişimi ve satış akışı için doğru otomasyon seviyesini bulun."
+  bodyClass="solutions-page"
+>
+  <section class="subhero subhero--solutions">
+    <div class="shell subhero__layout">
+      <div class="subhero__copy">
+        <p class="section-label section-label--gold">OMDI çözüm ailesi</p>
+        <h1>İlk mesajdan entegre satış operasyonuna.</h1>
+        <p>
+          Dört çözüm seviyesi, müşteri iletişiminizin bugün ihtiyaç duyduğu
+          hızdan yarın ihtiyaç duyacağı uçtan uca otomasyona kadar birlikte büyür.
+        </p>
+        <a class="button button--gold button--arrow" href="/#demo-talep">
+          Doğru Çözümü Birlikte Seçelim
+          <ArrowRight aria-hidden="true" />
+        </a>
+      </div>
+      <div class="solution-spectrum" aria-label="OMDI çözüm seviyeleri">
+        <div><span>01</span><strong>Lead</strong><small>Karşıla</small></div>
+        <div><span>02</span><strong>Sales</strong><small>Satışa hazırla</small></div>
+        <div><span>03</span><strong>Scale</strong><small>Entegre et</small></div>
+        <div><span>04</span><strong>Custom</strong><small>Özelleştir</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section solution-details">
+    <div class="shell">
+      <div class="section-heading section-heading--split" data-reveal>
+        <div>
+          <p class="section-label">Dört seviye, tek sistem mantığı</p>
+          <h2>Her paket, işletmenizdeki belirli bir darboğazı çözer.</h2>
+        </div>
+        <p>
+          Başlangıç seviyesi ilk teması düzenler; ileri seviyeler satış diyaloğu,
+          veri aktarımı ve operasyonu aynı akışta birleştirir.
+        </p>
+      </div>
+
+      <div class="solution-detail-list">
+        {
+          solutions.map((solution, index) => {
+            const Icon = iconById[solution.id];
+            return (
+              <article
+                class:list={[
+                  "solution-detail",
+                  {
+                    "solution-detail--featured":
+                      "featured" in solution && solution.featured,
+                  },
+                ]}
+                id={solution.id}
+              >
+                <div class="solution-detail__identity">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <Icon aria-hidden="true" />
+                  <div>
+                    <p>{solution.label}</p>
+                    <h3>{solution.name}</h3>
+                  </div>
+                  {"featured" in solution && solution.featured && (
+                    <strong>En Çok Tercih Edilen</strong>
+                  )}
+                </div>
+                <div class="solution-detail__story">
+                  <p>{solution.summary}</p>
+                  <div>
+                    <span>İşletmeye sonucu</span>
+                    <strong>{solution.outcome}</strong>
+                  </div>
+                  <div>
+                    <span>Kimler için uygun?</span>
+                    <strong>{solution.bestFor}</strong>
+                  </div>
+                </div>
+                <div class="solution-detail__features">
+                  <ul>
+                    {solution.features.map((feature) => (
+                      <li>
+                        <Check aria-hidden="true" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    class="text-link text-link--dark"
+                    href={`/?cozum=${solution.id}#demo-talep`}
+                  >
+                    {"custom" in solution && solution.custom
+                      ? "Özel çözüm talep et"
+                      : "Bu paket için demo iste"}
+                    <ArrowRight aria-hidden="true" />
+                  </a>
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing-section pricing-section--inner">
+    <div class="shell">
+      <div class="section-heading section-heading--split section-heading--light" data-reveal>
+        <div>
+          <p class="section-label section-label--gold">Paket karşılaştırması</p>
+          <h2>Kapsamı ve işletme faydasını birlikte değerlendirin.</h2>
+        </div>
+        <p>
+          DemoV2’de fiyat alanları `X` ile gösterilir. Gerçek kapsam; kurulum,
+          aylık hizmet ve görüşme kotası birlikte değerlendirilerek belirlenir.
+        </p>
+      </div>
+      <PricingGrid detailed />
+    </div>
+  </section>
+
+  <section class="section comparison-section">
+    <div class="shell">
+      <div class="comparison-heading">
+        <Bot aria-hidden="true" />
+        <div>
+          <p class="section-label">Hızlı karşılaştırma</p>
+          <h2>İhtiyaç büyüdükçe sistem derinleşir.</h2>
+        </div>
+      </div>
+      <div class="comparison-table-wrap" role="region" aria-label="OMDI paket karşılaştırma tablosu" tabindex="0">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th scope="col">Yetenek</th>
+              <th scope="col">Lead</th>
+              <th scope="col">Sales</th>
+              <th scope="col">Scale</th>
+              <th scope="col">Custom</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">7/24 otomatik karşılama</th>
+              <td><Check aria-label="Dahil" /></td>
+              <td><Check aria-label="Dahil" /></td>
+              <td><Check aria-label="Dahil" /></td>
+              <td>Kapsama göre</td>
+            </tr>
+            <tr>
+              <th scope="row">Müşteri nitelendirme</th>
+              <td><Check aria-label="Dahil" /></td>
+              <td><Check aria-label="Dahil" /></td>
+              <td><Check aria-label="Dahil" /></td>
+              <td>Kapsama göre</td>
+            </tr>
+            <tr>
+              <th scope="row">Satış yönlendirmesi</th>
+              <td>Temel</td>
+              <td><Check aria-label="Dahil" /></td>
+              <td><Check aria-label="Dahil" /></td>
+              <td>Kapsama göre</td>
+            </tr>
+            <tr>
+              <th scope="row">CRM ve stok entegrasyonu</th>
+              <td>—</td>
+              <td>—</td>
+              <td><Check aria-label="Dahil" /></td>
+              <td>Kapsama göre</td>
+            </tr>
+            <tr>
+              <th scope="row">Özel iş akışı tasarımı</th>
+              <td>—</td>
+              <td>—</td>
+              <td>Belirli kapsam</td>
+              <td><Check aria-label="Dahil" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="shell closing-cta__inner">
+      <div>
+        <p>Zekâ. Veri. Dönüşüm.</p>
+        <h2>Hangi seviyeden başlamanız gerektiğini birlikte netleştirelim.</h2>
+      </div>
+      <a class="button button--gold button--arrow" href="/#demo-talep">
+        Demo Talep Et
+        <ArrowRight aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,117 @@
+---
+import { ArrowRight, Check } from "@lucide/astro";
+import { solutions } from "../data/content";
+
+interface Props {
+  detailed?: boolean;
+}
+
+const { detailed = false } = Astro.props;
+const standardSolutions = solutions.filter((solution) => !("custom" in solution));
+const customSolution = solutions.find((solution) => "custom" in solution);
+---
+
+<div class:list={["pricing-grid", { "pricing-grid--detailed": detailed }]}>
+  {
+    standardSolutions.map((solution) => (
+      <article
+        class:list={[
+          "pricing-card",
+          { "pricing-card--featured": "featured" in solution && solution.featured },
+        ]}
+      >
+        {"featured" in solution && solution.featured && (
+          <span class="pricing-card__badge">En Çok Tercih Edilen</span>
+        )}
+        <div class="pricing-card__head">
+          <p>{solution.label}</p>
+          <h3>{solution.name}</h3>
+          <span>{solution.summary}</span>
+        </div>
+
+        <div class="pricing-card__price" aria-label={`${solution.name} fiyat bilgisi`}>
+          <p>Aylık hizmet</p>
+          <strong
+            data-price-package={solution.id}
+            data-price-field="monthlyFee"
+          >
+            X
+          </strong>
+          <small>Güncel teklif için demo görüşmesi gerekir.</small>
+        </div>
+
+        <dl class="pricing-card__details">
+          <div>
+            <dt>Kurulum bedeli</dt>
+            <dd
+              data-price-package={solution.id}
+              data-price-field="setupFee"
+            >
+              X
+            </dd>
+          </div>
+          <div>
+            <dt>Aylık görüşme kotası</dt>
+            <dd
+              data-price-package={solution.id}
+              data-price-field="monthlyConversationQuota"
+            >
+              X
+            </dd>
+          </div>
+        </dl>
+
+        {detailed && (
+          <ul class="pricing-card__features">
+            {solution.features.map((feature) => (
+              <li>
+                <Check aria-hidden="true" />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <a
+          class:list={[
+            "button",
+            "button--full",
+            "button--arrow",
+            {
+              "button--gold": "featured" in solution && solution.featured,
+              "button--outline-light": !(
+                "featured" in solution && solution.featured
+              ),
+            },
+          ]}
+          href={`/?cozum=${solution.id}#demo-talep`}
+        >
+          Bu paket için demo iste
+          <ArrowRight aria-hidden="true" />
+        </a>
+      </article>
+    ))
+  }
+</div>
+
+{
+  customSolution && (
+    <article class="custom-solution">
+      <div class="custom-solution__index" aria-hidden="true">
+        04
+      </div>
+      <div class="custom-solution__copy">
+        <p>{customSolution.label}</p>
+        <h3>{customSolution.name}</h3>
+        <span>{customSolution.summary}</span>
+      </div>
+      <div class="custom-solution__action">
+        <p>Standart bir fiyat paketi değildir.</p>
+        <a class="button button--light button--arrow" href="/?cozum=custom#demo-talep">
+          Özel Çözüm Talep Et
+          <ArrowRight aria-hidden="true" />
+        </a>
+      </div>
+    </article>
+  )
+}

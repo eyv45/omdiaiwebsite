@@ -1,0 +1,56 @@
+---
+import { Menu, X } from "@lucide/astro";
+import Brand from "./Brand.astro";
+
+const pathname = Astro.url.pathname;
+
+const links = [
+  { href: "/#nasil-calisir", label: "Nasıl çalışır" },
+  { href: "/cozumler", label: "Çözümler" },
+  { href: "/sektorler", label: "Sektörler" },
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/#sss", label: "SSS" },
+];
+
+const isActive = (href: string) =>
+  !href.startsWith("/#") && pathname.startsWith(href);
+---
+
+<header class="site-header" data-site-header>
+  <div class="site-header__inner shell">
+    <a class="site-brand" href="/" aria-label="OMDI ana sayfa">
+      <Brand />
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-navigation"
+      aria-label="Menüyü aç"
+      data-menu-toggle
+    >
+      <Menu class="menu-toggle__open" aria-hidden="true" />
+      <X class="menu-toggle__close" aria-hidden="true" />
+    </button>
+
+    <nav class="site-nav" id="site-navigation" aria-label="Ana menü" data-site-nav>
+      <div class="site-nav__links">
+        {
+          links.map((link) => (
+            <a
+              href={link.href}
+              class:list={{ "is-active": isActive(link.href) }}
+              aria-current={isActive(link.href) ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+      <a class="button button--gold site-nav__cta" href="/#demo-talep">
+        Demo Talep Et
+      </a>
+    </nav>
+  </div>
+</header>

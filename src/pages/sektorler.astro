@@ -1,0 +1,132 @@
+---
+import {
+  ArrowDown,
+  ArrowRight,
+  BriefcaseBusiness,
+  CircleCheckBig,
+  Factory,
+  GraduationCap,
+  Hotel,
+  Scissors,
+  Send,
+  Sparkles,
+  Wrench,
+} from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { sectors } from "../data/content";
+
+const sectorIcons = [Scissors, GraduationCap, Wrench, Hotel, Factory];
+---
+
+<BaseLayout
+  title="OMDI Sektör Çözümleri — Yapay Zekâ Satış Akışları"
+  description="Estetik, eğitim, otomotiv, turizm ve B2B işletmeleri için OMDI yapay zekâ satış asistanı kullanım senaryolarını keşfedin."
+  bodyClass="sectors-page"
+>
+  <section class="subhero subhero--sectors">
+    <div class="shell subhero__layout">
+      <div class="subhero__copy">
+        <p class="section-label section-label--gold">Sektörel kullanım senaryoları</p>
+        <h1>Aynı teknoloji değil. İşinize uyan satış akışı.</h1>
+        <p>
+          OMDI, her sektörün müşteriden öğrenmesi gereken bilgileri ve satış
+          ekibine bırakması gereken sonucu ayrı bir akış olarak ele alır.
+        </p>
+      </div>
+      <nav class="sector-index" aria-label="Sektörler">
+        {
+          sectors.map((sector, index) => (
+            <a href={`#${sector.slug}`}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{sector.name}</strong>
+              <ArrowDown aria-hidden="true" />
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </section>
+
+  <section class="section sector-stories">
+    <div class="shell">
+      <div class="section-heading section-heading--split" data-reveal>
+        <div>
+          <p class="section-label">Girdiden satışa hazır sonuca</p>
+          <h2>Her senaryoda bilgi, aksiyon ve teslim noktası nettir.</h2>
+        </div>
+        <p>
+          Akışlar sektörün gerçek konuşma bağlamına göre tasarlanır; ziyaretçi
+          genel bir chatbot değil, ihtiyacını anlayan bir satış asistanıyla karşılaşır.
+        </p>
+      </div>
+
+      <div class="sector-story-list">
+        {
+          sectors.map((sector, index) => {
+            const Icon = sectorIcons[index];
+            return (
+              <article class="sector-story" id={sector.slug}>
+                <div class="sector-story__title">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <Icon aria-hidden="true" />
+                  <div>
+                    <p>{sector.signal}</p>
+                    <h3>{sector.name}</h3>
+                  </div>
+                </div>
+                <div class="sector-story__flow">
+                  <div>
+                    <span>Müşteriden alınan bilgi</span>
+                    <p>{sector.input}</p>
+                  </div>
+                  <ArrowRight aria-hidden="true" />
+                  <div>
+                    <span>OMDI’nin yaptığı işlem</span>
+                    <p>{sector.action}</p>
+                  </div>
+                  <ArrowRight aria-hidden="true" />
+                  <div class="sector-story__result">
+                    <span>Satış ekibine kalan sonuç</span>
+                    <p>{sector.output}</p>
+                    <CircleCheckBig aria-hidden="true" />
+                  </div>
+                </div>
+                <a
+                  class="text-link text-link--dark"
+                  href={`/?sektor=${sector.slug}#demo-talep`}
+                >
+                  Bu sektör için demo iste
+                  <ArrowRight aria-hidden="true" />
+                </a>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="sector-principle">
+    <div class="shell sector-principle__layout">
+      <div class="sector-principle__visual" aria-hidden="true">
+        <BriefcaseBusiness />
+        <span></span>
+        <Sparkles />
+        <span></span>
+        <Send />
+      </div>
+      <div>
+        <p>OMDI yaklaşımı</p>
+        <h2>Tek bir konuşma şablonu değil, sektörünüze göre çalışan sistem.</h2>
+        <p>
+          Sorular, yönlendirmeler ve satışa teslim edilen özet; ürününüze,
+          hizmetinize ve ekibinizin çalışma biçimine göre netleştirilir.
+        </p>
+        <a class="button button--gold button--arrow" href="/#demo-talep">
+          Kullanım Senaryonuzu Konuşalım
+          <ArrowRight aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<span class:list={["brand-lockup", { "brand-lockup--compact": compact }]}>
+  <span class="brand-symbol" aria-hidden="true">
+    <span class="brand-symbol__orbit brand-symbol__orbit--one"></span>
+    <span class="brand-symbol__orbit brand-symbol__orbit--two"></span>
+    <span class="brand-symbol__node brand-symbol__node--one"></span>
+    <span class="brand-symbol__node brand-symbol__node--two"></span>
+    <span class="brand-symbol__core"></span>
+  </span>
+  <span class="brand-word">
+    <strong>OMDI</strong>
+    {!compact && <small>İşletmeler İçin Yapay Zekâ</small>}
+  </span>
+</span>

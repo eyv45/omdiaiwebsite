@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-28T00:00:00.000Z",
+  "title": "Design System: OMDI DemoV2",
+  "extensions": {
+    "colorMeta": {
+      "signal-gold": { "role": "primary", "displayName": "Signal Gold", "canonical": "#D4AF37" },
+      "signal-gold-text": { "role": "primary", "displayName": "Accessible Gold Text", "canonical": "#6F5200" },
+      "trust-navy": { "role": "neutral", "displayName": "Trust Navy", "canonical": "#0B1320" },
+      "proof-paper": { "role": "neutral", "displayName": "Proof Paper", "canonical": "#F5F5F5" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "OMDI Display", "purpose": "Hero and section headlines." },
+      "body": { "displayName": "OMDI Body", "purpose": "Readable product explanation." }
+    },
+    "shadows": [
+      { "name": "stage", "value": "0 34px 80px rgba(0,0,0,.34)", "purpose": "Hero signal stage only." },
+      { "name": "form", "value": "0 24px 60px rgba(0,0,0,.24)", "purpose": "Demo form on dark surface." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.22,1,0.36,1)", "purpose": "Fast materialization and control feedback." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "1020px" },
+      { "name": "navigation", "value": "880px" },
+      { "name": "mobile", "value": "660px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "button-primary",
+      "description": "48px high gold conversion control with navy label and visible focus."
+    },
+    {
+      "name": "signal-stage",
+      "description": "Three-step WhatsApp-to-sales handoff stage; only its gold route animates."
+    },
+    {
+      "name": "pricing-card",
+      "description": "Comparable package surface with Sales called out using a gold border and badge."
+    },
+    {
+      "name": "demo-form",
+      "description": "Demo-only lead form with explicit no-send/no-storage disclosure and status feedback."
+    },
+    {
+      "name": "price-editor",
+      "description": "Local-only pricing editor with dirty state, save, reset confirmation, and live preview."
+    }
+  ],
+  "narrative": {
+    "northStar": "Altın Sinyal Rotası",
+    "overview": "Dağınık müşteri mesajları tek bir anlaşılır satış sinyaline dönüşür. Koyu lacivert güveni, ölçülü altın sistemin oluşturduğu değeri taşır.",
+    "keyCharacteristics": [
+      "Koyu güven yüzeyleri ile açık kanıt yüzeylerinin ritmik karşılığı",
+      "Yalnızca kritik aksiyon ve sinyal noktalarında altın",
+      "Hero’da tek orkestrasyon; tekrar eden etkileşimlerde minimum hareket"
+    ],
+    "rules": [
+      { "name": "Signal Rarity Rule", "body": "Altın yalnızca aksiyon, seçili çözüm ve kritik teslim noktasını gösterir.", "section": "colors" }
+    ],
+    "dos": [
+      "Do altını yalnızca değer ve aksiyon taşıyan noktalarda kullan.",
+      "Do gerçek işletme sonucunu teknik özellikten önce göster."
+    ],
+    "donts": [
+      "Don't doğrulanmamış ticari kanıt üret.",
+      "Don't shader, neon veya sürekli dekoratif hareket kullan."
+    ]
+  }
+}
