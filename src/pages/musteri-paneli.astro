@@ -1,0 +1,78 @@
+---
+import { CircleCheckBig, Clock3, FileText, Headphones, LogOut, ShieldCheck } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Brand from "../components/Brand.astro";
+---
+
+<BaseLayout
+  title="Müşteri Paneli — OMDI"
+  description="Aktif OMDI müşterileri için korunan çalışma alanı."
+  bodyClass="customer-portal"
+  noindex
+  hideChrome
+>
+  <!--
+    THESIS: Portal, satış sonrası müşteriye durum ve yardım yönü veren korunan çalışma alanıdır.
+    OWN-WORLD: Lacivert uygulama kabuğu, açık operasyon yüzeyi, altın durum işaretleri ve yoğun olmayan görev satırları.
+    STORY: Doğrulanmış müşteri çalışma alanını görür, kurulum durumunu tarar ve doğru destek kanalına ilerler.
+    FIRST VIEWPORT: Üstte marka ve güvenli oturum; altında durum başlığı, onboarding adımları ve yardım yüzeyi.
+    FORM: Veri entegrasyonu bekleyen dürüst bir Operate kabuğu; gizli müşteri verisi veya sahte metrik göstermez.
+  -->
+  <header class="customer-portal__header">
+    <a href="/" aria-label="OMDI ana sayfa"><Brand /></a>
+    <div>
+      <span><ShieldCheck aria-hidden="true" /> Korunan oturum</span>
+      <a href="/cdn-cgi/access/logout">
+        Çıkış yap
+        <LogOut aria-hidden="true" />
+      </a>
+    </div>
+  </header>
+
+  <div class="customer-portal__main">
+    <section class="portal-welcome">
+      <p>OMDI müşteri paneli</p>
+      <h1>Çalışma alanınız hazırlanıyor.</h1>
+      <span>
+        Bu DemoV3 portal kabuğunda gerçek müşteri veya kullanım verisi
+        gösterilmez. Veri bağlantıları sonraki ürün aşamasında eklenecektir.
+      </span>
+    </section>
+
+    <section class="portal-status" aria-labelledby="portal-status-title">
+      <div class="portal-status__heading">
+        <div>
+          <p>Başlangıç akışı</p>
+          <h2 id="portal-status-title">Kurulum adımları</h2>
+        </div>
+        <span>Demo görünümü</span>
+      </div>
+      <ol>
+        <li class="is-complete">
+          <CircleCheckBig aria-hidden="true" />
+          <div><strong>Hesap erişimi</strong><span>Yetkili müşteri e-postası tanımlanır.</span></div>
+          <small>Tamamlandı</small>
+        </li>
+        <li>
+          <Clock3 aria-hidden="true" />
+          <div><strong>İş akışı analizi</strong><span>Mesajlar, sorular ve satış devir noktaları netleştirilir.</span></div>
+          <small>Planlanacak</small>
+        </li>
+        <li>
+          <FileText aria-hidden="true" />
+          <div><strong>Bilgi tabanı ve senaryo</strong><span>Onaylı ürün/hizmet bilgileri OMDI akışına bağlanır.</span></div>
+          <small>Planlanacak</small>
+        </li>
+      </ol>
+    </section>
+
+    <section class="portal-support">
+      <Headphones aria-hidden="true" />
+      <div>
+        <p>Yardıma mı ihtiyacınız var?</p>
+        <h2>Kurulum ekibinizle iletişime geçin.</h2>
+        <span>Gerçek destek kanalı, müşteri sözleşmesi kesinleştiğinde burada gösterilecektir.</span>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

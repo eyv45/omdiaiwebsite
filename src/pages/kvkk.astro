@@ -1,0 +1,168 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+---
+
+<LegalLayout
+  title="KVKK Aydınlatma Metni — OMDI"
+  description="OMDI internet sitesi, müşteri portalı ve hizmet süreçleri için KVKK aydınlatma metni taslağı."
+  eyebrow="Kişisel verilerin korunması"
+  heading="KVKK Aydınlatma Metni"
+  intro="6698 sayılı Kişisel Verilerin Korunması Kanunu’nun 10. maddesi kapsamında hazırlanacak OMDI aydınlatma metninin ürün ve portal odaklı taslağı."
+>
+  <Fragment slot="toc">
+    <a href="#sorumlu">1. Veri sorumlusu</a>
+    <a href="#kapsam">2. Kapsam</a>
+    <a href="#veriler">3. İşlenen veriler</a>
+    <a href="#amac">4. Amaçlar</a>
+    <a href="#yontem">5. Yöntem ve hukuki sebep</a>
+    <a href="#aktarim">6. Aktarım</a>
+    <a href="#saklama">7. Saklama</a>
+    <a href="#guvenlik">8. Güvenlik yaklaşımı</a>
+    <a href="#haklar">9. İlgili kişi hakları</a>
+    <a href="#basvuru">10. Başvuru</a>
+  </Fragment>
+
+  <section id="sorumlu">
+    <h2>1. Veri sorumlusu</h2>
+    <p>
+      6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) bakımından veri
+      sorumlusu bilgileri yayın öncesinde aşağıdaki şekilde tamamlanmalıdır:
+    </p>
+    <ul>
+      <li>Ticari unvan: <mark>[tam şirket unvanı]</mark></li>
+      <li>Adres: <mark>[merkez adresi]</mark></li>
+      <li>MERSİS / vergi numarası: <mark>[numara]</mark></li>
+      <li>KVKK başvuru kanalı: <mark>[e-posta / KEP / yazılı başvuru adresi]</mark></li>
+    </ul>
+  </section>
+
+  <section id="kapsam">
+    <h2>2. Aydınlatmanın kapsamı</h2>
+    <p>
+      Bu metin; OMDI internet sitesi ziyaretçileri, demo talep eden kişiler,
+      aktif müşteri hesapları, müşteri portalı kullanıcıları ve destek
+      görüşmelerinde iletişim kuran kişiler bakımından yürütülen veri işleme
+      faaliyetlerini açıklamak üzere hazırlanmıştır.
+    </p>
+    <p>
+      DemoV2 formu mevcut sürümde herhangi bir ağ isteği yapmaz; forma yazılan
+      bilgi sunucuya gönderilmez ve tarayıcıda saklanmaz. Gerçek form
+      entegrasyonu devreye alınmadan önce bu metin güncellenmelidir.
+    </p>
+  </section>
+
+  <section id="veriler">
+    <h2>3. İşlenebilecek kişisel veri kategorileri</h2>
+    <ul>
+      <li><strong>Kimlik ve iletişim:</strong> ad soyad, iş e-postası, telefon/WhatsApp numarası, şirket ve görev bilgisi.</li>
+      <li><strong>Müşteri işlem:</strong> paket, abonelik, kurulum, destek ve fatura sürecine ilişkin kayıtlar.</li>
+      <li><strong>İşlem güvenliği:</strong> IP adresi, erişim zamanı, oturum ve güvenlik olay kayıtları.</li>
+      <li><strong>Portal erişimi:</strong> izin verilen e-posta adresi ve Cloudflare Access doğrulama kayıtları.</li>
+      <li><strong>İletişim içeriği:</strong> destek talebi veya hizmet kapsamındaki müşteri görüşmesi içeriği; yalnızca sözleşmede açıklanan ölçüde.</li>
+    </ul>
+  </section>
+
+  <section id="amac">
+    <h2>4. İşleme amaçları</h2>
+    <ul>
+      <li>Demo talebini değerlendirmek ve iletişime geçmek.</li>
+      <li>Müşteri hesabını, portal erişimini ve yetkilendirmeyi yönetmek.</li>
+      <li>Satın alınan yapay zekâ satış asistanı ve otomasyon hizmetini kurmak ve işletmek.</li>
+      <li>Destek, olay yönetimi, bilgi güvenliği ve kötüye kullanım önleme süreçlerini yürütmek.</li>
+      <li>Faturalama, muhasebe ve kanuni yükümlülükleri yerine getirmek.</li>
+      <li>Hizmet kalitesini ve iş akışı yapılandırmasını geliştirmek.</li>
+    </ul>
+  </section>
+
+  <section id="yontem">
+    <h2>5. Toplama yöntemi ve hukuki sebepler</h2>
+    <p>
+      Veriler; internet formları, sözleşme ve teklif süreçleri, müşteri portalı,
+      destek kanalları, entegrasyonlar ve güvenlik kayıtları üzerinden elektronik
+      yöntemlerle elde edilebilir.
+    </p>
+    <p>
+      Faaliyetin niteliğine göre KVKK’nın 5. maddesinde yer alan sözleşmenin
+      kurulması veya ifası, hukuki yükümlülüğün yerine getirilmesi, bir hakkın
+      tesisi/kullanılması/korunması ve temel haklara zarar vermemek kaydıyla meşru
+      menfaat şartlarına dayanılabilir. Açık rıza gereken bir faaliyet varsa,
+      aydınlatmadan ayrı bir işlem olarak alınmalıdır.
+    </p>
+  </section>
+
+  <section id="aktarim">
+    <h2>6. Verilerin aktarılabileceği taraflar</h2>
+    <p>
+      Kişisel veriler, amaçla sınırlı ve gerekli güvence sağlanarak aşağıdaki
+      alıcı gruplarına aktarılabilir:
+    </p>
+    <ul>
+      <li>Barındırma, erişim güvenliği, e-posta, iletişim ve teknik destek sağlayıcıları.</li>
+      <li>Proje kapsamında kullanılan WhatsApp/Meta, yapay zekâ, CRM veya entegrasyon sağlayıcıları.</li>
+      <li>Muhasebe, hukuk ve denetim hizmeti sunan yetkili danışmanlar.</li>
+      <li>Kanunen yetkili kamu kurumları ve adli makamlar.</li>
+    </ul>
+    <p>
+      <mark>[Aktif tedarikçi listesi, veri işleyen rolleri, yurt dışı aktarım
+      mekanizması ve KVKK’nın 9. maddesi kapsamındaki güvenceler gerçek altyapıya
+      göre yayın öncesinde doğrulanmalıdır.]</mark>
+    </p>
+  </section>
+
+  <section id="saklama">
+    <h2>7. Saklama süreleri</h2>
+    <p>
+      Veriler; işleme amacı, sözleşme ilişkisi, zamanaşımı ve kanuni saklama
+      yükümlülükleri için gerekli süre boyunca muhafaza edilir. Süre sonunda
+      ilgili saklama ve imha politikasına göre silinir, yok edilir veya anonim
+      hâle getirilir.
+    </p>
+    <p>
+      <mark>[Hesap verisi, destek kaydı, sistem logu ve görüşme verisi için
+      kategori bazlı kesin süreler gerçek operasyon politikasıyla eklenmelidir.]</mark>
+    </p>
+  </section>
+
+  <section id="guvenlik">
+    <h2>8. Güvenlik yaklaşımı</h2>
+    <p>
+      Yetkisiz erişimin önlenmesi, erişimlerin rol ve ihtiyaçla sınırlandırılması,
+      güvenlik olaylarının izlenmesi ve hizmet sağlayıcıların sözleşmesel olarak
+      değerlendirilmesi için uygun teknik ve idari tedbirler uygulanır.
+    </p>
+    <p>
+      Müşteri portalı için planlanan erişim katmanı, aktif müşterilerin izin
+      verilen e-postaları ve tek kullanımlık doğrulama kodu üzerinden çalışır.
+      Erişim politikası canlıda etkinleştirilmeden portal güvenli kabul edilmez.
+    </p>
+  </section>
+
+  <section id="haklar">
+    <h2>9. KVKK’nın 11. maddesi kapsamındaki haklar</h2>
+    <p>İlgili kişi, veri sorumlusuna başvurarak:</p>
+    <ul>
+      <li>Kişisel verilerinin işlenip işlenmediğini öğrenme ve işlenmişse bilgi isteme.</li>
+      <li>İşleme amacını ve verilerin amaca uygun kullanılıp kullanılmadığını öğrenme.</li>
+      <li>Yurt içinde veya yurt dışında verilerin aktarıldığı üçüncü kişileri bilme.</li>
+      <li>Eksik veya yanlış verilerin düzeltilmesini isteme.</li>
+      <li>Kanuni şartları oluştuğunda silme veya yok etme talebinde bulunma.</li>
+      <li>Düzeltme veya silme işleminin aktarım yapılan üçüncü kişilere bildirilmesini isteme.</li>
+      <li>Yalnızca otomatik sistemlerle yapılan analiz sonucunda aleyhe bir sonuca itiraz etme.</li>
+      <li>Kanuna aykırı işleme nedeniyle zarar doğmuşsa giderim talep etme.</li>
+    </ul>
+  </section>
+
+  <section id="basvuru">
+    <h2>10. Başvuru yöntemi</h2>
+    <p>
+      Başvurular; kimliği doğrulayıcı bilgiler, talep konusu ve tercih edilen
+      yanıt yöntemi belirtilerek <mark>[KVKK başvuru e-postası / KEP / posta
+      adresi]</mark> üzerinden iletilebilir.
+    </p>
+    <p>
+      Başvurular, KVKK ve ilgili ikincil mevzuatta öngörülen süre ve yöntemle
+      sonuçlandırılır. Başvurunun ek maliyet gerektirmesi hâlinde Kurul tarafından
+      belirlenen ücret tarifesi uygulanabilir.
+    </p>
+  </section>
+</LegalLayout>

@@ -1,212 +1,264 @@
 ---
 import {
-  ArrowDown,
   ArrowRight,
   Bot,
+  Check,
   CircleCheckBig,
   Clock3,
   Database,
-  MessageCircle,
   Send,
   Sparkles,
   Target,
   UserRoundCheck,
   Workflow,
+  Zap,
 } from "@lucide/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PricingGrid from "../components/PricingGrid.astro";
-import { benefits, faqs, journey, sectors, solutions } from "../data/content";
+import { faqs, sectors, solutions } from "../data/content";
+
+const homeSteps = [
+  {
+    step: "01",
+    title: "Karşılar",
+    copy: "WhatsApp mesajına markanıza uygun, net bir ilk yanıt verir.",
+  },
+  {
+    step: "02",
+    title: "Nitelendirir",
+    copy: "İhtiyaç, tercih ve zamanlama bilgisini doğal bir konuşmayla toplar.",
+  },
+  {
+    step: "03",
+    title: "Teslim eder",
+    copy: "Görüşme özetini ve hazır talebi doğru anda satış ekibine aktarır.",
+  },
+] as const;
 ---
 
 <BaseLayout
-  title="OMDI — İşletmeler İçin Yapay Zekâ Çözümleri"
+  title="OMDI — İşletmeler İçin Yapay Zekâ Satış Asistanı"
   description="WhatsApp müşterilerinizi 7/24 karşılayan, nitelendiren ve satış ekibinize hazır talepler bırakan yapay zekâ satış asistanı."
-  bodyClass="home"
+  bodyClass="home-v3 home-v4"
 >
-  <section class="hero">
-    <div class="hero__glow" aria-hidden="true"></div>
-    <div class="shell hero__layout">
-      <div class="hero__copy">
-        <div class="hero__kicker">
-          <span class="live-dot" aria-hidden="true"></span>
-          7/24 çalışan dijital satış asistanı
-        </div>
-        <h1>
-          İşletmeler için
-          <span>Yapay Zekâ</span>
-          Çözümleri
+  <!--
+    THESIS: OMDI, ilk mesajı satış ekibinin ilerletebileceği hazır bir fırsata dönüştürür; ana sayfa bunu tek bakışta gösterir.
+    OWN-WORLD: Kırık beyaz canvas, kâğıt tonlu odak sahnesi, lacivert tipografi ve yalnızca aksiyon ile sonuçta kullanılan altın.
+    STORY: Ziyaretçi dönüşümü görür, üç adımı anlar, çözümünü değerlendirir ve demo talebine ilerler.
+    FIRST VIEWPORT: Solda kısa teklif ve tek ana aksiyon; sağda zeminden ayrışan açık kâğıt sahnede örnek müşteri akışı.
+    FORM: Sade ve ferah satış sayfası; az katman, geniş boşluk, belirgin yüzey ritmi ve tek seferlik hero hareketi.
+  -->
+
+  <section class="v3-hero" aria-labelledby="v3-hero-title">
+    <div class="v3-hero__ornament" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="shell v3-hero__layout">
+      <div class="v3-hero__copy">
+        <p class="v3-eyebrow">
+          <span aria-hidden="true"></span>
+          İşletmeler için yapay zekâ satış asistanı
+        </p>
+        <h1 id="v3-hero-title">
+          Müşteri mesajları beklemez.
+          <span>Satış ekibiniz hazır başlar.</span>
         </h1>
-        <p class="hero__lead">
-          Verinizi anlayan, işinize değer katan akıllı yapay zekâ çözümleri.
+        <p class="v3-hero__lead">
+          OMDI, WhatsApp müşterinizi 7/24 karşılar, ihtiyacını anlar
+          ve ekibinize görüşmeye hazır bir özet bırakır.
         </p>
-        <p class="hero__value">
-          WhatsApp’tan gelen müşterileri karşılar, nitelendirir ve satış
-          temsilcinize görüşmeye hazır talepler bırakır.
-        </p>
-        <div class="hero__actions">
+        <div class="v3-hero__actions">
           <a class="button button--gold button--arrow" href="#demo-talep">
             Demo Talep Et
             <ArrowRight aria-hidden="true" />
           </a>
-          <a class="button button--ghost button--arrow" href="#cozumler">
-            Çözümleri Keşfet
-            <ArrowDown aria-hidden="true" />
+          <a class="v4-hero__text-link" href="#nasil-calisir">
+            3 adımda nasıl çalışır?
+            <ArrowRight aria-hidden="true" />
           </a>
         </div>
-        <div class="hero__promise">
-          <span>Zekâ.</span>
-          <span>Veri.</span>
-          <span>Dönüşüm.</span>
-        </div>
+        <ul class="v3-hero__assurances" aria-label="OMDI temel faydaları">
+          <li><Check aria-hidden="true" /> 7/24 karşılama</li>
+          <li><Check aria-hidden="true" /> Tutarlı nitelendirme</li>
+          <li><Check aria-hidden="true" /> Ekibe hazır özet</li>
+        </ul>
       </div>
 
-      <div class="signal-stage" aria-label="OMDI müşteri nitelendirme akışı">
-        <div class="signal-stage__top">
-          <div>
-            <span class="signal-stage__status-dot"></span>
-            OMDI satış akışı
+      <div class="v3-conversation" aria-label="OMDI örnek WhatsApp satış akışı">
+        <div class="v3-conversation__frame">
+          <div class="v3-conversation__topbar">
+            <div class="v3-conversation__avatar" aria-hidden="true">
+              <Bot />
+            </div>
+            <div>
+              <strong>OMDI Satış Asistanı</strong>
+              <span><i aria-hidden="true"></i> Çevrimiçi</span>
+            </div>
+            <small>Örnek akış</small>
           </div>
-          <span>Canlı örnek</span>
-        </div>
 
-        <div class="signal-path" aria-hidden="true">
-          <span class="signal-path__line"></span>
-          <span class="signal-path__pulse"></span>
-        </div>
+          <div class="v3-conversation__body">
+            <div class="v3-chat v3-chat--customer" data-hero-step="1">
+              <span>Müşteri</span>
+              <p>Saç ekimi için fiyat ve uygunluk bilgisi alabilir miyim?</p>
+              <time>10:42</time>
+            </div>
 
-        <article class="signal-card signal-card--message">
-          <div class="signal-card__icon">
-            <MessageCircle />
-          </div>
-          <div>
-            <span>Yeni WhatsApp mesajı</span>
-            <strong>“Saç ekimi için fiyat ve uygunluk bilgisi alabilir miyim?”</strong>
-          </div>
-          <small>Şimdi</small>
-        </article>
+            <div class="v3-chat v3-chat--omdi" data-hero-step="2">
+              <div class="v3-chat__sender">
+                <Sparkles aria-hidden="true" />
+                <span>OMDI</span>
+              </div>
+              <p>Elbette. Size uygun akışı hazırlamak için birkaç kısa bilgi alacağım.</p>
+              <time>10:42</time>
+            </div>
 
-        <article class="signal-card signal-card--analysis">
-          <div class="signal-card__icon">
-            <Sparkles />
-          </div>
-          <div>
-            <span>OMDI anlıyor ve nitelendiriyor</span>
-            <div class="signal-tags">
-              <b>İşlem: Saç ekimi</b>
-              <b>Plan: 1–2 ay</b>
-              <b>Durum: Sıcak aday</b>
+            <div class="v3-qualification" data-hero-step="3">
+              <div class="v3-qualification__head">
+                <span>Nitelendirme tamamlandı</span>
+                <CircleCheckBig aria-hidden="true" />
+              </div>
+              <dl>
+                <div><dt>İşlem</dt><dd>Saç ekimi</dd></div>
+                <div><dt>Plan</dt><dd>1–2 ay</dd></div>
+                <div><dt>Durum</dt><dd>Sıcak aday</dd></div>
+              </dl>
+            </div>
+
+            <div class="v3-handoff" data-hero-step="4">
+              <div class="v3-handoff__icon" aria-hidden="true">
+                <UserRoundCheck />
+              </div>
+              <div>
+                <span>Satış ekibine hazır</span>
+                <strong>İhtiyaç özeti ve görüşme talebi oluşturuldu.</strong>
+              </div>
+              <ArrowRight aria-hidden="true" />
             </div>
           </div>
-        </article>
-
-        <article class="signal-card signal-card--handoff">
-          <div class="signal-card__icon">
-            <UserRoundCheck />
-          </div>
-          <div>
-            <span>Satış temsilcisine hazır</span>
-            <strong>İhtiyaç özeti ve görüşme talebi oluşturuldu.</strong>
-          </div>
-          <CircleCheckBig class="signal-card__check" />
-        </article>
-
-        <div class="signal-stage__footer">
-          <span><Clock3 /> İlk yanıt beklemedi</span>
-          <span><Target /> Talep nitelendirildi</span>
+        </div>
+        <div class="v3-conversation__caption">
+          <span>01 Mesaj</span>
+          <i aria-hidden="true"></i>
+          <span>02 İhtiyaç analizi</span>
+          <i aria-hidden="true"></i>
+          <span>03 Teslim</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="problem-statement">
-    <div class="shell problem-statement__inner" data-reveal>
-      <p>Satış fırsatını belirleyen ilk an, müşterinin mesaj gönderdiği andır.</p>
-      <h2>Müşterileriniz cevap beklerken rakibinize gitmesin.</h2>
-      <a href="#nasil-calisir" aria-label="OMDI nasıl çalışır bölümüne git">
-        Akışı görün
-        <ArrowDown aria-hidden="true" />
-      </a>
-    </div>
-  </section>
-
-  <section class="section section--light journey-section" id="nasil-calisir">
+  <section class="v3-section v3-process" id="nasil-calisir">
     <div class="shell">
-      <div class="section-heading section-heading--split" data-reveal>
-        <div>
-          <p class="section-label">Mesajdan satış fırsatına</p>
-          <h2>Her konuşma, bir sonraki doğru adıma ilerler.</h2>
-        </div>
+      <div class="v3-heading v3-heading--center" data-reveal>
+        <p class="v3-eyebrow">Nasıl çalışır?</p>
+        <h2>İlk mesajdan hazır görüşmeye.</h2>
         <p>
-          OMDI yalnızca cevap vermez. Müşterinin ihtiyacını netleştirir,
-          talebi anlamlandırır ve ekibinize aksiyon alınabilir bir görüşme bırakır.
+          Tekrarlanan ilk temas işlerini OMDI üstlenir;
+          satış ekibiniz doğru anda devreye girer.
         </p>
       </div>
 
-      <div class="journey-track">
+      <div class="v3-process__track">
         {
-          journey.map((item) => (
-            <article class="journey-step">
-              <span>{item.step}</span>
+          homeSteps.map((item, index) => (
+            <article class="v3-process__step">
+              <div class="v3-process__number">
+                <span>{item.step}</span>
+                {index < homeSteps.length - 1 && <i aria-hidden="true"></i>}
+              </div>
               <h3>{item.title}</h3>
               <p>{item.copy}</p>
             </article>
           ))
         }
       </div>
-    </div>
-  </section>
-
-  <section class="section value-section">
-    <div class="shell value-layout">
-      <div class="value-layout__lead" data-reveal>
-        <p class="section-label section-label--gold">İşletme sonucu</p>
-        <h2>Ekibiniz daha çok konuşmaz. Daha doğru müşterilerle konuşur.</h2>
-        <p>
-          Tekrarlanan ilk temas işleri otomatikleşirken satış ekibiniz,
-          ihtiyacı belirlenmiş ve görüşmeye hazır taleplere zaman ayırır.
-        </p>
-        <a class="text-link" href="/cozumler">
-          Tüm çözümleri karşılaştırın
-          <ArrowRight aria-hidden="true" />
-        </a>
-      </div>
-
-      <div class="benefit-list">
-        {
-          benefits.map((benefit, index) => (
-            <article class="benefit-row">
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <h3>{benefit.title}</h3>
-                <p>{benefit.copy}</p>
-              </div>
-            </article>
-          ))
-        }
+      <div class="v4-flow__outcomes" data-reveal>
+        <p>Ekibiniz için sonuç</p>
+        <ul>
+          <li><Check aria-hidden="true" /><span><strong>Daha hızlı dönüş</strong> Müşteri ilk yanıtı beklemez.</span></li>
+          <li><Check aria-hidden="true" /><span><strong>Daha net öncelik</strong> Hazır talepler öne çıkar.</span></li>
+          <li><Check aria-hidden="true" /><span><strong>Daha az tekrar</strong> Ekip gerçek görüşmeye odaklanır.</span></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="section sector-preview">
+  <section class="v3-section v3-scenario">
     <div class="shell">
-      <div class="section-heading section-heading--compact" data-reveal>
-        <p class="section-label">Gerçek iş akışlarına uyarlanır</p>
-        <h2>Farklı sektörler, aynı net sonuç: satışa hazır talep.</h2>
-        <a class="text-link text-link--dark" href="/sektorler">
+      <div class="v3-scenario__heading" data-reveal>
+        <div>
+          <p class="v3-eyebrow v3-eyebrow--gold">Örnek sektör akışı</p>
+          <h2>Mesaj gelir. OMDI netleştirir. Ekip ilerletir.</h2>
+        </div>
+        <p>
+          Estetik ve saç ekimi işletmeleri için örnek akış.
+          Aynı mantık sektörünüzün karar noktalarına uyarlanır.
+        </p>
+      </div>
+
+      <div class="v3-scenario__flow">
+        <article>
+          <span>01 · Müşteriden alınır</span>
+          <h3>İhtiyaç netleştirilir</h3>
+          <p>{sectors[0].input}</p>
+        </article>
+        <ArrowRight class="v3-scenario__arrow" aria-hidden="true" />
+        <article>
+          <span>02 · OMDI ilerletir</span>
+          <h3>Konuşma nitelendirilir</h3>
+          <p>{sectors[0].action}</p>
+        </article>
+        <ArrowRight class="v3-scenario__arrow" aria-hidden="true" />
+        <article class="v3-scenario__result">
+          <span>03 · Ekibe bırakılır</span>
+          <h3>Hazır görüşme talebi</h3>
+          <p>{sectors[0].output}</p>
+        </article>
+      </div>
+
+      <div class="v3-scenario__footer">
+        <p><Zap aria-hidden="true" /> Sektörünüzün soru akışına göre yapılandırılır.</p>
+        <a class="v3-text-link v3-text-link--light" href="/sektorler">
           Tüm sektör senaryoları
           <ArrowRight aria-hidden="true" />
         </a>
       </div>
+    </div>
+  </section>
 
-      <div class="sector-ribbon" aria-label="OMDI hedef sektörleri">
+  <section class="v3-section v3-solutions" id="cozumler">
+    <div class="shell">
+      <div class="v3-heading v3-heading--split" data-reveal>
+        <div>
+          <p class="v3-eyebrow">OMDI çözümleri</p>
+          <h2>Bugün ihtiyacınız olan yerden başlayın.</h2>
+        </div>
+        <p>
+          İlk karşılamadan entegrasyonlu otomasyona kadar
+          dört net çözüm seviyesi.
+        </p>
+      </div>
+
+      <div class="v3-solution-list">
         {
-          sectors.map((sector, index) => (
-            <a class="sector-tile" href={`/sektorler#${sector.slug}`}>
+          solutions.map((solution, index) => (
+            <a
+              class:list={[
+                "v3-solution-row",
+                { "v3-solution-row--featured": "featured" in solution && solution.featured },
+              ]}
+              href={solution.id === "custom" ? "/?cozum=custom#demo-talep" : `/cozumler#${solution.id}`}
+            >
               <span>{String(index + 1).padStart(2, "0")}</span>
               <div>
-                <h3>{sector.name}</h3>
-                <p>{sector.short}</p>
+                <small>{solution.label}</small>
+                <h3>{solution.name}</h3>
               </div>
+              <p>{solution.summary}</p>
+              {"featured" in solution && solution.featured && <b>En Çok Tercih Edilen</b>}
               <ArrowRight aria-hidden="true" />
             </a>
           ))
@@ -215,88 +267,49 @@ import { benefits, faqs, journey, sectors, solutions } from "../data/content";
     </div>
   </section>
 
-  <section class="section pricing-section" id="cozumler">
+  <section class="v3-section v3-pricing" aria-labelledby="v3-pricing-title">
     <div class="shell">
-      <div class="section-heading section-heading--split section-heading--light" data-reveal>
+      <div class="v3-heading v3-heading--split" data-reveal>
         <div>
-          <p class="section-label section-label--gold">OMDI çözümleri</p>
-          <h2>İhtiyacınız kadar otomasyon. Büyüdükçe daha derin entegrasyon.</h2>
+          <p class="v3-eyebrow">Paketler</p>
+          <h2 id="v3-pricing-title">Kapsamı görün, size uygun olanı konuşalım.</h2>
         </div>
         <p>
-          Her çözüm yalnızca bir özellik listesi değil; müşteri iletişimindeki
-          belirli bir darboğazı ortadan kaldıran çalışma seviyesidir.
+          DemoV2 fiyatları geçici olarak X değerini gösterir.
+          Net teklif kullanım hacmine göre belirlenir.
         </p>
       </div>
 
       <PricingGrid />
 
-      <div class="pricing-model" data-reveal>
-        <div class="pricing-model__lead">
+      <div class="v3-pricing-model" data-reveal>
+        <div class="v3-pricing-model__title">
           <Database aria-hidden="true" />
           <div>
-            <span>Şeffaf ücretlendirme modeli</span>
-            <h3>Üç bileşen, tek anlaşılır kapsam.</h3>
+            <span>Ücretlendirme modeli</span>
+            <h3>Üç bileşenle belirlenir.</h3>
           </div>
         </div>
         <dl>
-          <div>
-            <dt>01</dt>
-            <dd>Tek seferlik kurulum bedeli</dd>
-          </div>
-          <div>
-            <dt>02</dt>
-            <dd>Aylık hizmet bedeli</dd>
-          </div>
-          <div>
-            <dt>03</dt>
-            <dd>Aylık müşteri görüşmesi kotası</dd>
-          </div>
+          <div><dt>01</dt><dd>Tek seferlik kurulum bedeli</dd></div>
+          <div><dt>02</dt><dd>Aylık hizmet bedeli</dd></div>
+          <div><dt>03</dt><dd>Aylık müşteri görüşmesi kotası</dd></div>
         </dl>
       </div>
     </div>
   </section>
 
-  <section class="section about-section" id="hakkimizda">
-    <div class="shell about-layout">
-      <div class="about-layout__statement" data-reveal>
-        <p>İşletmenizi geleceğe taşıyoruz.</p>
-        <h2>Karmaşık teknolojiyi, günlük işinize değer katan net bir sisteme dönüştürüyoruz.</h2>
+  <section class="v3-section v3-faq" id="sss">
+    <div class="shell v3-faq__layout">
+      <div class="v3-faq__intro" data-reveal>
+        <p class="v3-eyebrow">Sıkça sorulanlar</p>
+        <h2>Başlamadan önce merak edilenler.</h2>
+        <p>Aradığınız yanıt burada yoksa demo talebinizde bize iletebilirsiniz.</p>
       </div>
-      <div class="about-layout__copy">
-        <p>
-          OMDI, işletmelerin WhatsApp ve dijital iletişim süreçlerini yapay
-          zekâ ile güçlendiren bir satış asistanı ve iş otomasyonu platformudur.
-        </p>
-        <p>
-          Müşteri mesajlarını karşılar, soruları yanıtlar, potansiyel
-          müşterileri yönlendirir ve satış sürecini hızlandırır. İşletmelerin
-          daha hızlı yanıt vermesine, daha fazla talebi değerlendirmesine ve
-          satış ekiplerinin zamanını verimli kullanmasına yardımcı olur.
-        </p>
-        <div class="about-principles">
-          <span>Akıllı</span>
-          <span>Hızlı</span>
-          <span>Güvenilir</span>
-          <span>Sonuç odaklı</span>
-        </div>
-        <a class="text-link text-link--dark" href="/hakkimizda">
-          OMDI’yi daha yakından tanıyın
-          <ArrowRight aria-hidden="true" />
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section faq-section" id="sss">
-    <div class="shell faq-layout">
-      <div class="faq-layout__lead" data-reveal>
-        <p class="section-label">Sıkça sorulanlar</p>
-        <h2>Karar vermeden önce bilmeniz gerekenler.</h2>
-      </div>
-      <div class="faq-list">
+      <div class="v3-faq__list">
         {
           faqs.map((faq, index) => (
-            <details class="faq-item">
+            <details class="v3-faq__item">
               <summary>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <strong>{faq.question}</strong>
@@ -310,26 +323,23 @@ import { benefits, faqs, journey, sectors, solutions } from "../data/content";
     </div>
   </section>
 
-  <section class="demo-section" id="demo-talep">
-    <div class="shell demo-layout">
-      <div class="demo-copy" data-reveal>
-        <div class="demo-copy__icon">
-          <Bot aria-hidden="true" />
-        </div>
-        <p class="section-label section-label--gold">Demo talebi</p>
+  <section class="v3-demo" id="demo-talep">
+    <div class="shell v3-demo__layout">
+      <div class="v3-demo__copy" data-reveal>
+        <p class="v3-eyebrow v3-eyebrow--gold">Demo talebi</p>
         <h2>Müşteri akışınızı birlikte netleştirelim.</h2>
         <p>
-          İşletmenizin hangi mesajları aldığını, ekibinizin nerede zaman
-          kaybettiğini ve OMDI’nin hangi adımları otomatikleştirebileceğini konuşalım.
+          Hangi mesajları aldığınızı, ekibinizin nerede zaman kaybettiğini
+          ve OMDI’nin hangi adımları üstlenebileceğini konuşalım.
         </p>
         <ul>
-          <li><Workflow /> Mevcut iletişim akışınız değerlendirilir.</li>
-          <li><Target /> Uygun çözüm seviyesi netleştirilir.</li>
-          <li><Clock3 /> Görüşme ihtiyacınıza odaklı ve kısa tutulur.</li>
+          <li><Workflow aria-hidden="true" /> Mevcut iletişim akışınız değerlendirilir.</li>
+          <li><Target aria-hidden="true" /> Uygun çözüm seviyesi netleştirilir.</li>
+          <li><Clock3 aria-hidden="true" /> Görüşme ihtiyacınıza odaklı tutulur.</li>
         </ul>
       </div>
 
-      <form class="demo-form" data-demo-form novalidate>
+      <form class="demo-form v3-demo-form" data-demo-form novalidate>
         <div class="demo-form__heading">
           <div>
             <span>DemoV2</span>

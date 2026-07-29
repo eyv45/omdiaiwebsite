@@ -4,18 +4,32 @@ interface Props {
 }
 
 const { compact = false } = Astro.props;
+
+const lockup = compact ? "mark" : "full";
+const label = compact ? "OMDI" : "OMDI - İşletmeler İçin Yapay Zekâ";
 ---
 
-<span class:list={["brand-lockup", { "brand-lockup--compact": compact }]}>
-  <span class="brand-symbol" aria-hidden="true">
-    <span class="brand-symbol__orbit brand-symbol__orbit--one"></span>
-    <span class="brand-symbol__orbit brand-symbol__orbit--two"></span>
-    <span class="brand-symbol__node brand-symbol__node--one"></span>
-    <span class="brand-symbol__node brand-symbol__node--two"></span>
-    <span class="brand-symbol__core"></span>
-  </span>
-  <span class="brand-word">
-    <strong>OMDI</strong>
-    {!compact && <small>İşletmeler İçin Yapay Zekâ</small>}
-  </span>
+<span
+  class:list={["brand-lockup", { "brand-lockup--compact": compact }]}
+  role="img"
+  aria-label={label}
+>
+  <img
+    class="brand-logo brand-logo--color"
+    src={`/brand/omdi-logo-${lockup}-color.png`}
+    alt=""
+    width={874}
+    height={compact ? 242 : 339}
+    decoding="async"
+    aria-hidden="true"
+  />
+  <img
+    class="brand-logo brand-logo--reverse"
+    src={`/brand/omdi-logo-${lockup}-reverse.png`}
+    alt=""
+    width={874}
+    height={compact ? 242 : 339}
+    decoding="async"
+    aria-hidden="true"
+  />
 </span>

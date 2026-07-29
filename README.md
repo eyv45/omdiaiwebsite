@@ -26,9 +26,25 @@ Statik çıktı `dist/` dizininde oluşur.
 - `/cozumler` — çözüm detayları ve paket karşılaştırması
 - `/sektorler` — sektörel kullanım senaryoları
 - `/hakkimizda` — OMDI marka yaklaşımı ve mevcut şirket anlatısı
+- `/kullanim-kosullari` — hukuk danışmanı incelemesi bekleyen kullanım koşulları taslağı
+- `/sla` — sayısal taahhütleri ticari onay bekleyen hizmet seviyesi taslağı
+- `/kvkk` — şirket ve veri işleme bilgileri tamamlanacak KVKK aydınlatma taslağı
+- `/musteri-girisi` — aktif müşterileri korunan alana yönlendiren giriş kapısı
+- `/musteri-paneli` — gerçek müşteri verisi içermeyen portal kabuğu; canlıda Cloudflare Access ile korunmalıdır
 - `/panel` — menüde görünmeyen, yerel fiyat düzenleme paneli
 
 Panel `omdi.demov2.pricing.v1` localStorage anahtarını kullanır. Değişiklikler yalnızca aynı tarayıcıda görünür; kimlik doğrulama veya merkezi veri saklama yoktur.
+
+## Müşteri portalı güvenliği
+
+`/musteri-paneli*` rotası statik uygulama koduyla güvenli hâle gelmez. Canlı
+ortamda Cloudflare Access uygulaması, satın alınmış müşterilerin tek tek
+tanımlanan e-postaları ve One-time PIN doğrulamasıyla bu yolun önüne
+yerleştirilmelidir. Uygulama deny-by-default çalışmalı; Access etkinleştirilmeden
+portal gerçek müşteri verisine bağlanmamalıdır.
+
+Ayrıntılı kurulum ve müşteri ekleme/kaldırma kontrol listesi:
+[CUSTOMER_ACCESS.md](./CUSTOMER_ACCESS.md).
 
 ## Coolify
 

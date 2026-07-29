@@ -1,0 +1,79 @@
+---
+import { ArrowRight, KeyRound, MailCheck, ShieldCheck } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Müşteri Girişi — OMDI"
+  description="Aktif OMDI müşterileri için güvenli müşteri portalı erişimi."
+  bodyClass="portal-entry"
+  noindex
+>
+  <!--
+    THESIS: Müşteri erişimi herkese açık kayıt yerine satın alma sonrası verilen doğrulanmış bir yetkidir.
+    OWN-WORLD: Açık OMDI yüzeyi, lacivert güven kartı, altın erişim noktaları ve tek kullanımlık kod dili.
+    STORY: Müşteri uygun e-postayı kullanacağını anlar, korunan alana ilerler ve erişimi yoksa satış ekibine döner.
+    FIRST VIEWPORT: Solda büyük erişim mesajı; sağda üç güven adımı ve tek ana portal aksiyonu.
+    FORM: Pazarlama sitesi ile korunan ürün alanı arasında sakin, açıklayıcı bir geçiş kapısı.
+  -->
+  <section class="portal-entry__hero">
+    <div class="shell portal-entry__layout">
+      <div class="portal-entry__copy">
+        <p class="portal-kicker">Aktif müşteriler için</p>
+        <h1>OMDI çalışma alanınıza güvenli biçimde girin.</h1>
+        <p>
+          Müşteri paneli herkese açık kayıt kabul etmez. Erişim, satın alma
+          sırasında tanımlanan e-posta adresine gönderilen tek kullanımlık
+          doğrulama koduyla sağlanır.
+        </p>
+        <div class="portal-entry__actions">
+          <a class="button button--gold button--arrow" href="/musteri-paneli/">
+            Müşteri Paneline Giriş
+            <ArrowRight aria-hidden="true" />
+          </a>
+          <a class="button v3-button--outline" href="/#demo-talep">Henüz müşteri değil misiniz?</a>
+        </div>
+      </div>
+
+      <div class="portal-gate" aria-label="OMDI müşteri erişim adımları">
+        <div class="portal-gate__top">
+          <ShieldCheck aria-hidden="true" />
+          <div>
+            <span>Korunan müşteri alanı</span>
+            <strong>Yalnızca izin verilen hesaplar</strong>
+          </div>
+        </div>
+        <ol>
+          <li>
+            <span>01</span>
+            <MailCheck aria-hidden="true" />
+            <div>
+              <strong>Tanımlı e-posta</strong>
+              <p>Satın alma sırasında izin listesine eklenen adres kullanılır.</p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <KeyRound aria-hidden="true" />
+            <div>
+              <strong>Tek kullanımlık kod</strong>
+              <p>Parola saklanmadan, kısa süreli e-posta doğrulaması yapılır.</p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <ShieldCheck aria-hidden="true" />
+            <div>
+              <strong>Yetkili oturum</strong>
+              <p>Doğrulanan müşteri yalnızca korunan portal rotasına alınır.</p>
+            </div>
+          </li>
+        </ol>
+        <p class="portal-gate__note">
+          Erişim tanımınız yoksa portal açılmaz. Satış veya destek ekibinizden
+          hesabınıza erişim eklenmesini isteyin.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

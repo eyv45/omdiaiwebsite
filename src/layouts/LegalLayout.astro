@@ -1,0 +1,73 @@
+---
+import { ArrowLeft, TriangleAlert } from "@lucide/astro";
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  updated?: string;
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  heading,
+  intro,
+  updated = "29 Temmuz 2026",
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description} bodyClass="legal-page" noindex>
+  <!--
+    THESIS: Hukuki metni pazarlama uzantısı gibi değil, karar verilebilir ve denetlenebilir bir ürün yüzeyi olarak sunar.
+    OWN-WORLD: Kırık beyaz okuma zemini, lacivert tipografi, altın bölüm işaretleri ve ince kural çizgileri.
+    STORY: Okuyucu taslak durumunu görür, kapsamı tarar, ilgili maddeye gider ve eksik kurumsal bilgileri açıkça ayırt eder.
+    FIRST VIEWPORT: Solda geri bağlantısı ve büyük belge başlığı; altında güncelleme tarihi ve hukuki inceleme uyarısı.
+    FORM: OMDI V3 dünyasını Read moduna genişleten, yapışkan içindekiler ve geniş metin sütunlu belge düzeni.
+  -->
+  <section class="legal-hero">
+    <div class="shell legal-hero__inner">
+      <a class="legal-back" href="/">
+        <ArrowLeft aria-hidden="true" />
+        Ana sayfaya dön
+      </a>
+      <p class="legal-eyebrow">{eyebrow}</p>
+      <h1>{heading}</h1>
+      <p class="legal-hero__intro">{intro}</p>
+      <div class="legal-meta">
+        <span>Son taslak güncellemesi: {updated}</span>
+        <span>Türkçe metin</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="legal-body">
+    <div class="shell legal-body__layout">
+      <aside class="legal-toc" aria-label="Belge içindekiler">
+        <p>İçindekiler</p>
+        <nav>
+          <slot name="toc" />
+        </nav>
+      </aside>
+
+      <article class="legal-document">
+        <div class="legal-draft-note">
+          <TriangleAlert aria-hidden="true" />
+          <div>
+            <strong>Hukuki inceleme bekleyen taslak</strong>
+            <p>
+              Bu metin yayın yapısını hazırlamak amacıyla oluşturulmuştur.
+              Köşeli parantezli kurumsal bilgiler ve ticari taahhütler,
+              hukuk danışmanı onayı alınmadan kesin hüküm olarak kullanılmamalıdır.
+            </p>
+          </div>
+        </div>
+        <slot />
+      </article>
+    </div>
+  </section>
+</BaseLayout>

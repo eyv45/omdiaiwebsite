@@ -37,6 +37,9 @@ OMDI, karmaşık yapay zekâ teknolojisini işletmenin günlük WhatsApp satış
 - DemoV2’de standart paketlerin tüm fiyat değerleri `X` olarak başlar.
 - DemoV2 fiyat paneli yalnızca aynı tarayıcıda localStorage kullanır; kimlik doğrulama veya merkezi veri sunmaz.
 - DemoV2 formu ağ isteği yapmaz ve kişisel veri saklamaz.
+- Hukuki sayfalar şirket bilgileri ve ticari taahhütler kesinleşene kadar noindex taslak olarak yayımlanır.
+- Müşteri portalı herkese açık kayıt kabul etmez; canlıda Cloudflare Access üzerinden yalnızca satın alınmış müşterilerin izin verilen e-postalarıyla ve tek kullanımlık kodla korunacaktır.
+- Portal koruması etkinleşmeden gerçek müşteri verisi veya merkezi hesap işlevi sunulmaz.
 - V3’te Coolify ortam değişkenleri üzerinden webhook/Resend entegrasyonu planlanır.
 - Site yalnızca Türkçedir ve Coolify üzerinde statik olarak yayınlanacaktır.
 

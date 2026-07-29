@@ -1,0 +1,148 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+---
+
+<LegalLayout
+  title="Hizmet Seviyesi Çerçevesi — OMDI"
+  description="OMDI ücretli hizmetleri için kullanılabilirlik, bakım, destek ve olay yönetimi SLA taslağı."
+  eyebrow="Hizmet taahhütleri"
+  heading="Hizmet Seviyesi Çerçevesi"
+  intro="Ücretli OMDI paketlerinde kullanılabilirlik, destek ve bakım beklentilerinin nasıl tanımlanacağını açıklayan SLA taslağı."
+>
+  <Fragment slot="toc">
+    <a href="#kapsam">1. Kapsam</a>
+    <a href="#tanimlar">2. Tanımlar</a>
+    <a href="#hedefler">3. Hizmet hedefleri</a>
+    <a href="#olcum">4. Ölçüm</a>
+    <a href="#bakim">5. Planlı bakım</a>
+    <a href="#istisnalar">6. İstisnalar</a>
+    <a href="#destek">7. Destek öncelikleri</a>
+    <a href="#telafi">8. Hizmet telafisi</a>
+    <a href="#bildirim">9. Bildirim ve değişiklik</a>
+  </Fragment>
+
+  <section id="kapsam">
+    <h2>1. Kapsam</h2>
+    <p>
+      Bu Hizmet Seviyesi Çerçevesi, taraflar arasındaki yazılı teklif veya
+      sözleşmede SLA kapsamına alındığı belirtilen ücretli OMDI hizmetlerine
+      uygulanır. Demo, önizleme, beta ve ücretsiz deneme niteliğindeki özellikler
+      sayısal hizmet seviyesi taahhüdü içermez.
+    </p>
+  </section>
+
+  <section id="tanimlar">
+    <h2>2. Tanımlar</h2>
+    <dl class="legal-definitions">
+      <div>
+        <dt>Hizmet</dt>
+        <dd>Satın alınan paket kapsamındaki mesaj işleme, otomasyon, entegrasyon ve müşteri portalı bileşenleri.</dd>
+      </div>
+      <div>
+        <dt>Kesinti</dt>
+        <dd>OMDI’nin kontrolündeki bir nedenle hizmetin ölçüm sistemlerinde erişilemez görünmesi.</dd>
+      </div>
+      <div>
+        <dt>Planlı bakım</dt>
+        <dd>Önceden duyurulan bakım, güncelleme veya altyapı değişikliği penceresi.</dd>
+      </div>
+      <div>
+        <dt>Aylık kullanılabilirlik</dt>
+        <dd>Takvim ayındaki toplam ölçüm süresinden kapsam içi kesinti süresi çıkarılarak hesaplanan oran.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section id="hedefler">
+    <h2>3. Hizmet hedefleri</h2>
+    <p>
+      Aşağıdaki tablo yayın öncesi ticari ve teknik kapasiteye göre
+      kesinleştirilmelidir. Bu taslak, sayısal bir çalışma süresi garantisi vermez.
+    </p>
+    <div class="legal-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Paket</th><th>Aylık kullanılabilirlik</th><th>Destek dönemi</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>OMDI Lead</td><td>Teklifte belirlenecek</td><td>Teklifte belirlenecek</td></tr>
+          <tr><td>OMDI Sales</td><td>Teklifte belirlenecek</td><td>Teklifte belirlenecek</td></tr>
+          <tr><td>OMDI Scale</td><td>Özel sözleşmede belirlenecek</td><td>Özel sözleşmede belirlenecek</td></tr>
+          <tr><td>OMDI Custom</td><td>Proje kapsamına göre</td><td>Proje kapsamına göre</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="olcum">
+    <h2>4. Ölçüm ve raporlama</h2>
+    <p>
+      Kullanılabilirlik ölçüm kaynağı, kontrol aralığı, zaman dilimi ve raporlama
+      yöntemi özel sözleşmede belirtilir. Sayısal SLA verilmesi hâlinde, kesinti
+      başlangıç ve bitişi üzerinde uzlaşılan izleme kaynağına göre hesaplanır.
+    </p>
+  </section>
+
+  <section id="bakim">
+    <h2>5. Planlı bakım</h2>
+    <p>
+      Planlı bakım mümkün olduğunda düşük trafik saatlerinde gerçekleştirilir ve
+      etkilenecek müşterilere makul süre önce e-posta veya portal üzerinden
+      bildirilir. Acil güvenlik güncellemeleri önceden bildirim yapılamadan
+      uygulanabilir; sonrasında olay bilgisi paylaşılır.
+    </p>
+  </section>
+
+  <section id="istisnalar">
+    <h2>6. SLA dışında kalan durumlar</h2>
+    <ul>
+      <li>Meta/WhatsApp, yapay zekâ sağlayıcısı, internet operatörü veya müşteri sistemlerindeki kesintiler.</li>
+      <li>Müşterinin hatalı yapılandırması, yetkisiz değişikliği veya kullanım koşullarına aykırı faaliyeti.</li>
+      <li>Mücbir sebep, kamu otoritesi kararı, yaygın siber saldırı veya OMDI’nin makul kontrolü dışındaki olaylar.</li>
+      <li>Önceden bildirilen planlı bakım ve açıkça beta/önizleme olarak işaretlenen özellikler.</li>
+    </ul>
+  </section>
+
+  <section id="destek">
+    <h2>7. Destek öncelikleri</h2>
+    <div class="legal-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Seviye</th><th>Örnek durum</th><th>İlk yanıt hedefi</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Kritik</td><td>Üretim hizmetinin bütünüyle kullanılamaması</td><td>Sözleşmede belirlenecek</td></tr>
+          <tr><td>Yüksek</td><td>Ana işlevin çalışmaması, geçici çözüm bulunması</td><td>Sözleşmede belirlenecek</td></tr>
+          <tr><td>Normal</td><td>Genel soru, yapılandırma talebi veya küçük hata</td><td>Sözleşmede belirlenecek</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      İlk yanıt hedefi, sorunun çözülme süresi anlamına gelmez. Olayın kapsamı,
+      bağımlılıkları ve üçüncü taraf müdahalesi çözüm süresini etkileyebilir.
+    </p>
+  </section>
+
+  <section id="telafi">
+    <h2>8. Hizmet telafisi</h2>
+    <p>
+      Kredi, indirim veya başka bir telafi mekanizması yalnızca müşterinin
+      imzaladığı paket sözleşmesinde açıkça düzenlenmişse uygulanır.
+      <mark>[Oranlar, başvuru süresi, üst sınır ve hesaplama yöntemi ticari onay
+      sonrasında buraya eklenmelidir.]</mark>
+    </p>
+  </section>
+
+  <section id="bildirim">
+    <h2>9. Olay bildirimi ve değişiklik</h2>
+    <p>
+      SLA kapsamındaki olay talepleri <mark>[destek e-posta adresi veya portal
+      kanalı]</mark> üzerinden; müşteri hesabı, zaman aralığı ve gözlenen etki
+      belirtilerek iletilmelidir.
+    </p>
+    <p>
+      Bu çerçevedeki maddi değişiklikler, yürürlük tarihinden makul süre önce
+      aktif müşterilere bildirilir.
+    </p>
+  </section>
+</LegalLayout>
