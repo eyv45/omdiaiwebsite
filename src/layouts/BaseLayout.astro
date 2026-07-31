@@ -26,15 +26,41 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL("/brand/omdi-logo-full-color.png", Astro.site).href;
 
+const siteUrl = Astro.site?.href || "https://omdi.ai";
+
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "OMDI",
-  url: Astro.site?.href,
-  logo: ogImage,
-  description:
-    "İşletmeler için WhatsApp üzerinden çalışan yapay zekâ satış asistanı.",
-  areaServed: "TR",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}#organization`,
+      name: "OMDI",
+      url: siteUrl,
+      logo: ogImage,
+      description: "İşletmeler için WhatsApp üzerinden çalışan yapay zekâ satış asistanı.",
+      areaServed: {
+        "@type": "Country",
+        name: "Turkey",
+        identifier: "TR",
+      },
+      knowsLanguage: ["tr"],
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${siteUrl}#software`,
+      name: "OMDI AI Satış Asistanı",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Cloud / WhatsApp",
+      description: "WhatsApp üzerinden gelen talepleri 7/24 karşılayan, nitelendiren ve satış ekibine hazır fırsatlar sunan yapay zekâ platformu.",
+      offers: {
+        "@type": "AggregateOffer",
+        priceCurrency: "TRY",
+        lowPrice: "3900",
+        highPrice: "15000",
+        offerCount: "3",
+      },
+    },
+  ],
 };
 ---
 
@@ -61,7 +87,13 @@ const organizationSchema = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+      )
+    }
     <title>{title}</title>
     <script
       type="application/ld+json"

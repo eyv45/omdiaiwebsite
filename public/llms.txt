@@ -1,0 +1,23 @@
+# OMDI — İşletmeler İçin Yapay Zekâ Satış Asistanı
+
+> OMDI, Türkiye'deki işletmeler için WhatsApp üzerinden gelen müşteri taleplerini 7/24 karşılayan, nitelendiren ve satış ekibine hazır fırsatlar sunan yapay zekâ otomasyon sistemidir.
+
+## Temel Özellikler & Çözümler
+- **7/24 Otomatik Karşılama**: Gece veya hafta sonu gelen mesajları anında yanıtlar.
+- **Müşteri Nitelendirme (Lead Qualification)**: İhtiyaç, bütçe ve zamanlama bilgilerini toplayıp hazır özet sunar.
+- **Sektörel Senaryolar**: Estetik & Güzellik, Eğitim & Kurslar, Otomotiv, Turizm ve B2B Toptan sektörleri için özel eğitilmiş iş akışları.
+- **Sistem Entegrasyonları**: CRM, stok, randevu ve satış otomasyon yazılımları ile entegrasyon (OMDI Scale & Custom).
+
+## Paketler & Fiyatlandırma
+- **OMDI Lead**: Aylık 3.900 TL (Kurulum: 0 TL / Ücretsiz). Hızlı karşılama ve bilgi toplama.
+- **OMDI Sales**: Aylık 6.900 TL (Kurulum: 0 TL / Ücretsiz). Satış yönlendirmesi ve ürün/hizmet önerisi (1.000 müşteri/ay).
+- **OMDI Scale**: Aylık 15.000 TL (Kurulum: 0 TL / Ücretsiz). CRM ve stok entegrasyonlu tam otomasyon (1.500 müşteri/ay).
+- **OMDI Custom**: İşletmeye özel proje bazlı fiyatlandırma ve sınırsız entegrasyon.
+
+## Önemli Bağlantılar
+- [Ana Sayfa](https://omdi.ai/)
+- [Çözümler](https://omdi.ai/cozumler)
+- [Fiyatlandırma](https://omdi.ai/fiyatlandirma)
+- [Sektörler](https://omdi.ai/sektorler)
+- [Sıkça Sorulan Sorular (SSS)](https://omdi.ai/sss)
+- [Hakkımızda](https://omdi.ai/hakkimizda)
