@@ -132,25 +132,29 @@ export const sectors = [
  * tam olarak bu orana denk gelecek biçimde yuvarlanmıştır.
  */
 export const DISCOUNT_LABEL = "%70 indirim";
+export const SETUP_DISCOUNT_LABEL = "%100 indirim";
 
 export const pricing = {
   lead: {
     setupList: "7.000 TL",
-    setupFee: "2.100 TL",
+    setupFee: "0 TL",
+    setupDiscountLabel: "%100 indirim",
     monthlyList: "13.000 TL",
     monthlyFee: "3.900 TL",
     quota: null,
   },
   sales: {
     setupList: "12.000 TL",
-    setupFee: "3.600 TL",
+    setupFee: "0 TL",
+    setupDiscountLabel: "%100 indirim",
     monthlyList: "23.000 TL",
     monthlyFee: "6.900 TL",
     quota: "1.000 müşteri",
   },
   scale: {
     setupList: "27.000 TL",
-    setupFee: "8.100 TL",
+    setupFee: "0 TL",
+    setupDiscountLabel: "%100 indirim",
     monthlyList: "50.000 TL",
     monthlyFee: "15.000 TL",
     quota: "1.500 müşteri",
@@ -158,6 +162,7 @@ export const pricing = {
   custom: {
     setupList: null,
     setupFee: "Proje bazlı",
+    setupDiscountLabel: null,
     monthlyList: null,
     monthlyFee: "Özel fiyatlandırma",
     quota: "Sınırsız / özel kota",

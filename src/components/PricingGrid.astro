@@ -54,7 +54,9 @@ const customSolution = solutions.find((solution) => "custom" in solution);
               <dd>
                 {price.setupList && <s>{price.setupList}</s>}
                 {price.setupFee}
-                {price.setupList && <b>{DISCOUNT_LABEL}</b>}
+                {price.setupList && (
+                  <b>{"setupDiscountLabel" in price && price.setupDiscountLabel ? price.setupDiscountLabel : DISCOUNT_LABEL}</b>
+                )}
               </dd>
             </div>
             {price.quota && (
