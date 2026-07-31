@@ -22,8 +22,10 @@ Statik çıktı `dist/` dizininde oluşur.
 
 ## Rotalar
 
-- `/` — ana satış sayfası ve DemoV2 formu
-- `/cozumler` — çözüm detayları ve paket karşılaştırması
+- `/` — ana satış sayfası, sektör slider'ı ve demo modalı
+- `/cozumler` — çözüm detayları
+- `/fiyatlandirma` — paket fiyatları ve ayrıntılı karşılaştırma tablosu
+- `/sss` — tüm sıkça sorulan sorular
 - `/sektorler` — sektörel kullanım senaryoları
 - `/hakkimizda` — OMDI marka yaklaşımı ve mevcut şirket anlatısı
 - `/kullanim-kosullari` — hukuk danışmanı incelemesi bekleyen kullanım koşulları taslağı
@@ -31,9 +33,20 @@ Statik çıktı `dist/` dizininde oluşur.
 - `/kvkk` — şirket ve veri işleme bilgileri tamamlanacak KVKK aydınlatma taslağı
 - `/musteri-girisi` — aktif müşterileri korunan alana yönlendiren giriş kapısı
 - `/musteri-paneli` — gerçek müşteri verisi içermeyen portal kabuğu; canlıda Cloudflare Access ile korunmalıdır
-- `/panel` — menüde görünmeyen, yerel fiyat düzenleme paneli
 
-Panel `omdi.demov2.pricing.v1` localStorage anahtarını kullanır. Değişiklikler yalnızca aynı tarayıcıda görünür; kimlik doğrulama veya merkezi veri saklama yoktur.
+Fiyatlar `src/data/content.ts` içindeki `pricing` nesnesinden gelir (KDV dahil).
+Güncelleme yalnızca bu dosyadan yapılır.
+
+## Demo formu
+
+Demo talebi sayfa içi form yerine modal ile toplanır. Gönderim `src/lib/contact.ts`
+üzerinden yapılandırılır:
+
+- `PUBLIC_WHATSAPP_NUMBER` — uluslararası biçim, yalnızca rakam (örn. `905551112233`)
+- `PUBLIC_DEMO_ENDPOINT` — tanımlıysa talep bu adrese POST edilir; tanımlı değilse
+  hazır mesajla WhatsApp'a yönlendirilir. Resend entegrasyonu bu değişkenle devreye girer.
+
+Her iki değer de Coolify ortam değişkeni olarak verilir.
 
 ## Müşteri portalı güvenliği
 

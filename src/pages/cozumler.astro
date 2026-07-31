@@ -1,7 +1,6 @@
 ---
 import {
   ArrowRight,
-  Bot,
   Boxes,
   Check,
   DatabaseZap,
@@ -9,7 +8,6 @@ import {
   Sparkles,
 } from "@lucide/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PricingGrid from "../components/PricingGrid.astro";
 import { solutions } from "../data/content";
 
 const iconById = {
@@ -34,10 +32,10 @@ const iconById = {
           Dört çözüm seviyesi, müşteri iletişiminizin bugün ihtiyaç duyduğu
           hızdan yarın ihtiyaç duyacağı uçtan uca otomasyona kadar birlikte büyür.
         </p>
-        <a class="button button--gold button--arrow" href="/#demo-talep">
+        <button class="button button--gold button--arrow" type="button" data-demo-open>
           Doğru Çözümü Birlikte Seçelim
           <ArrowRight aria-hidden="true" />
-        </a>
+        </button>
       </div>
       <div class="solution-spectrum" aria-label="OMDI çözüm seviyeleri">
         <div><span>01</span><strong>Lead</strong><small>Karşıla</small></div>
@@ -107,15 +105,17 @@ const iconById = {
                       </li>
                     ))}
                   </ul>
-                  <a
+                  <button
                     class="text-link text-link--dark"
-                    href={`/?cozum=${solution.id}#demo-talep`}
+                    type="button"
+                    data-demo-open
+                    data-cozum={solution.id}
                   >
                     {"custom" in solution && solution.custom
                       ? "Özel çözüm talep et"
                       : "Bu paket için demo iste"}
                     <ArrowRight aria-hidden="true" />
-                  </a>
+                  </button>
                 </div>
               </article>
             );
@@ -133,73 +133,14 @@ const iconById = {
           <h2>Kapsamı ve işletme faydasını birlikte değerlendirin.</h2>
         </div>
         <p>
-          DemoV2’de fiyat alanları `X` ile gösterilir. Gerçek kapsam; kurulum,
-          aylık hizmet ve görüşme kotası birlikte değerlendirilerek belirlenir.
+          Kurulum bedeli, aylık hizmet bedeli ve görüşme kotası
+          ayrıntılı karşılaştırma tablosunda yer alır.
         </p>
       </div>
-      <PricingGrid detailed />
-    </div>
-  </section>
-
-  <section class="section comparison-section">
-    <div class="shell">
-      <div class="comparison-heading">
-        <Bot aria-hidden="true" />
-        <div>
-          <p class="section-label">Hızlı karşılaştırma</p>
-          <h2>İhtiyaç büyüdükçe sistem derinleşir.</h2>
-        </div>
-      </div>
-      <div class="comparison-table-wrap" role="region" aria-label="OMDI paket karşılaştırma tablosu" tabindex="0">
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th scope="col">Yetenek</th>
-              <th scope="col">Lead</th>
-              <th scope="col">Sales</th>
-              <th scope="col">Scale</th>
-              <th scope="col">Custom</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">7/24 otomatik karşılama</th>
-              <td><Check aria-label="Dahil" /></td>
-              <td><Check aria-label="Dahil" /></td>
-              <td><Check aria-label="Dahil" /></td>
-              <td>Kapsama göre</td>
-            </tr>
-            <tr>
-              <th scope="row">Müşteri nitelendirme</th>
-              <td><Check aria-label="Dahil" /></td>
-              <td><Check aria-label="Dahil" /></td>
-              <td><Check aria-label="Dahil" /></td>
-              <td>Kapsama göre</td>
-            </tr>
-            <tr>
-              <th scope="row">Satış yönlendirmesi</th>
-              <td>Temel</td>
-              <td><Check aria-label="Dahil" /></td>
-              <td><Check aria-label="Dahil" /></td>
-              <td>Kapsama göre</td>
-            </tr>
-            <tr>
-              <th scope="row">CRM ve stok entegrasyonu</th>
-              <td>—</td>
-              <td>—</td>
-              <td><Check aria-label="Dahil" /></td>
-              <td>Kapsama göre</td>
-            </tr>
-            <tr>
-              <th scope="row">Özel iş akışı tasarımı</th>
-              <td>—</td>
-              <td>—</td>
-              <td>Belirli kapsam</td>
-              <td><Check aria-label="Dahil" /></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <a class="text-link" href="/fiyatlandirma">
+        Fiyatlandırmayı gör
+        <ArrowRight aria-hidden="true" />
+      </a>
     </div>
   </section>
 
@@ -209,10 +150,10 @@ const iconById = {
         <p>Zekâ. Veri. Dönüşüm.</p>
         <h2>Hangi seviyeden başlamanız gerektiğini birlikte netleştirelim.</h2>
       </div>
-      <a class="button button--gold button--arrow" href="/#demo-talep">
+      <button class="button button--gold button--arrow" type="button" data-demo-open>
         Demo Talep Et
         <ArrowRight aria-hidden="true" />
-      </a>
+      </button>
     </div>
   </section>
 </BaseLayout>

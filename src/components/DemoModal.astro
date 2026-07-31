@@ -1,0 +1,464 @@
+---
+import { ArrowRight, ChevronDown, Send, X } from "@lucide/astro";
+import { sectors } from "../data/content";
+---
+
+<div class="demo-modal" data-demo-modal hidden>
+  <div class="demo-modal__overlay" data-demo-overlay></div>
+
+  <div
+    class="demo-modal__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="demo-modal-title"
+    data-demo-panel
+  >
+    <span class="demo-modal__grip" aria-hidden="true"></span>
+
+    <button class="demo-modal__close" type="button" aria-label="Kapat" data-demo-close>
+      <X aria-hidden="true" />
+    </button>
+
+    <div class="demo-modal__view" data-demo-view="form">
+      <div class="demo-modal__head">
+        <h2 id="demo-modal-title" data-demo-title>Demo Talep Et</h2>
+        <p data-demo-subtitle hidden></p>
+      </div>
+
+      <div class="demo-modal__alert" role="alert" data-demo-alert hidden>
+        <p>Gönderilemedi. Lütfen tekrar deneyin veya WhatsApp'tan yazın.</p>
+        <a data-demo-alert-link target="_blank" rel="noopener">
+          WhatsApp'tan yazın
+          <ArrowRight aria-hidden="true" />
+        </a>
+      </div>
+
+      <form class="demo-modal__form" data-demo-form novalidate>
+        <p class="demo-modal__honeypot" aria-hidden="true">
+          <label for="demo-website">Web sitesi</label>
+          <input id="demo-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </p>
+
+        <div class="demo-field">
+          <label for="demo-fullname">Ad soyad</label>
+          <input id="demo-fullname" name="fullName" type="text" autocomplete="name" required />
+          <small class="demo-field__error" data-error-for="fullName" hidden></small>
+        </div>
+
+        <div class="demo-field">
+          <label for="demo-phone">Telefon / WhatsApp</label>
+          <input
+            id="demo-phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            placeholder="+90 5XX XXX XX XX"
+            required
+          />
+          <small class="demo-field__error" data-error-for="phone" hidden></small>
+        </div>
+
+        <div class="demo-field">
+          <label for="demo-sector">Sektör</label>
+          <select id="demo-sector" name="sector" required>
+            <option value="">Sektör seçin</option>
+            {sectors.map((sector) => <option value={sector.slug}>{sector.name}</option>)}
+            <option value="diger">Diğer</option>
+          </select>
+          <small class="demo-field__error" data-error-for="sector" hidden></small>
+        </div>
+
+        <div class="demo-field">
+          <label for="demo-company">İşletme / marka</label>
+          <input id="demo-company" name="company" type="text" autocomplete="organization" required />
+          <small class="demo-field__error" data-error-for="company" hidden></small>
+        </div>
+
+        <button class="demo-modal__more" type="button" aria-expanded="false" data-demo-more>
+          Detay ekle
+          <ChevronDown aria-hidden="true" />
+        </button>
+
+        <div class="demo-modal__extra" data-demo-extra>
+          <div class="demo-modal__extra-inner">
+            <div class="demo-field">
+              <label for="demo-email">İş e-postası <small>(isteğe bağlı)</small></label>
+              <input id="demo-email" name="email" type="email" autocomplete="email" />
+              <small class="demo-field__error" data-error-for="email" hidden></small>
+            </div>
+
+            <div class="demo-field">
+              <label for="demo-note">Kısa not <small>(isteğe bağlı)</small></label>
+              <textarea
+                id="demo-note"
+                name="note"
+                rows="3"
+                placeholder="Müşteri iletişiminde çözmek istediğiniz temel noktayı yazın."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-field demo-field--consent">
+          <label class="demo-consent" for="demo-consent">
+            <input id="demo-consent" name="consent" type="checkbox" required />
+            <span>
+              <a href="/kvkk" target="_blank" rel="noopener">KVKK aydınlatma metnini</a>
+              okudum, kişisel verilerimin bu kapsamda işlenmesini onaylıyorum.
+            </span>
+          </label>
+          <small class="demo-field__error" data-error-for="consent" hidden></small>
+        </div>
+
+        <input type="hidden" name="solution" data-demo-solution value="" />
+
+        <button class="button button--gold button--full button--arrow" type="submit" data-demo-submit>
+          <span>Demo Talep Et</span>
+          <Send aria-hidden="true" />
+        </button>
+      </form>
+    </div>
+
+    <div class="demo-modal__view demo-modal__success" data-demo-view="success" hidden>
+      <span class="demo-modal__tick" aria-hidden="true">
+        <svg viewBox="0 0 52 52" role="presentation">
+          <circle cx="26" cy="26" r="24" />
+          <path d="M15 27l8 8 15-16" />
+        </svg>
+      </span>
+      <h2>Talebiniz alındı.</h2>
+      <p data-demo-success-note>1 iş günü içinde size dönüyoruz.</p>
+      <button class="button button--gold" type="button" data-demo-close>Kapat</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { submitDemoRequest, formatRequest, type DemoRequest } from "../lib/demo-submission";
+  import { whatsappLink } from "../lib/contact";
+  import { sectors, solutions } from "../data/content";
+
+  const modal = document.querySelector<HTMLElement>("[data-demo-modal]");
+  const panel = modal?.querySelector<HTMLElement>("[data-demo-panel]");
+  const form = modal?.querySelector<HTMLFormElement>("[data-demo-form]");
+  const titleEl = modal?.querySelector<HTMLElement>("[data-demo-title]");
+  const subtitleEl = modal?.querySelector<HTMLElement>("[data-demo-subtitle]");
+  const solutionInput = modal?.querySelector<HTMLInputElement>("[data-demo-solution]");
+  const alertBox = modal?.querySelector<HTMLElement>("[data-demo-alert]");
+  const alertLink = modal?.querySelector<HTMLAnchorElement>("[data-demo-alert-link]");
+  const submitButton = modal?.querySelector<HTMLButtonElement>("[data-demo-submit]");
+  const moreButton = modal?.querySelector<HTMLButtonElement>("[data-demo-more]");
+  const extra = modal?.querySelector<HTMLElement>("[data-demo-extra]");
+  const formView = modal?.querySelector<HTMLElement>('[data-demo-view="form"]');
+  const successView = modal?.querySelector<HTMLElement>('[data-demo-view="success"]');
+  const successNote = modal?.querySelector<HTMLElement>("[data-demo-success-note]");
+
+  if (modal && panel && form && titleEl && solutionInput) {
+    const FOCUSABLE =
+      'a[href], button:not([disabled]), input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])';
+
+    let lastTrigger: HTMLElement | null = null;
+    let openedAt = 0;
+
+    const track = (event: string) => {
+      (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({ event });
+    };
+
+    /* ---------- doğrulama ---------- */
+
+    const messages: Record<string, string> = {
+      fullName: "Ad soyadınızı yazın.",
+      phone: "Geçerli bir telefon numarası yazın.",
+      sector: "Sektörünüzü seçin.",
+      company: "İşletme veya marka adını yazın.",
+      email: "Geçerli bir e-posta adresi yazın.",
+      consent: "Devam etmek için KVKK onayı gerekir.",
+    };
+
+    const isValidPhone = (value: string) => {
+      const digits = value.replace(/\D/g, "");
+      // 5XXXXXXXXX (10) · 05XXXXXXXXX (11) · 905XXXXXXXXX (12)
+      if (digits.length === 10) return digits.startsWith("5");
+      if (digits.length === 11) return digits.startsWith("05");
+      if (digits.length === 12) return digits.startsWith("905");
+      return false;
+    };
+
+    const fieldValid = (field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
+      const value = field.value.trim();
+      if (field.name === "phone") return isValidPhone(value);
+      if (field.name === "email") return value === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (field.type === "checkbox") return (field as HTMLInputElement).checked;
+      return !field.required || value !== "";
+    };
+
+    const showError = (
+      field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
+      show: boolean,
+    ) => {
+      const error = form.querySelector<HTMLElement>(`[data-error-for="${field.name}"]`);
+      if (!error) return;
+
+      if (show) {
+        error.textContent = messages[field.name] ?? "Bu alanı kontrol edin.";
+        error.hidden = false;
+        error.id = `demo-error-${field.name}`;
+        field.setAttribute("aria-invalid", "true");
+        field.setAttribute("aria-describedby", error.id);
+      } else {
+        error.hidden = true;
+        field.removeAttribute("aria-invalid");
+        field.removeAttribute("aria-describedby");
+      }
+    };
+
+    const validated = Array.from(
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement>("[name]"),
+    ).filter((field) => field.name !== "website" && field.name !== "solution");
+
+    validated.forEach((field) => {
+      field.addEventListener("blur", () => showError(field, !fieldValid(field)));
+      field.addEventListener("change", () => {
+        if (fieldValid(field)) showError(field, false);
+      });
+    });
+
+    /* ---------- telefon maskesi ---------- */
+
+    const phone = form.querySelector<HTMLInputElement>('[name="phone"]');
+    phone?.addEventListener("input", () => {
+      let digits = phone.value.replace(/\D/g, "");
+      if (digits.startsWith("90")) digits = digits.slice(2);
+      if (digits.startsWith("0")) digits = digits.slice(1);
+      digits = digits.slice(0, 10);
+
+      const parts = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 8), digits.slice(8, 10)];
+      phone.value = digits ? `+90 ${parts.filter(Boolean).join(" ")}` : "";
+    });
+
+    /* ---------- katlanır detay ---------- */
+
+    moreButton?.addEventListener("click", () => {
+      const open = moreButton.getAttribute("aria-expanded") !== "true";
+      moreButton.setAttribute("aria-expanded", String(open));
+      extra?.classList.toggle("is-open", open);
+    });
+
+    /* ---------- aç / kapat ---------- */
+
+    const setContext = (solutionId: string | null) => {
+      const solution = solutions.find((item) => item.id === solutionId);
+
+      if (solution) {
+        titleEl.textContent = `${solution.name} için demo talebi`;
+        solutionInput.value = solution.id;
+        if (subtitleEl) {
+          subtitleEl.textContent = solution.summary;
+          subtitleEl.hidden = false;
+        }
+      } else {
+        titleEl.textContent = "Demo Talep Et";
+        solutionInput.value = "";
+        if (subtitleEl) subtitleEl.hidden = true;
+      }
+    };
+
+    const openModal = (trigger: HTMLElement | null, solutionId: string | null) => {
+      lastTrigger = trigger;
+      openedAt = Date.now();
+      setContext(solutionId);
+
+      const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = scrollbar > 0 ? `${scrollbar}px` : "";
+      document.body.classList.add("modal-open");
+
+      modal.hidden = false;
+      void modal.offsetWidth; // geçişin başlangıç karesini sabitler
+      modal.classList.add("is-open");
+
+      form.querySelector<HTMLInputElement>('[name="fullName"]')?.focus();
+      track("demo_modal_open");
+    };
+
+    const closeModal = () => {
+      modal.classList.remove("is-open");
+      document.body.classList.remove("modal-open");
+      document.body.style.paddingRight = "";
+
+      window.setTimeout(() => {
+        modal.hidden = true;
+        panel.style.transform = "";
+        resetToForm();
+      }, 200);
+
+      lastTrigger?.focus();
+      lastTrigger = null;
+    };
+
+    const resetToForm = () => {
+      if (!formView || !successView) return;
+      formView.hidden = false;
+      successView.hidden = true;
+      if (alertBox) alertBox.hidden = true;
+    };
+
+    // Bağlam önce butondan, yoksa ?cozum= parametresinden okunur.
+    const urlSolution = new URLSearchParams(window.location.search).get("cozum");
+
+    document.querySelectorAll<HTMLElement>("[data-demo-open]").forEach((trigger) => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        openModal(trigger, trigger.dataset.cozum || urlSolution);
+      });
+    });
+
+    modal.querySelectorAll<HTMLElement>("[data-demo-close], [data-demo-overlay]").forEach((el) => {
+      el.addEventListener("click", closeModal);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (modal.hidden) return;
+
+      if (event.key === "Escape") {
+        closeModal();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+        (el) => el.offsetParent !== null,
+      );
+      if (!items.length) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    /* ---------- mobil: aşağı sürükleyerek kapat ---------- */
+
+    let dragStart = 0;
+    let dragging = false;
+
+    panel.addEventListener("pointerdown", (event) => {
+      if (window.innerWidth > 640) return;
+      const target = event.target as HTMLElement;
+      if (target.closest("input, select, textarea, button, a")) return;
+
+      dragging = true;
+      dragStart = event.clientY;
+    });
+
+    panel.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      const delta = event.clientY - dragStart;
+      if (delta > 0) panel.style.transform = `translateY(${delta}px)`;
+    });
+
+    const endDrag = (event: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+
+      if (event.clientY - dragStart > 120) closeModal();
+      else panel.style.transform = "";
+    };
+
+    panel.addEventListener("pointerup", endDrag);
+    panel.addEventListener("pointercancel", endDrag);
+
+    /* ---------- gönderim ---------- */
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (alertBox) alertBox.hidden = true;
+
+      // Spam eşiği: bot doldurdu ya da 3 saniyeden hızlı gönderdiyse sessizce dur.
+      const honeypot = form.querySelector<HTMLInputElement>('[name="website"]');
+      if (honeypot?.value || Date.now() - openedAt < 3000) return;
+
+      const invalid = validated.filter((field) => !fieldValid(field));
+      invalid.forEach((field) => showError(field, true));
+
+      if (invalid.length) {
+        invalid[0].focus();
+        invalid[0].scrollIntoView({ block: "center", behavior: "smooth" });
+        return;
+      }
+
+      const data = new FormData(form);
+
+      // Slug/id yerine okunabilir adlar gönderilir; mesajı satış ekibi okuyor.
+      const sectorValue = String(data.get("sector") ?? "");
+      const solutionValue = String(data.get("solution") ?? "");
+      const sectorName =
+        sectors.find((item) => item.slug === sectorValue)?.name ??
+        (sectorValue === "diger" ? "Diğer" : sectorValue);
+      const solutionName =
+        solutions.find((item) => item.id === solutionValue)?.name ?? solutionValue;
+
+      const request: DemoRequest = {
+        fullName: String(data.get("fullName") ?? ""),
+        company: String(data.get("company") ?? ""),
+        phone: String(data.get("phone") ?? ""),
+        sector: sectorName,
+        solution: solutionName,
+        email: String(data.get("email") ?? ""),
+        note: String(data.get("note") ?? ""),
+      };
+
+      const label = submitButton?.querySelector("span");
+      const original = label?.textContent ?? "Demo Talep Et";
+
+      if (submitButton && label) {
+        submitButton.disabled = true;
+        submitButton.classList.add("is-loading");
+        label.textContent = "Gönderiliyor...";
+      }
+
+      const result = await submitDemoRequest(request);
+
+      if (submitButton && label) {
+        submitButton.disabled = false;
+        submitButton.classList.remove("is-loading");
+        label.textContent = original;
+      }
+
+      if (result.status === "error") {
+        if (alertBox && alertLink) {
+          alertLink.href = whatsappLink(formatRequest(request));
+          alertBox.hidden = false;
+          alertBox.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        }
+        return;
+      }
+
+      if (result.status === "whatsapp") {
+        window.open(result.url, "_blank", "noopener");
+        if (successNote) {
+          successNote.textContent =
+            "Talebinizi WhatsApp'ta açtık. Mesajı göndererek görüşmeyi başlatabilirsiniz.";
+        }
+      }
+
+      track("demo_submit_success");
+      form.reset();
+      extra?.classList.remove("is-open");
+      moreButton?.setAttribute("aria-expanded", "false");
+
+      if (formView && successView) {
+        formView.hidden = true;
+        successView.hidden = false;
+        successView.querySelector<HTMLElement>("button")?.focus();
+      }
+    });
+  }
+</script>

@@ -1,21 +1,19 @@
 ---
 import {
   ArrowRight,
-  Bot,
   Check,
-  CircleCheckBig,
   Clock3,
   Database,
-  Send,
-  Sparkles,
+  MessageCircle,
   Target,
-  UserRoundCheck,
   Workflow,
-  Zap,
 } from "@lucide/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CostCalculator from "../components/CostCalculator.astro";
+import HeroChat from "../components/HeroChat.astro";
 import PricingGrid from "../components/PricingGrid.astro";
-import { faqs, sectors, solutions } from "../data/content";
+import SocialProof from "../components/SocialProof.astro";
+import { faqs } from "../data/content";
 
 const homeSteps = [
   {
@@ -34,6 +32,8 @@ const homeSteps = [
     copy: "Görüşme özetini ve hazır talebi doğru anda satış ekibine aktarır.",
   },
 ] as const;
+
+const landingFaqs = faqs.slice(0, 3);
 ---
 
 <BaseLayout
@@ -44,9 +44,8 @@ const homeSteps = [
   <!--
     THESIS: OMDI, ilk mesajı satış ekibinin ilerletebileceği hazır bir fırsata dönüştürür; ana sayfa bunu tek bakışta gösterir.
     OWN-WORLD: Kırık beyaz canvas, kâğıt tonlu odak sahnesi, lacivert tipografi ve yalnızca aksiyon ile sonuçta kullanılan altın.
-    STORY: Ziyaretçi dönüşümü görür, üç adımı anlar, çözümünü değerlendirir ve demo talebine ilerler.
-    FIRST VIEWPORT: Solda kısa teklif ve tek ana aksiyon; sağda zeminden ayrışan açık kâğıt sahnede örnek müşteri akışı.
-    FORM: Sade ve ferah satış sayfası; az katman, geniş boşluk, belirgin yüzey ritmi ve tek seferlik hero hareketi.
+    STORY: Ziyaretçi akışı canlı görür, üç adımı anlar, sektörünü seçer, çözümünü değerlendirir ve demo talebine ilerler.
+    FORM: Sade ve ferah satış sayfası; tek anlatım, az katman, geniş boşluk.
   -->
 
   <section class="v3-hero" aria-labelledby="v3-hero-title">
@@ -69,11 +68,15 @@ const homeSteps = [
           OMDI, WhatsApp müşterinizi 7/24 karşılar, ihtiyacını anlar
           ve ekibinize görüşmeye hazır bir özet bırakır.
         </p>
+        <p class="v3-hero__channel">
+          <MessageCircle aria-hidden="true" />
+          WhatsApp üzerinden çalışır
+        </p>
         <div class="v3-hero__actions">
-          <a class="button button--gold button--arrow" href="#demo-talep">
+          <button class="button button--gold button--arrow" type="button" data-demo-open>
             Demo Talep Et
             <ArrowRight aria-hidden="true" />
-          </a>
+          </button>
           <a class="v4-hero__text-link" href="#nasil-calisir">
             3 adımda nasıl çalışır?
             <ArrowRight aria-hidden="true" />
@@ -86,69 +89,11 @@ const homeSteps = [
         </ul>
       </div>
 
-      <div class="v3-conversation" aria-label="OMDI örnek WhatsApp satış akışı">
-        <div class="v3-conversation__frame">
-          <div class="v3-conversation__topbar">
-            <div class="v3-conversation__avatar" aria-hidden="true">
-              <Bot />
-            </div>
-            <div>
-              <strong>OMDI Satış Asistanı</strong>
-              <span><i aria-hidden="true"></i> Çevrimiçi</span>
-            </div>
-            <small>Örnek akış</small>
-          </div>
-
-          <div class="v3-conversation__body">
-            <div class="v3-chat v3-chat--customer" data-hero-step="1">
-              <span>Müşteri</span>
-              <p>Saç ekimi için fiyat ve uygunluk bilgisi alabilir miyim?</p>
-              <time>10:42</time>
-            </div>
-
-            <div class="v3-chat v3-chat--omdi" data-hero-step="2">
-              <div class="v3-chat__sender">
-                <Sparkles aria-hidden="true" />
-                <span>OMDI</span>
-              </div>
-              <p>Elbette. Size uygun akışı hazırlamak için birkaç kısa bilgi alacağım.</p>
-              <time>10:42</time>
-            </div>
-
-            <div class="v3-qualification" data-hero-step="3">
-              <div class="v3-qualification__head">
-                <span>Nitelendirme tamamlandı</span>
-                <CircleCheckBig aria-hidden="true" />
-              </div>
-              <dl>
-                <div><dt>İşlem</dt><dd>Saç ekimi</dd></div>
-                <div><dt>Plan</dt><dd>1–2 ay</dd></div>
-                <div><dt>Durum</dt><dd>Sıcak aday</dd></div>
-              </dl>
-            </div>
-
-            <div class="v3-handoff" data-hero-step="4">
-              <div class="v3-handoff__icon" aria-hidden="true">
-                <UserRoundCheck />
-              </div>
-              <div>
-                <span>Satış ekibine hazır</span>
-                <strong>İhtiyaç özeti ve görüşme talebi oluşturuldu.</strong>
-              </div>
-              <ArrowRight aria-hidden="true" />
-            </div>
-          </div>
-        </div>
-        <div class="v3-conversation__caption">
-          <span>01 Mesaj</span>
-          <i aria-hidden="true"></i>
-          <span>02 İhtiyaç analizi</span>
-          <i aria-hidden="true"></i>
-          <span>03 Teslim</span>
-        </div>
-      </div>
+      <HeroChat />
     </div>
   </section>
+
+  <SocialProof />
 
   <section class="v3-section v3-process" id="nasil-calisir">
     <div class="shell">
@@ -161,10 +106,10 @@ const homeSteps = [
         </p>
       </div>
 
-      <div class="v3-process__track">
+      <div class="v3-process__track" data-reveal-group>
         {
           homeSteps.map((item, index) => (
-            <article class="v3-process__step">
+            <article class="v3-process__step" data-reveal>
               <div class="v3-process__number">
                 <span>{item.step}</span>
                 {index < homeSteps.length - 1 && <i aria-hidden="true"></i>}
@@ -186,86 +131,7 @@ const homeSteps = [
     </div>
   </section>
 
-  <section class="v3-section v3-scenario">
-    <div class="shell">
-      <div class="v3-scenario__heading" data-reveal>
-        <div>
-          <p class="v3-eyebrow v3-eyebrow--gold">Örnek sektör akışı</p>
-          <h2>Mesaj gelir. OMDI netleştirir. Ekip ilerletir.</h2>
-        </div>
-        <p>
-          Estetik ve saç ekimi işletmeleri için örnek akış.
-          Aynı mantık sektörünüzün karar noktalarına uyarlanır.
-        </p>
-      </div>
-
-      <div class="v3-scenario__flow">
-        <article>
-          <span>01 · Müşteriden alınır</span>
-          <h3>İhtiyaç netleştirilir</h3>
-          <p>{sectors[0].input}</p>
-        </article>
-        <ArrowRight class="v3-scenario__arrow" aria-hidden="true" />
-        <article>
-          <span>02 · OMDI ilerletir</span>
-          <h3>Konuşma nitelendirilir</h3>
-          <p>{sectors[0].action}</p>
-        </article>
-        <ArrowRight class="v3-scenario__arrow" aria-hidden="true" />
-        <article class="v3-scenario__result">
-          <span>03 · Ekibe bırakılır</span>
-          <h3>Hazır görüşme talebi</h3>
-          <p>{sectors[0].output}</p>
-        </article>
-      </div>
-
-      <div class="v3-scenario__footer">
-        <p><Zap aria-hidden="true" /> Sektörünüzün soru akışına göre yapılandırılır.</p>
-        <a class="v3-text-link v3-text-link--light" href="/sektorler">
-          Tüm sektör senaryoları
-          <ArrowRight aria-hidden="true" />
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="v3-section v3-solutions" id="cozumler">
-    <div class="shell">
-      <div class="v3-heading v3-heading--split" data-reveal>
-        <div>
-          <p class="v3-eyebrow">OMDI çözümleri</p>
-          <h2>Bugün ihtiyacınız olan yerden başlayın.</h2>
-        </div>
-        <p>
-          İlk karşılamadan entegrasyonlu otomasyona kadar
-          dört net çözüm seviyesi.
-        </p>
-      </div>
-
-      <div class="v3-solution-list">
-        {
-          solutions.map((solution, index) => (
-            <a
-              class:list={[
-                "v3-solution-row",
-                { "v3-solution-row--featured": "featured" in solution && solution.featured },
-              ]}
-              href={solution.id === "custom" ? "/?cozum=custom#demo-talep" : `/cozumler#${solution.id}`}
-            >
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <small>{solution.label}</small>
-                <h3>{solution.name}</h3>
-              </div>
-              <p>{solution.summary}</p>
-              {"featured" in solution && solution.featured && <b>En Çok Tercih Edilen</b>}
-              <ArrowRight aria-hidden="true" />
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <CostCalculator />
 
   <section class="v3-section v3-pricing" aria-labelledby="v3-pricing-title">
     <div class="shell">
@@ -275,8 +141,7 @@ const homeSteps = [
           <h2 id="v3-pricing-title">Kapsamı görün, size uygun olanı konuşalım.</h2>
         </div>
         <p>
-          DemoV2 fiyatları geçici olarak X değerini gösterir.
-          Net teklif kullanım hacmine göre belirlenir.
+          Tutarlar KDV dahildir. Net teklif kullanım hacmine göre belirlenir.
         </p>
       </div>
 
@@ -295,6 +160,10 @@ const homeSteps = [
           <div><dt>02</dt><dd>Aylık hizmet bedeli</dd></div>
           <div><dt>03</dt><dd>Aylık müşteri görüşmesi kotası</dd></div>
         </dl>
+        <a class="v3-text-link v3-text-link--light" href="/fiyatlandirma">
+          Fiyatlandırmayı gör
+          <ArrowRight aria-hidden="true" />
+        </a>
       </div>
     </div>
   </section>
@@ -305,17 +174,23 @@ const homeSteps = [
         <p class="v3-eyebrow">Sıkça sorulanlar</p>
         <h2>Başlamadan önce merak edilenler.</h2>
         <p>Aradığınız yanıt burada yoksa demo talebinizde bize iletebilirsiniz.</p>
+        <a class="v3-text-link" href="/sss">
+          Tüm soruları gör
+          <ArrowRight aria-hidden="true" />
+        </a>
       </div>
       <div class="v3-faq__list">
         {
-          faqs.map((faq, index) => (
+          landingFaqs.map((faq, index) => (
             <details class="v3-faq__item">
               <summary>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <strong>{faq.question}</strong>
                 <i aria-hidden="true"></i>
               </summary>
-              <p>{faq.answer}</p>
+              <div class="v3-faq__answer">
+                <p>{faq.answer}</p>
+              </div>
             </details>
           ))
         }
@@ -330,7 +205,7 @@ const homeSteps = [
         <h2>Müşteri akışınızı birlikte netleştirelim.</h2>
         <p>
           Hangi mesajları aldığınızı, ekibinizin nerede zaman kaybettiğini
-          ve OMDI’nin hangi adımları üstlenebileceğini konuşalım.
+          ve OMDI'nin hangi adımları üstlenebileceğini konuşalım.
         </p>
         <ul>
           <li><Workflow aria-hidden="true" /> Mevcut iletişim akışınız değerlendirilir.</li>
@@ -339,133 +214,14 @@ const homeSteps = [
         </ul>
       </div>
 
-      <form class="demo-form v3-demo-form" data-demo-form novalidate>
-        <div class="demo-form__heading">
-          <div>
-            <span>DemoV2</span>
-            <h3>Demo Talep Et</h3>
-          </div>
-          <p>Bu form örnek akışı gösterir; veri göndermez.</p>
-        </div>
-
-        <div class="form-grid">
-          <label>
-            <span>Ad soyad</span>
-            <input name="fullName" autocomplete="name" required />
-          </label>
-          <label>
-            <span>İşletme / marka <small>(isteğe bağlı)</small></span>
-            <input name="company" autocomplete="organization" />
-          </label>
-          <label>
-            <span>İş e-postası <small>(isteğe bağlı)</small></span>
-            <input name="email" type="email" autocomplete="email" />
-          </label>
-          <label>
-            <span>Telefon / WhatsApp</span>
-            <input name="phone" type="tel" autocomplete="tel" required />
-          </label>
-          <label>
-            <span>Sektör</span>
-            <select name="sector" required data-sector-select>
-              <option value="">Sektör seçin</option>
-              {sectors.map((sector) => <option value={sector.slug}>{sector.name}</option>)}
-              <option value="diger">Diğer</option>
-            </select>
-          </label>
-          <label>
-            <span>İlgilendiğiniz çözüm</span>
-            <select name="solution" required data-solution-select>
-              <option value="">Çözüm seçin</option>
-              {solutions.map((solution) => <option value={solution.id}>{solution.name}</option>)}
-            </select>
-          </label>
-          <label class="form-grid__wide">
-            <span>Kısa not <small>(isteğe bağlı)</small></span>
-            <textarea
-              name="note"
-              rows="4"
-              placeholder="Müşteri iletişiminde çözmek istediğiniz temel noktayı yazın."
-            ></textarea>
-          </label>
-        </div>
-
-        <button class="button button--gold button--full button--arrow" type="submit">
-          <span>Demo Talep Et</span>
-          <Send aria-hidden="true" />
+      <div class="v3-demo__action" data-reveal>
+        <button class="button button--gold button--full button--arrow" type="button" data-demo-open>
+          Demo Talep Et
+          <ArrowRight aria-hidden="true" />
         </button>
-        <p class="demo-form__privacy">
-          DemoV2’de bilgileriniz hiçbir sunucuya gönderilmez ve tarayıcıda saklanmaz.
-        </p>
-        <div class="form-status" role="status" aria-live="polite" tabindex="-1" data-form-status hidden>
-          <CircleCheckBig aria-hidden="true" />
-          <p></p>
-        </div>
-      </form>
+        <p>Görüşme öncesi hazırlık istemez; 4 soruluk kısa bir form yeterli.</p>
+      </div>
     </div>
   </section>
 
-  <script>
-    import { submitDemoRequest, type DemoRequest } from "../lib/demo-submission";
-
-    const form = document.querySelector<HTMLFormElement>("[data-demo-form]");
-    const status = document.querySelector<HTMLElement>("[data-form-status]");
-    const solutionSelect = document.querySelector<HTMLSelectElement>("[data-solution-select]");
-    const sectorSelect = document.querySelector<HTMLSelectElement>("[data-sector-select]");
-
-    const selectedSolution = new URLSearchParams(window.location.search).get("cozum");
-    if (selectedSolution && solutionSelect) {
-      const optionExists = Array.from(solutionSelect.options).some(
-        (option) => option.value === selectedSolution,
-      );
-      if (optionExists) solutionSelect.value = selectedSolution;
-    }
-
-    const selectedSector = new URLSearchParams(window.location.search).get("sektor");
-    if (selectedSector && sectorSelect) {
-      const optionExists = Array.from(sectorSelect.options).some(
-        (option) => option.value === selectedSector,
-      );
-      if (optionExists) sectorSelect.value = selectedSector;
-    }
-
-    form?.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-      const data = new FormData(form);
-      const request: DemoRequest = {
-        fullName: String(data.get("fullName") ?? ""),
-        company: String(data.get("company") ?? ""),
-        email: String(data.get("email") ?? ""),
-        phone: String(data.get("phone") ?? ""),
-        sector: String(data.get("sector") ?? ""),
-        solution: String(data.get("solution") ?? ""),
-        note: String(data.get("note") ?? ""),
-      };
-
-      if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.querySelector("span")!.textContent = "Tamamlanıyor";
-      }
-
-      const result = await submitDemoRequest(request);
-      form.reset();
-
-      if (status) {
-        status.hidden = false;
-        status.querySelector("p")!.textContent = result.message;
-        status.focus({ preventScroll: true });
-      }
-
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.querySelector("span")!.textContent = "Demo Talep Et";
-      }
-    });
-  </script>
 </BaseLayout>

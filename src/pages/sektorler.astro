@@ -91,13 +91,14 @@ const sectorIcons = [Scissors, GraduationCap, Wrench, Hotel, Factory];
                     <CircleCheckBig aria-hidden="true" />
                   </div>
                 </div>
-                <a
+                <button
                   class="text-link text-link--dark"
-                  href={`/?sektor=${sector.slug}#demo-talep`}
+                  type="button"
+                  data-demo-open
                 >
                   Bu sektör için demo iste
                   <ArrowRight aria-hidden="true" />
-                </a>
+                </button>
               </article>
             );
           })
@@ -122,10 +123,10 @@ const sectorIcons = [Scissors, GraduationCap, Wrench, Hotel, Factory];
           Sorular, yönlendirmeler ve satışa teslim edilen özet; ürününüze,
           hizmetinize ve ekibinizin çalışma biçimine göre netleştirilir.
         </p>
-        <a class="button button--gold button--arrow" href="/#demo-talep">
+        <button class="button button--gold button--arrow" type="button" data-demo-open>
           Kullanım Senaryonuzu Konuşalım
           <ArrowRight aria-hidden="true" />
-        </a>
+        </button>
       </div>
     </div>
   </section>

@@ -5,6 +5,7 @@ import "@fontsource/montserrat/700.css";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import DemoModal from "../components/DemoModal.astro";
 
 interface Props {
   title: string;
@@ -21,22 +22,52 @@ const {
   hideChrome = false,
   bodyClass = "",
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL("/brand/omdi-logo-full-color.png", Astro.site).href;
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "OMDI",
+  url: Astro.site?.href,
+  logo: ogImage,
+  description:
+    "İşletmeler için WhatsApp üzerinden çalışan yapay zekâ satış asistanı.",
+  areaServed: "TR",
+};
 ---
 
 <!doctype html>
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0B1320" />
+    <!-- Favicon tanımı yoksa tarayıcı her sayfada /favicon.ico için 404 üretir. -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="40x40" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="tr_TR" />
+    <meta property="og:site_name" content="OMDI" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{title}</title>
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(organizationSchema)}
+    />
     <script is:inline>
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         document.documentElement.classList.add("motion-ready");
@@ -50,46 +81,23 @@ const {
       <slot />
     </main>
     {!hideChrome && <Footer />}
+    {!hideChrome && <DemoModal />}
 
     <script>
-      import { syncPricingElements } from "../lib/pricing";
-
       const setupSite = () => {
-        syncPricingElements();
-
-        const menuToggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
-        const nav = document.querySelector<HTMLElement>("[data-site-nav]");
-
-        if (menuToggle && nav) {
-          const closeMenu = () => {
-            menuToggle.setAttribute("aria-expanded", "false");
-            menuToggle.setAttribute("aria-label", "Menüyü aç");
-            nav.classList.remove("is-open");
-            document.body.classList.remove("menu-open");
-          };
-
-          menuToggle.addEventListener("click", () => {
-            const open = menuToggle.getAttribute("aria-expanded") !== "true";
-            menuToggle.setAttribute("aria-expanded", String(open));
-            menuToggle.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç");
-            nav.classList.toggle("is-open", open);
-            document.body.classList.toggle("menu-open", open);
-          });
-
-          nav.querySelectorAll("a").forEach((link) => {
-            link.addEventListener("click", closeMenu);
-          });
-
-          window.addEventListener("resize", () => {
-            if (window.innerWidth > 880) closeMenu();
-          });
-        }
-
         const revealElements = document.querySelectorAll<HTMLElement>("[data-reveal]");
+
         if (
           document.documentElement.classList.contains("motion-ready") &&
           "IntersectionObserver" in window
         ) {
+          // Aynı grup içindeki kardeşler 70ms arayla belirir.
+          document.querySelectorAll<HTMLElement>("[data-reveal-group]").forEach((group) => {
+            group.querySelectorAll<HTMLElement>("[data-reveal]").forEach((item, index) => {
+              item.style.setProperty("--reveal-delay", `${index * 70}ms`);
+            });
+          });
+
           const observer = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
@@ -98,7 +106,7 @@ const {
                 observer.unobserve(entry.target);
               });
             },
-            { threshold: 0.16 },
+            { threshold: 0.15 },
           );
           revealElements.forEach((element) => observer.observe(element));
         } else {

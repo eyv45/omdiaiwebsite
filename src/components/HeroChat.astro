@@ -1,0 +1,685 @@
+---
+import { heroConversations } from "../data/content";
+
+/**
+ * Hero'daki WhatsApp örnek yazışma kartı.
+ * Sektörler 5 saniyede bir kendiliğinden değişir; sayaç sekmelerin üstündeki
+ * ince altın çizgiyle gösterilir. Karta fareyle gelindiğinde sayaç donar,
+ * fare ayrılınca kaldığı yerden devam eder.
+ */
+
+const DURATION_MS = 5000;
+---
+
+<div
+  class="hero-chat"
+  data-hero-chat
+  data-wa-duration={DURATION_MS}
+  aria-label="Sektörlere göre örnek WhatsApp yazışmaları"
+>
+  <div class="hero-chat__frame">
+    <div class="hero-chat__device">
+      <div class="hero-chat__top">
+        <span class="hero-chat__avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z"
+            ></path>
+          </svg>
+        </span>
+
+        <div class="hero-chat__id">
+          <strong data-wa-name>{heroConversations[0].business}</strong>
+          <span class="hero-chat__status">
+            <i aria-hidden="true"></i>
+            <span data-wa-status>çevrimiçi</span>
+          </span>
+        </div>
+
+        <div class="hero-chat__actions" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M15 10.5V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3.5l6 3.5V7Z"
+            ></path>
+          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path
+              d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.6a1 1 0 0 1-.25 1Z"
+            ></path>
+          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="5" r="1.7"></circle>
+            <circle cx="12" cy="12" r="1.7"></circle>
+            <circle cx="12" cy="19" r="1.7"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <div class="hero-chat__stage">
+        {
+          heroConversations.map((item, index) => (
+            <div
+              class="hero-chat__thread"
+              data-wa-thread
+              data-business={item.business}
+              hidden={index !== 0}
+            >
+              <p class="hero-chat__daytag"><span>Bugün</span></p>
+
+              {item.messages.map((message) => (
+                <div class:list={["wa-row", `wa-row--${message.from}`]} data-wa-row>
+                  <div class="wa-bubble">
+                    <p>{message.text}</p>
+                    <span class="wa-bubble__meta">
+                      <time>{message.time}</time>
+                      {message.from === "omdi" && (
+                        <svg class="wa-tick" viewBox="0 0 18 12" fill="none" aria-hidden="true">
+                          <path
+                            d="M1 6.4 4.2 9.6 10.6 2.4"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M7.2 9.4 12.9 2.4"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="hero-chat__compose" aria-hidden="true">
+        <span class="hero-chat__field">Mesaj yazın</span>
+        <span class="hero-chat__send">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"></path>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-chat__bar" role="tablist" aria-label="Sektör seçin" data-wa-bar>
+    {
+      heroConversations.map((item, index) => (
+        <button
+          class="hero-chat__tab"
+          type="button"
+          role="tab"
+          data-wa-tab
+          aria-selected={index === 0 ? "true" : "false"}
+          tabindex={index === 0 ? 0 : -1}
+        >
+          <i class="hero-chat__progress" aria-hidden="true" data-wa-progress />
+          <span>{item.tab}</span>
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .hero-chat {
+    --wa-header: #0b6152;
+    --wa-wallpaper: #efe7de;
+    --wa-in: #ffffff;
+    --wa-out: #d9fdd3;
+    --wa-ink: #111b21;
+    --wa-meta: rgba(17, 27, 33, 0.45);
+    --wa-tick: #53bdeb;
+
+    position: relative;
+    z-index: 2;
+    justify-self: end;
+    width: min(100%, 545px);
+  }
+
+  .hero-chat__frame {
+    position: relative;
+  }
+
+  /* Marka kimliğini koruyan altın ofset çerçeve; yalnızca telefon kartını
+     sarar, altındaki sektör sekmelerine taşmaz. */
+  .hero-chat__frame::before {
+    content: "";
+    position: absolute;
+    inset: -20px -20px 20px 20px;
+    z-index: -1;
+    border: 1px solid rgba(184, 139, 11, 0.28);
+    border-radius: 20px;
+  }
+
+  .hero-chat__device {
+    overflow: hidden;
+    border: 1px solid rgba(11, 19, 32, 0.16);
+    border-radius: 18px;
+    background: var(--wa-wallpaper);
+    box-shadow: 0 30px 80px rgba(11, 19, 32, 0.16);
+  }
+
+  /* ---------- üst bar ---------- */
+
+  .hero-chat__top {
+    padding: 11px 14px;
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 11px;
+    align-items: center;
+    color: #fff;
+    background: var(--wa-header);
+  }
+
+  .hero-chat__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .hero-chat__avatar svg { width: 26px; height: 26px; }
+
+  .hero-chat__id { min-width: 0; }
+
+  .hero-chat__id strong {
+    display: block;
+    overflow: hidden;
+    font-size: 0.83rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .hero-chat__status {
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.66rem;
+  }
+
+  .hero-chat__status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7ee08a;
+  }
+
+  .hero-chat__actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .hero-chat__actions svg { width: 19px; height: 19px; }
+
+  /* ---------- sohbet zemini ---------- */
+
+  .hero-chat__stage {
+    position: relative;
+    /* Yazışmanın büyük bölümü kaydırmadan görünsün diye zemin uzun tutulur;
+       en dolu sektör senaryosu ~630px sürüyor. */
+    height: clamp(452px, 58vh, 632px);
+    background-color: var(--wa-wallpaper);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23c8bcae' stroke-width='1.4' stroke-linecap='round' opacity='.55'%3E%3Cpath d='M28 34c6-8 14-8 20 0'/%3E%3Ccircle cx='96' cy='28' r='7'/%3E%3Cpath d='M150 20v16M142 28h16'/%3E%3Cpath d='M200 34l8-12 8 12z'/%3E%3Cpath d='M22 96h18v12H22z'/%3E%3Cpath d='M78 92q10-12 20 0t20 0'/%3E%3Ccircle cx='168' cy='100' r='9'/%3E%3Cpath d='M212 92v18M204 101h16'/%3E%3Cpath d='M30 168q10-12 20 0t20 0'/%3E%3Ccircle cx='112' cy='170' r='7'/%3E%3Cpath d='M158 162l10 8-10 8z'/%3E%3Cpath d='M206 162h20v16h-20z'/%3E%3Cpath d='M26 232l9-13 9 13z'/%3E%3Cpath d='M84 226h20M84 234h12'/%3E%3Ccircle cx='150' cy='230' r='8'/%3E%3Cpath d='M198 222q10 12 20 0'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-chat__thread {
+    position: absolute;
+    inset: 0;
+    padding: 14px 15px 18px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(11, 19, 32, 0.22) transparent;
+  }
+
+  .hero-chat__thread[hidden] { display: none; }
+
+  .hero-chat__thread::-webkit-scrollbar { width: 5px; }
+  .hero-chat__thread::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(11, 19, 32, 0.2);
+  }
+
+  .hero-chat__daytag {
+    margin: 0 0 12px;
+    text-align: center;
+  }
+
+  .hero-chat__daytag span {
+    padding: 4px 11px;
+    display: inline-block;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+    color: var(--wa-meta);
+    font-size: 0.63rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ---------- baloncuklar ---------- */
+
+  .wa-row {
+    margin-bottom: 9px;
+    display: flex;
+  }
+
+  .wa-row--customer { justify-content: flex-start; }
+  .wa-row--omdi { justify-content: flex-end; }
+
+  .wa-bubble {
+    position: relative;
+    max-width: 79%;
+    padding: 6px 9px 6px;
+    border-radius: 8px;
+    box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+    color: var(--wa-ink);
+  }
+
+  .wa-bubble p {
+    margin: 0;
+    font-size: 0.795rem;
+    line-height: 1.45;
+  }
+
+  .wa-row--customer .wa-bubble {
+    border-top-left-radius: 0;
+    background: var(--wa-in);
+  }
+
+  .wa-row--omdi .wa-bubble {
+    border-top-right-radius: 0;
+    background: var(--wa-out);
+  }
+
+  /* WhatsApp baloncuk kuyruğu. */
+  .wa-bubble::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 9px;
+    height: 13px;
+  }
+
+  .wa-row--customer .wa-bubble::after {
+    left: -9px;
+    background: var(--wa-in);
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+  }
+
+  .wa-row--omdi .wa-bubble::after {
+    right: -9px;
+    background: var(--wa-out);
+    clip-path: polygon(0 0, 0 100%, 100% 0);
+  }
+
+  .wa-bubble__meta {
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    color: var(--wa-meta);
+    font-size: 0.625rem;
+  }
+
+  .wa-tick {
+    width: 15px;
+    height: 11px;
+    color: var(--wa-tick);
+  }
+
+  /* ---------- yazma çubuğu (dekoratif) ---------- */
+
+  .hero-chat__compose {
+    padding: 9px 12px;
+    display: grid;
+    grid-template-columns: 1fr 38px;
+    gap: 8px;
+    align-items: center;
+    background: #f0f2f5;
+    border-top: 1px solid rgba(11, 19, 32, 0.08);
+  }
+
+  .hero-chat__field {
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: #fff;
+    color: #8d97a1;
+    font-size: 0.76rem;
+  }
+
+  .hero-chat__send {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: var(--wa-header);
+  }
+
+  .hero-chat__send svg { width: 18px; height: 18px; }
+
+  /* ---------- sektör barı ---------- */
+
+  .hero-chat__bar {
+    /* Altın çerçevenin alt kenarı 20px içeride bittiği için sekmeler onunla
+       çakışmayacak kadar aşağıda başlar. */
+    margin-top: 26px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .hero-chat__tab {
+    position: relative;
+    padding: 11px 4px 0;
+    border: 0;
+    border-top: 2px solid rgba(11, 19, 32, 0.12);
+    background: none;
+    color: #5c6674;
+    font-size: 0.66rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    text-align: left;
+    cursor: pointer;
+    transition: color 180ms ease;
+  }
+
+  .hero-chat__tab:hover { color: #0b1320; }
+  .hero-chat__tab[aria-selected="true"] { color: #0b1320; }
+
+  /* Sekmenin üstündeki 2px'lik altın çizgi sayacı gösterir; dolduğunda script
+     bir sonraki sektöre geçer. Genişlik JS tarafından scaleX ile sürülür ki
+     azaltılmış hareket ayarında da sayaç çalışsın. */
+  .hero-chat__progress {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    /* Genişlik her karede JS'ten geliyor; araya geçiş girerse sayaç gerçek
+       süreden geri kalır (azaltılmış harekette global kural tüm özelliklere
+       0.01ms geçiş veriyor). */
+    transition-property: none;
+    background: #d4af37;
+  }
+
+  /* ---------- giriş animasyonu ---------- */
+
+  :global(.motion-ready) .hero-chat__thread .wa-row {
+    opacity: 0;
+    transform: translateY(9px) scale(0.985);
+  }
+
+  :global(.motion-ready) .hero-chat__thread .wa-row.is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 260ms ease-out,
+      transform 300ms cubic-bezier(0.2, 0.8, 0.3, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-chat__thread .wa-row {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* ---------- duyarlı ---------- */
+
+  @media (max-width: 1020px) {
+    .hero-chat {
+      justify-self: center;
+      width: min(100%, 620px);
+    }
+
+    /* Kart tek sütuna inince sekmeler 3'lü ızgarada daha okunur kalıyor. */
+    .hero-chat__bar { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 12px; }
+
+    /* Dokunmatik hedefi 44px'in altına düşürmeden. */
+    .hero-chat__tab { min-height: 44px; }
+  }
+
+  @media (max-width: 880px) {
+    .hero-chat { justify-self: start; }
+    .hero-chat__frame::before { inset: -14px -14px 14px 14px; }
+  }
+
+  @media (max-width: 660px) {
+    .hero-chat__frame::before { display: none; }
+
+    .hero-chat__stage { height: clamp(400px, 66vh, 500px); }
+    .hero-chat__actions svg:first-child { display: none; }
+    .wa-bubble { max-width: 86%; }
+    .wa-bubble p { font-size: 0.78rem; }
+
+    .hero-chat__bar {
+      margin-top: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2px 10px;
+    }
+
+    .hero-chat__tab { padding: 9px 2px 6px; font-size: 0.63rem; }
+  }
+
+  @media (max-width: 380px) {
+    .hero-chat__id strong { font-size: 0.78rem; }
+    .hero-chat__tab { font-size: 0.6rem; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-hero-chat]");
+
+  if (root) {
+    const threads = Array.from(root.querySelectorAll<HTMLElement>("[data-wa-thread]"));
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-wa-tab]"));
+    const nameEl = root.querySelector<HTMLElement>("[data-wa-name]");
+    const statusEl = root.querySelector<HTMLElement>("[data-wa-status]");
+    const progressBars = tabs.map((tab) => tab.querySelector<HTMLElement>("[data-wa-progress]"));
+    const motion = document.documentElement.classList.contains("motion-ready");
+
+    const STEP_MS = 340;
+    const DURATION_MS = Number(root.dataset.waDuration) || 5000;
+
+    let current = 0;
+    let timers: number[] = [];
+    let elapsed = 0;
+    let lastFrame = 0;
+    let hoverPaused = false;
+    let offScreen = false;
+
+    const clearTimers = () => {
+      timers.forEach(window.clearTimeout);
+      timers = [];
+    };
+
+    const after = (delay: number, fn: () => void) => {
+      timers.push(window.setTimeout(fn, delay));
+    };
+
+    const isPaused = () => hoverPaused || offScreen || document.hidden;
+
+    let pausedFlag = false;
+
+    const syncPaused = () => {
+      const paused = isPaused();
+      if (paused === pausedFlag) return;
+      pausedFlag = paused;
+      root.classList.toggle("is-paused", paused);
+    };
+
+    /** Sayaç çizgisini 0–1 aralığında doldurur. */
+    const drawProgress = (ratio: number) => {
+      progressBars.forEach((bar, i) => {
+        if (!bar) return;
+        bar.style.transform = `scaleX(${i === current ? ratio : 0})`;
+      });
+    };
+
+    /** Sektörü gösterir ve mesajları sırayla belirtir. */
+    const activate = (index: number) => {
+      clearTimers();
+      current = index;
+      elapsed = 0;
+      drawProgress(0);
+
+      threads.forEach((thread, i) => {
+        thread.hidden = i !== index;
+        if (i !== index) return;
+
+        thread.scrollTop = 0;
+        if (nameEl) nameEl.textContent = thread.dataset.business ?? "";
+      });
+
+      tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.setAttribute("aria-selected", String(active));
+        tab.tabIndex = active ? 0 : -1;
+      });
+
+      const thread = threads[index];
+      const rows = Array.from(thread.querySelectorAll<HTMLElement>("[data-wa-row]"));
+
+      if (!motion) {
+        // Azaltılmış harekette animasyon oynamaz; sabit görünüm ilk mesajdan
+        // başlamalı. En alta kaydırmak üst balonu üst boşluksuz kesiyordu.
+        rows.forEach((row) => row.classList.add("is-in"));
+        thread.scrollTop = 0;
+        return;
+      }
+
+      rows.forEach((row) => row.classList.remove("is-in"));
+      if (statusEl) statusEl.textContent = "yazıyor…";
+
+      rows.forEach((row, i) => {
+        after(i * STEP_MS, () => {
+          row.classList.add("is-in");
+          thread.scrollTo({ top: thread.scrollHeight, behavior: "smooth" });
+
+          if (i === rows.length - 1 && statusEl) statusEl.textContent = "çevrimiçi";
+        });
+      });
+    };
+
+    /* ---------- otomatik geçiş ----------
+       Sayaç CSS animasyonu yerine zamanlayıcıyla sürülür: azaltılmış hareket
+       ayarında da çalışır, duraklatıldığında çizgi kaldığı yerde durur ve
+       fare ayrılınca aynı noktadan devam eder. Gerçek geçen süre ölçüldüğü
+       için kısılan sekmelerde de 5 saniyelik ritim korunur. */
+
+    const TICK_MS = 40;
+
+    const tick = () => {
+      const now = performance.now();
+      const delta = lastFrame ? Math.min(now - lastFrame, 250) : 0;
+      lastFrame = now;
+
+      syncPaused();
+      if (pausedFlag) return;
+
+      elapsed += delta;
+      const ratio = Math.min(1, elapsed / DURATION_MS);
+      drawProgress(ratio);
+
+      if (ratio >= 1) activate((current + 1) % threads.length);
+    };
+
+    /* ---------- sekme etkileşimi ---------- */
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("mouseenter", () => {
+        if (index !== current) activate(index);
+      });
+
+      tab.addEventListener("focus", () => {
+        hoverPaused = true;
+        syncPaused();
+        if (index !== current) activate(index);
+      });
+
+      tab.addEventListener("click", () => activate(index));
+
+      tab.addEventListener("keydown", (event) => {
+        const last = tabs.length - 1;
+        let next: number | null = null;
+
+        if (event.key === "ArrowRight") next = index === last ? 0 : index + 1;
+        else if (event.key === "ArrowLeft") next = index === 0 ? last : index - 1;
+        else if (event.key === "Home") next = 0;
+        else if (event.key === "End") next = last;
+
+        if (next === null) return;
+        event.preventDefault();
+        activate(next);
+        tabs[next].focus();
+      });
+    });
+
+    /* ---------- duraklatma ----------
+       Sayaç yalnızca sekmelerin değil, tüm kartın üzerine gelindiğinde durur;
+       fare ayrılınca kaldığı yerden devam eder. */
+
+    root.addEventListener("mouseenter", () => {
+      hoverPaused = true;
+      syncPaused();
+    });
+
+    root.addEventListener("mouseleave", () => {
+      hoverPaused = false;
+      syncPaused();
+    });
+
+    root.addEventListener("focusout", (event) => {
+      const next = event.relatedTarget as Node | null;
+      if (next && root.contains(next)) return;
+      hoverPaused = false;
+      syncPaused();
+    });
+
+    document.addEventListener("visibilitychange", syncPaused);
+
+    /* ---------- görünürlük ---------- */
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          offScreen = !entry.isIntersecting;
+          syncPaused();
+        },
+        { threshold: 0.25 },
+      );
+
+      observer.observe(root);
+    }
+
+    syncPaused();
+    activate(0);
+    window.setInterval(tick, TICK_MS);
+  }
+</script>

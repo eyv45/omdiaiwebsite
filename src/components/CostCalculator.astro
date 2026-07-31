@@ -1,0 +1,230 @@
+---
+import { ArrowRight, Clock3, Layers, ShieldCheck, Sun } from "@lucide/astro";
+import { calculator } from "../data/content";
+
+const { defaults, limits } = calculator;
+
+const advantages = [
+  {
+    icon: Clock3,
+    title: "7/24 açık",
+    copy: "Mesai saati yok. Gece ve hafta sonu gelen mesaj sabahı beklemez.",
+  },
+  {
+    icon: Sun,
+    title: "Her gün aynı standart",
+    copy: "İzin, rapor ve yoğunluk fark etmez; aynı sorular aynı düzende sorulur.",
+  },
+  {
+    icon: Layers,
+    title: "Aynı anda birden çok konuşma",
+    copy: "Her konuşma kendi bağlamıyla ilerler; müşteri sıraya girmez.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Sınırların içinde kalır",
+    copy: "Fiyat yetkisi ve ekibe aktarım kuralları sizin belirlediğiniz kadardır.",
+  },
+];
+---
+
+<section class="v3-section v3-roi" id="hesap" aria-labelledby="v3-roi-title">
+  <div class="shell v3-roi__layout">
+    <div class="v3-roi__copy" data-reveal>
+      <p class="v3-eyebrow">Karşılaştırma</p>
+      <h2 id="v3-roi-title">DM operasyonunun maliyeti — kendi rakamlarınızla.</h2>
+      <p>
+        Bir satış personelinin aylık maliyeti yalnızca maaş değildir; sigorta,
+        izin, eğitim ve işe alım da aynı hanededir. Aşağıdaki hesap bu tutarı
+        sizin girdiğiniz rakamla çalıştırır — hazır bir tasarruf oranı yoktur.
+      </p>
+
+      <ul class="v3-roi__advantages">
+        {
+          advantages.map((item) => {
+            const Icon = item.icon;
+            return (
+              <li>
+                <Icon aria-hidden="true" />
+                <div>
+                  <strong>{item.title}</strong>
+                  <span>{item.copy}</span>
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+
+    <div class="roi-card" data-reveal data-roi>
+      <div class="roi-card__head">
+        <span>Maliyet hesabı</span>
+        <small>kendi rakamlarınız</small>
+      </div>
+
+      <div class="roi-field">
+        <label for="roi-conversations">
+          Günde kaç müşteri size yazıyor?
+          <b><output data-roi-out="conversations">{defaults.dailyConversations}</output> müşteri / gün</b>
+        </label>
+        <input
+          id="roi-conversations"
+          type="range"
+          min={limits.dailyConversations.min}
+          max={limits.dailyConversations.max}
+          step={limits.dailyConversations.step}
+          value={defaults.dailyConversations}
+          data-roi-input="conversations"
+        />
+        <p>Ortalama bir günü girin; bu sayı kaç kişi gerektiğini belirler.</p>
+      </div>
+
+      <div class="roi-field">
+        <label for="roi-staff">
+          Bir satış personelinin aylık toplam maliyeti
+          <b><output data-roi-out="staff">{defaults.staffMonthlyCost}</output> TL</b>
+        </label>
+        <input
+          id="roi-staff"
+          type="range"
+          min={limits.staffMonthlyCost.min}
+          max={limits.staffMonthlyCost.max}
+          step={limits.staffMonthlyCost.step}
+          value={defaults.staffMonthlyCost}
+          data-roi-input="staff"
+        />
+        <p>Maaş, sigorta, izin, eğitim ve işe alım dahil — kişi başına.</p>
+      </div>
+
+      <div class="roi-field">
+        <label for="roi-hours">
+          Günlük mesai süreniz
+          <b><output data-roi-out="hours">{defaults.workHours}</output> saat</b>
+        </label>
+        <input
+          id="roi-hours"
+          type="range"
+          min={limits.workHours.min}
+          max={limits.workHours.max}
+          step={limits.workHours.step}
+          value={defaults.workHours}
+          data-roi-input="hours"
+        />
+        <p>Mesai dışında kalan saatler cevapsız kalan mesajları belirler.</p>
+      </div>
+
+      <dl class="roi-results" aria-live="polite">
+        <div>
+          <dt>Bu hacim için gereken kişi</dt>
+          <dd><strong data-roi-out="people">1</strong><small>kişi</small></dd>
+        </div>
+        <div>
+          <dt>Aylık personel maliyeti</dt>
+          <dd><strong data-roi-out="staffMonthly">—</strong><small>TL / ay</small></dd>
+        </div>
+        <div>
+          <dt>Yıllık karşılığı</dt>
+          <dd><strong data-roi-out="staffYearly">—</strong><small>TL / yıl</small></dd>
+        </div>
+        <div class="roi-results__omdi">
+          <dt>OMDI ile aylık <b data-roi-out="package">—</b></dt>
+          <dd><strong data-roi-out="omdiMonthly">—</strong><small>TL / ay</small></dd>
+        </div>
+        <div class="roi-results__saving" data-roi-saving>
+          <dt>
+            <span class="roi-label" data-roi-out="savingLabel">Yıllık net kârınız</span>
+            <span>yalnızca personel maliyeti üzerinden</span>
+          </dt>
+          <dd><strong data-roi-out="yearlySaving">—</strong><small>TL / yıl</small></dd>
+        </div>
+        <div class="roi-results__missed">
+          <dt>
+            Mesai dışında cevapsız kalan
+            <span>günde <b data-roi-out="closedHours">—</b> saat kapalısınız</span>
+          </dt>
+          <dd><strong data-roi-out="missed">—</strong><small>müşteri / gün</small></dd>
+        </div>
+      </dl>
+
+      <p class="roi-card__note">
+        Kişi ihtiyacı, bir kişinin günde {calculator.conversationsPerPersonPerDay} görüşme
+        yürüttüğü kabulüyle hesaplanır. Hazır bir tasarruf oranı kullanılmaz;
+        tutarlar KDV dahildir.
+      </p>
+
+      <button class="button button--gold button--full button--arrow" type="button" data-demo-open>
+        Kendi rakamlarınızı konuşalım
+        <ArrowRight aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { calculator, pricing } from "../data/content";
+
+  const root = document.querySelector<HTMLElement>("[data-roi]");
+
+  if (root) {
+    const tl = new Intl.NumberFormat("tr-TR");
+    const out = (name: string) => root.querySelector<HTMLElement>(`[data-roi-out="${name}"]`);
+    const input = (name: string) => root.querySelector<HTMLInputElement>(`[data-roi-input="${name}"]`);
+
+    // "8.050 TL" gibi metinleri sayıya çevirir; fiyatlar tek kaynaktan gelsin diye.
+    const toNumber = (value: string) => Number(value.replace(/[^\d]/g, ""));
+
+    const packages = [
+      { name: "Sales", monthly: toNumber(pricing.sales.monthlyFee), maxMonthly: 1000 },
+      { name: "Scale", monthly: toNumber(pricing.scale.monthlyFee), maxMonthly: 1500 },
+    ];
+
+    const render = () => {
+      const daily = Number(input("conversations")?.value ?? 0);
+      const staffCost = Number(input("staff")?.value ?? 0);
+      const hours = Number(input("hours")?.value ?? 0);
+
+      const people = Math.max(
+        1,
+        Math.ceil(daily / calculator.conversationsPerPersonPerDay),
+      );
+      const staffMonthly = people * staffCost;
+      const monthlyConversations = daily * 30;
+
+      const pack = packages.find((p) => monthlyConversations <= p.maxMonthly) ?? packages[1];
+      const overQuota = monthlyConversations > packages[1].maxMonthly;
+
+      const yearlySaving = (staffMonthly - pack.monthly) * 12;
+      const closedHours = Math.max(0, 24 - hours);
+      const missed = Math.round((daily * closedHours) / 24);
+
+      const set = (name: string, value: string) => {
+        const el = out(name);
+        if (el) el.textContent = value;
+      };
+
+      set("conversations", tl.format(daily));
+      set("staff", tl.format(staffCost));
+      set("hours", String(hours));
+      set("people", String(people));
+      set("staffMonthly", tl.format(staffMonthly));
+      set("staffYearly", tl.format(staffMonthly * 12));
+      set("package", overQuota ? "· Scale — hacminize göre teklif" : `· ${pack.name}`);
+      set("omdiMonthly", tl.format(pack.monthly));
+      set("closedHours", String(closedHours));
+      set("missed", tl.format(missed));
+
+      const saving = root.querySelector<HTMLElement>("[data-roi-saving]");
+
+      set("yearlySaving", tl.format(Math.abs(yearlySaving)));
+      set("savingLabel", yearlySaving >= 0 ? "Yıllık net kârınız" : "Yıllık ek maliyet");
+      saving?.classList.toggle("is-negative", yearlySaving < 0);
+    };
+
+    root.querySelectorAll<HTMLInputElement>("[data-roi-input]").forEach((el) => {
+      el.addEventListener("input", render);
+    });
+
+    render();
+  }
+</script>

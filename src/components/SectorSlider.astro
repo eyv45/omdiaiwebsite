@@ -1,0 +1,149 @@
+---
+import { ArrowRight, Bot, CircleCheckBig, Sparkles } from "@lucide/astro";
+import { sectorConversations, sectors } from "../data/content";
+
+const nameOf = (slug: string) => sectors.find((sector) => sector.slug === slug)?.name ?? "";
+---
+
+<div class="sector-slider" data-sector-slider>
+  <div class="sector-slider__tabs" role="tablist" aria-label="Sektörler">
+    {
+      sectorConversations.map((item, index) => (
+        <button
+          class="sector-slider__tab"
+          type="button"
+          role="tab"
+          id={`sector-tab-${item.slug}`}
+          aria-controls={`sector-panel-${item.slug}`}
+          aria-selected={index === 0 ? "true" : "false"}
+          tabindex={index === 0 ? 0 : -1}
+          data-sector-tab
+        >
+          {item.tab}
+        </button>
+      ))
+    }
+    <span class="sector-slider__indicator" aria-hidden="true" data-sector-indicator></span>
+  </div>
+
+  <div class="sector-slider__stage">
+    {
+      sectorConversations.map((item, index) => (
+        <div
+          class:list={["sector-panel", { "is-active": index === 0 }]}
+          role="tabpanel"
+          id={`sector-panel-${item.slug}`}
+          aria-labelledby={`sector-tab-${item.slug}`}
+          tabindex="0"
+          hidden={index !== 0}
+          data-sector-panel
+        >
+          <div class="sector-panel__chat">
+            <div class="sector-panel__topbar">
+              <span class="sector-panel__avatar" aria-hidden="true">
+                <Bot />
+              </span>
+              <div>
+                <strong>OMDI Satış Asistanı</strong>
+                <small>{nameOf(item.slug)}</small>
+              </div>
+            </div>
+
+            <div class="sector-panel__thread">
+              {item.messages.map((message) => (
+                <div
+                  class:list={[
+                    "sector-bubble",
+                    message.from === "customer" ? "sector-bubble--customer" : "sector-bubble--omdi",
+                  ]}
+                >
+                  {message.from === "omdi" && (
+                    <span class="sector-bubble__sender">
+                      <Sparkles aria-hidden="true" />
+                      OMDI
+                    </span>
+                  )}
+                  <p>{message.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="sector-panel__result">
+            <div class="sector-panel__result-head">
+              <span>Nitelendirme tamamlandı</span>
+              <CircleCheckBig aria-hidden="true" />
+            </div>
+            <dl>
+              {item.qualification.map((row) => (
+                <div>
+                  <dt>{row.label}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <a class="v3-text-link" href={`/sektorler#${item.slug}`}>
+              Bu sektörün tam senaryosu
+              <ArrowRight aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const slider = document.querySelector<HTMLElement>("[data-sector-slider]");
+
+  if (slider) {
+    const tabs = Array.from(slider.querySelectorAll<HTMLButtonElement>("[data-sector-tab]"));
+    const panels = Array.from(slider.querySelectorAll<HTMLElement>("[data-sector-panel]"));
+    const indicator = slider.querySelector<HTMLElement>("[data-sector-indicator]");
+
+    const moveIndicator = (tab: HTMLButtonElement) => {
+      if (!indicator) return;
+      indicator.style.width = `${tab.offsetWidth}px`;
+      indicator.style.transform = `translateX(${tab.offsetLeft}px)`;
+    };
+
+    const select = (index: number, focus = true) => {
+      tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.setAttribute("aria-selected", String(active));
+        tab.tabIndex = active ? 0 : -1;
+        panels[i].hidden = !active;
+        panels[i].classList.toggle("is-active", active);
+      });
+
+      moveIndicator(tabs[index]);
+      if (focus) tabs[index].focus();
+
+      tabs[index].scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => select(index, false));
+
+      tab.addEventListener("keydown", (event) => {
+        const last = tabs.length - 1;
+        let next: number | null = null;
+
+        if (event.key === "ArrowRight") next = index === last ? 0 : index + 1;
+        else if (event.key === "ArrowLeft") next = index === 0 ? last : index - 1;
+        else if (event.key === "Home") next = 0;
+        else if (event.key === "End") next = last;
+
+        if (next === null) return;
+        event.preventDefault();
+        select(next);
+      });
+    });
+
+    // İlk konumlandırma yazı tipi yüklendikten sonra doğru ölçüyü alır.
+    const sync = () => moveIndicator(tabs[Math.max(0, tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true"))]);
+    sync();
+    document.fonts?.ready.then(sync);
+    window.addEventListener("resize", sync);
+  }
+</script>

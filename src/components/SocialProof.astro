@@ -1,0 +1,43 @@
+---
+/**
+ * Sosyal kanıt şeridi — referans cümleleri.
+ *
+ * TODO: gerçek referans verisi
+ * `testimonials` dizisi boş olduğu sürece bölüm hiç render edilmez. Gerçek müşteri
+ * onayı alındığında buraya eklenir; uydurma metrik, logo veya alıntı girilmez.
+ */
+
+interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+}
+
+const testimonials: Testimonial[] = [];
+---
+
+{
+  testimonials.length > 0 && (
+    <section class="v3-section social-proof" aria-labelledby="social-proof-title">
+      <div class="shell">
+        <h2 class="social-proof__title" id="social-proof-title" data-reveal>
+          OMDI kullanan işletmeler
+        </h2>
+        <div class="social-proof__list">
+          {testimonials.map((item) => (
+            <figure class="social-proof__item" data-reveal>
+              <blockquote>{item.quote}</blockquote>
+              <figcaption>
+                <strong>{item.name}</strong>
+                <span>
+                  {item.role}, {item.company}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

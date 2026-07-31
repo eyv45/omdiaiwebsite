@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Müşteriye özel korunan alanlar
+Disallow: /musteri-girisi
+Disallow: /musteri-paneli
+
+Sitemap: https://omdi.ai/sitemap.xml

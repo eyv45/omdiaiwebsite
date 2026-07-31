@@ -1,19 +1,10 @@
 ---
-import { Menu, X } from "@lucide/astro";
+import { ChevronDown, Menu, X } from "@lucide/astro";
 import Brand from "./Brand.astro";
+import { sectors, solutions } from "../data/content";
 
 const pathname = Astro.url.pathname;
-
-const links = [
-  { href: "/#nasil-calisir", label: "Nasıl çalışır" },
-  { href: "/cozumler", label: "Çözümler" },
-  { href: "/sektorler", label: "Sektörler" },
-  { href: "/hakkimizda", label: "Hakkımızda" },
-  { href: "/#sss", label: "SSS" },
-];
-
-const isActive = (href: string) =>
-  !href.startsWith("/#") && pathname.startsWith(href);
+const isActive = (href: string) => !href.startsWith("/#") && pathname.startsWith(href);
 ---
 
 <header class="site-header" data-site-header>
@@ -36,24 +27,217 @@ const isActive = (href: string) =>
 
     <nav class="site-nav" id="site-navigation" aria-label="Ana menü" data-site-nav>
       <div class="site-nav__links">
-        {
-          links.map((link) => (
-            <a
-              href={link.href}
-              class:list={{ "is-active": isActive(link.href) }}
-              aria-current={isActive(link.href) ? "page" : undefined}
-            >
-              {link.label}
-            </a>
-          ))
-        }
+        <a href="/#nasil-calisir" data-nav-anchor="nasil-calisir">Nasıl çalışır</a>
+
+        <div class="nav-drop" data-nav-drop>
+          <button
+            class:list={["nav-drop__button", { "is-active": isActive("/cozumler") }]}
+            type="button"
+            aria-expanded="false"
+            data-nav-drop-button
+          >
+            Çözümler
+            <ChevronDown aria-hidden="true" />
+          </button>
+          <div class="nav-drop__menu" data-nav-drop-menu>
+            {
+              solutions.map((solution) => (
+                <a href={`/cozumler#${solution.id}`}>
+                  <strong>
+                    {solution.name}
+                    {"featured" in solution && solution.featured && (
+                      <b>En çok tercih edilen</b>
+                    )}
+                  </strong>
+                  <small>{solution.label}</small>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="nav-drop" data-nav-drop>
+          <button
+            class:list={["nav-drop__button", { "is-active": isActive("/sektorler") }]}
+            type="button"
+            aria-expanded="false"
+            data-nav-drop-button
+          >
+            Sektörler
+            <ChevronDown aria-hidden="true" />
+          </button>
+          <div class="nav-drop__menu" data-nav-drop-menu>
+            {
+              sectors.map((sector) => (
+                <a href={`/sektorler#${sector.slug}`}>
+                  <strong>{sector.name}</strong>
+                  <small>{sector.signal}</small>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <a
+          href="/fiyatlandirma"
+          class:list={{ "is-active": isActive("/fiyatlandirma") }}
+          aria-current={isActive("/fiyatlandirma") ? "page" : undefined}
+        >
+          Fiyatlandırma
+        </a>
+        <a
+          href="/hakkimizda"
+          class:list={{ "is-active": isActive("/hakkimizda") }}
+          aria-current={isActive("/hakkimizda") ? "page" : undefined}
+        >
+          Hakkımızda
+        </a>
       </div>
-      <a class="site-nav__login" href="/musteri-girisi">
-        Müşteri Girişi
-      </a>
-      <a class="button button--gold site-nav__cta" href="/#demo-talep">
+
+      <button class="button button--gold site-nav__cta" type="button" data-demo-open>
         Demo Talep Et
-      </a>
+      </button>
     </nav>
   </div>
 </header>
+
+<div class="mobile-cta" data-mobile-cta hidden>
+  <button class="button button--gold button--full" type="button" data-demo-open>
+    Demo Talep Et
+  </button>
+</div>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const nav = document.querySelector<HTMLElement>("[data-site-nav]");
+  const mobileCta = document.querySelector<HTMLElement>("[data-mobile-cta]");
+
+  /* ---------- sticky daralma ---------- */
+
+  if (header) {
+    const onScroll = () => header.classList.toggle("is-compact", window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* ---------- mobil menü ---------- */
+
+  if (toggle && nav) {
+    const closeMenu = () => {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Menüyü aç");
+      nav.classList.remove("is-open");
+      document.body.classList.remove("menu-open");
+    };
+
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") !== "true";
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç");
+      nav.classList.toggle("is-open", open);
+      document.body.classList.toggle("menu-open", open);
+    });
+
+    nav.querySelectorAll("a, [data-demo-open]").forEach((el) => {
+      el.addEventListener("click", closeMenu);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 880) closeMenu();
+    });
+  }
+
+  /* ---------- dropdown'lar ---------- */
+
+  const drops = Array.from(document.querySelectorAll<HTMLElement>("[data-nav-drop]"));
+
+  drops.forEach((drop) => {
+    const button = drop.querySelector<HTMLButtonElement>("[data-nav-drop-button]");
+    const menu = drop.querySelector<HTMLElement>("[data-nav-drop-menu]");
+    if (!button || !menu) return;
+
+    const isMobile = () => window.innerWidth <= 880;
+
+    const setOpen = (open: boolean) => {
+      button.setAttribute("aria-expanded", String(open));
+      drop.classList.toggle("is-open", open);
+    };
+
+    const closeOthers = () => {
+      drops.forEach((other) => {
+        if (other === drop) return;
+        other.classList.remove("is-open");
+        other
+          .querySelector<HTMLButtonElement>("[data-nav-drop-button]")
+          ?.setAttribute("aria-expanded", "false");
+      });
+    };
+
+    button.addEventListener("click", () => {
+      const open = button.getAttribute("aria-expanded") !== "true";
+      closeOthers();
+      setOpen(open);
+    });
+
+    drop.addEventListener("mouseenter", () => {
+      if (isMobile()) return;
+      closeOthers();
+      setOpen(true);
+    });
+
+    drop.addEventListener("mouseleave", () => {
+      if (isMobile()) return;
+      setOpen(false);
+    });
+
+    drop.addEventListener("focusout", (event) => {
+      const next = event.relatedTarget as Node | null;
+      if (next && drop.contains(next)) return;
+      setOpen(false);
+    });
+
+    drop.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      button.focus();
+    });
+  });
+
+  /* ---------- mobil sabit CTA: hero'dan sonra görünür ---------- */
+
+  if (mobileCta && "IntersectionObserver" in window) {
+    const hero = document.querySelector(".v3-hero");
+
+    if (hero) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          mobileCta.hidden = entry.isIntersecting;
+        },
+        { threshold: 0 },
+      );
+      observer.observe(hero);
+    }
+  }
+
+  /* ---------- sayfa içi aktif bölüm ---------- */
+
+  const anchorLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-nav-anchor]"));
+
+  if (anchorLinks.length && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const link = anchorLinks.find((item) => item.dataset.navAnchor === entry.target.id);
+          link?.classList.toggle("is-active", entry.isIntersecting);
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px" },
+    );
+
+    anchorLinks.forEach((link) => {
+      const section = document.getElementById(link.dataset.navAnchor ?? "");
+      if (section) observer.observe(section);
+    });
+  }
+</script>

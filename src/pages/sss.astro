@@ -1,0 +1,60 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { faqs } from "../data/content";
+---
+
+<BaseLayout
+  title="OMDI — Sıkça Sorulan Sorular"
+  description="OMDI'nin çalışma kanalı, satış ekibiyle ilişkisi, görüşme kotası ve entegrasyon kapsamı hakkında sık sorulan sorular."
+  bodyClass="faq-page"
+>
+  <section class="subhero">
+    <div class="shell subhero__layout">
+      <div class="subhero__copy">
+        <p class="section-label section-label--gold">Sıkça sorulanlar</p>
+        <h1>Başlamadan önce merak edilenler.</h1>
+        <p>
+          Aradığınız yanıt burada yoksa demo talebinizde bize iletebilirsiniz;
+          görüşmede işletmenize özel durumları da netleştiriyoruz.
+        </p>
+        <button class="button button--gold button--arrow" type="button" data-demo-open>
+          Demo Talep Et
+          <ArrowRight aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell faq-page__list">
+      {
+        faqs.map((faq, index) => (
+          <details class="v3-faq__item">
+            <summary>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{faq.question}</strong>
+              <i aria-hidden="true"></i>
+            </summary>
+            <div class="v3-faq__answer">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="shell closing-cta__inner">
+      <div>
+        <p>Zekâ. Veri. Dönüşüm.</p>
+        <h2>Kalan sorularınızı görüşmede yanıtlayalım.</h2>
+      </div>
+      <button class="button button--gold button--arrow" type="button" data-demo-open>
+        Demo Talep Et
+        <ArrowRight aria-hidden="true" />
+      </button>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,126 @@
+---
+import { ArrowRight, Check, Database } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PricingGrid from "../components/PricingGrid.astro";
+import { pricingComparison } from "../data/content";
+
+const columns = ["lead", "sales", "scale", "custom"] as const;
+---
+
+<BaseLayout
+  title="OMDI Fiyatlandırma — Paketler ve Kapsam"
+  description="OMDI Lead, Sales, Scale ve Custom paketlerinin kurulum bedeli, aylık hizmet bedeli ve görüşme kotasını karşılaştırın."
+  bodyClass="pricing-page"
+>
+  <section class="subhero">
+    <div class="shell subhero__layout">
+      <div class="subhero__copy">
+        <p class="section-label section-label--gold">Fiyatlandırma</p>
+        <h1>Kapsamı görün, size uygun olanı konuşalım.</h1>
+        <p>
+          Ücretlendirme üç bileşenle belirlenir: tek seferlik kurulum bedeli,
+          aylık hizmet bedeli ve aylık müşteri görüşmesi kotası.
+          Tutarlar KDV dahildir.
+        </p>
+        <button class="button button--gold button--arrow" type="button" data-demo-open>
+          Demo Talep Et
+          <ArrowRight aria-hidden="true" />
+        </button>
+      </div>
+      <div class="pricing-model-card" aria-label="Ücretlendirme bileşenleri">
+        <div class="pricing-model-card__head">
+          <Database aria-hidden="true" />
+          <span>Ücretlendirme modeli</span>
+        </div>
+        <dl>
+          <div><dt>01</dt><dd>Tek seferlik kurulum bedeli</dd></div>
+          <div><dt>02</dt><dd>Aylık hizmet bedeli</dd></div>
+          <div><dt>03</dt><dd>Aylık müşteri görüşmesi kotası</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="pricing-packages-title">
+    <div class="shell">
+      <div class="section-heading section-heading--split" data-reveal>
+        <div>
+          <p class="section-label">Paketler</p>
+          <h2 id="pricing-packages-title">Dört seviye, tek sistem mantığı.</h2>
+        </div>
+        <p>
+          Başlangıç seviyesi ilk teması düzenler; ileri seviyeler satış diyaloğu,
+          veri aktarımı ve operasyonu aynı akışta birleştirir.
+        </p>
+      </div>
+
+      <PricingGrid detailed />
+    </div>
+  </section>
+
+  <section class="section comparison-section">
+    <div class="shell">
+      <div class="section-heading" data-reveal>
+        <p class="section-label">Ayrıntılı karşılaştırma</p>
+        <h2>İhtiyaç büyüdükçe sistem derinleşir.</h2>
+      </div>
+
+      <div
+        class="comparison-table-wrap"
+        role="region"
+        aria-label="OMDI paket karşılaştırma tablosu"
+        tabindex="0"
+      >
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th scope="col">Yetenek</th>
+              <th scope="col">Lead</th>
+              <th scope="col">Sales</th>
+              <th scope="col">Scale</th>
+              <th scope="col">Custom</th>
+            </tr>
+          </thead>
+          {
+            pricingComparison.map((section) => (
+              <tbody>
+                <tr class="comparison-table__group">
+                  <th scope="colgroup" colspan="5">
+                    {section.group}
+                  </th>
+                </tr>
+                {section.rows.map((row) => (
+                  <tr>
+                    <th scope="row">{row.label}</th>
+                    {columns.map((column) =>
+                      row[column] === "✓" ? (
+                        <td>
+                          <Check aria-label="Dahil" />
+                        </td>
+                      ) : (
+                        <td>{row[column]}</td>
+                      ),
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            ))
+          }
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="shell closing-cta__inner">
+      <div>
+        <p>Zekâ. Veri. Dönüşüm.</p>
+        <h2>Hangi seviyeden başlamanız gerektiğini birlikte netleştirelim.</h2>
+      </div>
+      <button class="button button--gold button--arrow" type="button" data-demo-open>
+        Demo Talep Et
+        <ArrowRight aria-hidden="true" />
+      </button>
+    </div>
+  </section>
+</BaseLayout>
