@@ -3,9 +3,15 @@ import { heroConversations } from "../data/content";
 
 /**
  * Hero'daki WhatsApp örnek yazışma kartı.
- * Sektörler 5 saniyede bir kendiliğinden değişir; sayaç sekmelerin üstündeki
- * ince altın çizgiyle gösterilir. Karta fareyle gelindiğinde sayaç donar,
- * fare ayrılınca kaldığı yerden devam eder.
+ *
+ * Fare kullanılan cihazlarda sektörler 5 saniyede bir kendiliğinden değişir;
+ * sayaç sekmelerin üstündeki ince altın çizgiyle gösterilir. Karta fareyle
+ * gelindiğinde sayaç donar, fare ayrılınca kaldığı yerden devam eder.
+ *
+ * Dokunmatik cihazlarda otomatik geçiş hiç başlamaz: duraklatmak için imleç
+ * yok, dolayısıyla kullanıcı okurken veya sayfayı kaydırırken kart altından
+ * değişiyordu. Orada sektör yalnızca sekmeye dokununca değişir. Kullanıcı bir
+ * sekme seçtiğinde otomatik geçiş her cihazda kalıcı olarak durur.
  */
 
 const DURATION_MS = 5000;
@@ -409,6 +415,14 @@ const DURATION_MS = 5000;
   .hero-chat__tab:hover { color: #0b1320; }
   .hero-chat__tab[aria-selected="true"] { color: #0b1320; }
 
+  /* Otomatik geçiş kapalıyken (dokunmatik cihaz ya da kullanıcı bir sekme
+     seçtikten sonra) dolan sayaç yerine sabit bir seçim çizgisi gösterilir. */
+  .hero-chat.is-manual .hero-chat__progress { display: none; }
+
+  .hero-chat.is-manual .hero-chat__tab[aria-selected="true"] {
+    border-top-color: #d4af37;
+  }
+
   /* Sekmenin üstündeki 2px'lik altın çizgi sayacı gösterir; dolduğunda script
      bir sonraki sektöre geçer. Genişlik JS tarafından scaleX ile sürülür ki
      azaltılmış hareket ayarında da sayaç çalışsın. */
@@ -491,6 +505,32 @@ const DURATION_MS = 5000;
     .hero-chat__id strong { font-size: 0.78rem; }
     .hero-chat__tab { font-size: 0.6rem; }
   }
+
+  /* Dokunmatik cihazlarda kart kompakt kalır ve yazışma kendi içinde kaydırılır;
+     asıl tuzağı yaratan `overscroll-behavior: contain` burada devre dışı.
+     `contain` ile sohbetin sonuna gelindiğinde kaydırma sayfaya devredilmiyor,
+     hero ölü noktaya dönüyordu. `auto` ile aynı parmak hareketi sohbet bitince
+     sayfadan devam eder. Yazışma da artık en baştan açıldığı için aşağı çekmek
+     boşa gitmiyor, sohbeti sırayla okutuyor. */
+  @media (hover: none) and (pointer: coarse) {
+    .hero-chat__thread {
+      overscroll-behavior: auto;
+    }
+
+    /* Sohbetin devamı olduğunu belli eden yumuşak alt geçiş; sona gelindiğinde
+       script `is-chat-end` ile kaldırır. */
+    .hero-chat__stage::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 36px;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(239, 231, 222, 0), rgba(239, 231, 222, 0.94));
+      transition: opacity 200ms ease;
+    }
+
+    .hero-chat.is-chat-end .hero-chat__stage::after { opacity: 0; }
+  }
 </style>
 
 <script>
@@ -513,6 +553,22 @@ const DURATION_MS = 5000;
     let lastFrame = 0;
     let hoverPaused = false;
     let offScreen = false;
+    let tickTimer = 0;
+
+    /* Otomatik geçiş yalnızca duraklatmayı sağlayacak bir imleç varsa açılır.
+       Dokunmatikte kullanıcının kartı durdurma yolu yok; okurken veya sayfayı
+       kaydırırken sektörün altından değişmesi engellenir. */
+    let autoplay = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    /** Kullanıcı bir sektör seçtiyse kart bir daha kendiliğinden değişmez. */
+    const stopAutoplay = () => {
+      if (!autoplay) return;
+      autoplay = false;
+      window.clearInterval(tickTimer);
+      elapsed = 0;
+      drawProgress(0);
+      root.classList.add("is-manual");
+    };
 
     const clearTimers = () => {
       timers.forEach(window.clearTimeout);
@@ -563,6 +619,9 @@ const DURATION_MS = 5000;
         tab.tabIndex = active ? 0 : -1;
       });
 
+      // Yeni sektör baştan açıldığı için "devamı var" işareti geri gelmeli.
+      syncChatEnd();
+
       const thread = threads[index];
       const rows = Array.from(thread.querySelectorAll<HTMLElement>("[data-wa-row]"));
 
@@ -577,10 +636,12 @@ const DURATION_MS = 5000;
       rows.forEach((row) => row.classList.remove("is-in"));
       if (statusEl) statusEl.textContent = "yazıyor…";
 
+      // Yazışma baştan okunur: mesajlar sırayla belirirken en alta kaydırma
+      // yapılmaz. Aksi hâlde animasyon ~2 saniyede bittiği için sayfaya gelen
+      // ya da sayfayı yenileyen kullanıcı sohbeti hep sonundan görüyordu.
       rows.forEach((row, i) => {
         after(i * STEP_MS, () => {
           row.classList.add("is-in");
-          thread.scrollTo({ top: thread.scrollHeight, behavior: "smooth" });
 
           if (i === rows.length - 1 && statusEl) statusEl.textContent = "çevrimiçi";
         });
@@ -623,7 +684,10 @@ const DURATION_MS = 5000;
         if (index !== current) activate(index);
       });
 
-      tab.addEventListener("click", () => activate(index));
+      tab.addEventListener("click", () => {
+        stopAutoplay();
+        activate(index);
+      });
 
       tab.addEventListener("keydown", (event) => {
         const last = tabs.length - 1;
@@ -678,8 +742,32 @@ const DURATION_MS = 5000;
       observer.observe(root);
     }
 
+    /* ---------- "devamı var" işareti ----------
+       Sohbetin altındaki yumuşak geçiş, yazışmanın devam ettiğini gösterir;
+       sona gelindiğinde kaldırılır. Yalnızca dokunmatik düzende görünür,
+       sınıfı her cihazda güncellemek zararsız. */
+
+    const syncChatEnd = () => {
+      const thread = threads[current];
+      if (!thread) return;
+
+      const atEnd = thread.scrollTop + thread.clientHeight >= thread.scrollHeight - 4;
+      root.classList.toggle("is-chat-end", atEnd);
+    };
+
+    threads.forEach((thread) => {
+      thread.addEventListener("scroll", syncChatEnd, { passive: true });
+    });
+
     syncPaused();
     activate(0);
-    window.setInterval(tick, TICK_MS);
+    syncChatEnd();
+
+    // Yazı tipi yüklendikten sonra satır sarmaları, dolayısıyla yükseklik değişir.
+    document.fonts?.ready.then(syncChatEnd);
+    window.addEventListener("resize", syncChatEnd);
+
+    if (autoplay) tickTimer = window.setInterval(tick, TICK_MS);
+    else root.classList.add("is-manual");
   }
 </script>

@@ -3079,6 +3079,15 @@ h1, h2, h3, h4, p, li, dd, dt, td, th, a, strong, small, span { overflow-wrap: b
     min-height: auto;
   }}
 
+/* Kurulum adımları 680px altında tek sütuna inip numara-metin düzenine geçer.
+   .home-v4 katmanı 5 sütunu aynı özgüllükle ve daha sonra tanımladığı için
+   genel kural eziliyor, sıfırlama o kuraldan sonra yapılmak zorunda. Aksi hâlde
+   adımlar dar ekranda yan yana kalıp satırı 948px'e uzatıyor ve sayfayı yatay
+   kaydırıyordu. 681-760px arasında beş sütun sığdığı için oraya dokunulmuyor. */
+@media (max-width: 680px) {
+  .home-v4 .v3-process__track { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 440px) {
   .home-v4 .v3-hero__actions {
     display: grid;
