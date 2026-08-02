@@ -4,12 +4,12 @@ import {
   Check,
   Clock3,
   Database,
-  MessageCircle,
   Target,
   Workflow,
 } from "@lucide/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CostCalculator from "../components/CostCalculator.astro";
+import WhatsAppIcon from "../components/WhatsAppIcon.astro";
 import HeroChat from "../components/HeroChat.astro";
 import PricingGrid from "../components/PricingGrid.astro";
 import SocialProof from "../components/SocialProof.astro";
@@ -18,28 +18,28 @@ import { faqs } from "../data/content";
 const homeSteps = [
   {
     step: "01",
-    title: "İşletmenizi Tanırız",
-    copy: "Ürünlerinizi, hizmetlerinizi, satış sürecinizi ve müşterilerinizin sık sorduğu soruları analiz ederiz.",
+    title: "İşletmenizi Analiz Ederiz",
+    copy: "Ürünlerinizi, hizmetlerinizi, satış sürecinizi ve müşterilerinizin en sık sorduğu soruları çıkarırız.",
   },
   {
     step: "02",
-    title: "WhatsApp Bağlarız",
-    copy: "Oluşturulan QR kodu telefonunuzdan okutarak mevcut hattınızı bağlarız. Numaranız değişmez.",
+    title: "Yapay Zekâyı Eğitiriz",
+    copy: "Fiyatlarınız, ürün bilgileriniz, çalışma koşullarınız ve markanızın iletişim dili sisteme tanımlanır.",
   },
   {
     step: "03",
-    title: "Yapay Zekâyı Hazırlarız",
-    copy: "Fiyatlarınız, ürün bilgileri, çalışma şartlarınız ve müşteri iletişim diliniz sisteme tanımlanır.",
+    title: "Satış Akışını Kurgularız",
+    copy: "Müşteriye hangi soruların sorulacağını, nasıl yönlendirileceğini ve görüşmenin ekibinize hangi noktada devredileceğini belirleriz.",
   },
   {
     step: "04",
-    title: "Satışı Otomatikleştiririz",
-    copy: "Yapay zekâ anında cevap verir, ihtiyaçları belirler, ürün önerir ve görüşmeyi satışa yönlendirir.",
+    title: "Test Eder, Onayınızı Alırız",
+    copy: "Sistemi gerçek müşteri senaryolarıyla deneriz; yanıtları birlikte gözden geçirip son düzenlemeleri yaparız.",
   },
   {
     step: "05",
-    title: "Test Eder & Çalıştırırız",
-    copy: "Sistemi farklı senaryolarla test eder, düzenlemeleri yapar ve 7/24 çalışacak şekilde aktif ederiz.",
+    title: "WhatsApp'a Bağlar, Yayına Alırız",
+    copy: "QR kodu telefonunuzdan okutmanız yeterli. Numaranız değişmeden sistem 7/24 çalışmaya başlar.",
   },
 ] as const;
 
@@ -79,7 +79,7 @@ const landingFaqs = faqs.slice(0, 3);
           ve ekibinize görüşmeye hazır bir özet bırakır.
         </p>
         <p class="v3-hero__channel">
-          <MessageCircle aria-hidden="true" />
+          <WhatsAppIcon aria-hidden="true" />
           WhatsApp üzerinden çalışır
         </p>
         <div class="v3-hero__actions">
@@ -143,10 +143,10 @@ const landingFaqs = faqs.slice(0, 3);
   <section class="v3-section v3-process" id="nasil-calisir">
     <div class="shell">
       <div class="v3-heading v3-heading--center" data-reveal>
-        <p class="v3-eyebrow">Kurulum & Çalışma Mantığı</p>
-        <h2>5 adımda kolay kurulum ve otomatik satış.</h2>
+        <p class="v3-eyebrow">Kurulum ve Çalışma Mantığı</p>
+        <h2>Kurulumdan canlı satışa, 5 adımda.</h2>
         <p>
-          İşletmenizin analizinden QR kod bağlantısına ve 7/24 canlı satışa kadar adım adım şeffaf süreç.
+          Analizden yayına kadar süreci baştan sona biz yürütürüz. Sizden istenen tek şey, son adımda QR kodu okutmak.
         </p>
       </div>
 
