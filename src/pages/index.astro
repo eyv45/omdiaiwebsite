@@ -18,18 +18,28 @@ import { faqs } from "../data/content";
 const homeSteps = [
   {
     step: "01",
-    title: "Karşılar",
-    copy: "WhatsApp mesajına markanıza uygun, net bir ilk yanıt verir.",
+    title: "İşletmenizi Tanırız",
+    copy: "Ürünlerinizi, hizmetlerinizi, satış sürecinizi ve müşterilerinizin sık sorduğu soruları analiz ederiz.",
   },
   {
     step: "02",
-    title: "Nitelendirir",
-    copy: "İhtiyaç, tercih ve zamanlama bilgisini doğal bir konuşmayla toplar.",
+    title: "WhatsApp Bağlarız",
+    copy: "Oluşturulan QR kodu telefonunuzdan okutarak mevcut hattınızı bağlarız. Numaranız değişmez.",
   },
   {
     step: "03",
-    title: "Teslim eder",
-    copy: "Görüşme özetini ve hazır talebi doğru anda satış ekibine aktarır.",
+    title: "Yapay Zekâyı Hazırlarız",
+    copy: "Fiyatlarınız, ürün bilgileri, çalışma şartlarınız ve müşteri iletişim diliniz sisteme tanımlanır.",
+  },
+  {
+    step: "04",
+    title: "Satışı Otomatikleştiririz",
+    copy: "Yapay zekâ anında cevap verir, ihtiyaçları belirler, ürün önerir ve görüşmeyi satışa yönlendirir.",
+  },
+  {
+    step: "05",
+    title: "Test Eder & Çalıştırırız",
+    copy: "Sistemi farklı senaryolarla test eder, düzenlemeleri yapar ve 7/24 çalışacak şekilde aktif ederiz.",
   },
 ] as const;
 
@@ -44,7 +54,7 @@ const landingFaqs = faqs.slice(0, 3);
   <!--
     THESIS: OMDI, ilk mesajı satış ekibinin ilerletebileceği hazır bir fırsata dönüştürür; ana sayfa bunu tek bakışta gösterir.
     OWN-WORLD: Kırık beyaz canvas, kâğıt tonlu odak sahnesi, lacivert tipografi ve yalnızca aksiyon ile sonuçta kullanılan altın.
-    STORY: Ziyaretçi akışı canlı görür, üç adımı anlar, sektörünü seçer, çözümünü değerlendirir ve demo talebine ilerler.
+    STORY: Ziyaretçi akışı canlı görür, beş adımı anlar, sektörünü seçer, çözümünü değerlendirir ve demo talebine ilerler.
     FORM: Sade ve ferah satış sayfası; tek anlatım, az katman, geniş boşluk.
   -->
 
@@ -56,7 +66,7 @@ const landingFaqs = faqs.slice(0, 3);
     </div>
     <div class="shell v3-hero__layout">
       <div class="v3-hero__copy">
-        <p class="v3-eyebrow">
+        <p class="v3-eyebrow v3-eyebrow--live">
           <span aria-hidden="true"></span>
           İşletmeler için yapay zekâ satış asistanı
         </p>
@@ -78,7 +88,7 @@ const landingFaqs = faqs.slice(0, 3);
             <ArrowRight aria-hidden="true" />
           </button>
           <a class="v4-hero__text-link" href="#nasil-calisir">
-            3 adımda nasıl çalışır?
+            5 adımda kurulum ve çalışma mantığı
             <ArrowRight aria-hidden="true" />
           </a>
         </div>
@@ -95,45 +105,7 @@ const landingFaqs = faqs.slice(0, 3);
 
   <SocialProof />
 
-  <section class="v3-section v3-process" id="nasil-calisir">
-    <div class="shell">
-      <div class="v3-heading v3-heading--center" data-reveal>
-        <p class="v3-eyebrow">Nasıl çalışır?</p>
-        <h2>İlk mesajdan hazır görüşmeye.</h2>
-        <p>
-          Tekrarlanan ilk temas işlerini OMDI üstlenir;
-          satış ekibiniz doğru anda devreye girer.
-        </p>
-      </div>
-
-      <div class="v3-process__track" data-reveal-group>
-        {
-          homeSteps.map((item, index) => (
-            <article class="v3-process__step" data-reveal>
-              <div class="v3-process__number">
-                <span>{item.step}</span>
-                {index < homeSteps.length - 1 && <i aria-hidden="true"></i>}
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))
-        }
-      </div>
-      <div class="v4-flow__outcomes" data-reveal>
-        <p>Ekibiniz için sonuç</p>
-        <ul>
-          <li><Check aria-hidden="true" /><span><strong>Daha hızlı dönüş</strong> Müşteri ilk yanıtı beklemez.</span></li>
-          <li><Check aria-hidden="true" /><span><strong>Daha net öncelik</strong> Hazır talepler öne çıkar.</span></li>
-          <li><Check aria-hidden="true" /><span><strong>Daha az tekrar</strong> Ekip gerçek görüşmeye odaklanır.</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <CostCalculator />
-
-  <section class="v3-section v3-pricing" aria-labelledby="v3-pricing-title">
+  <section class="v3-section v3-pricing" id="paketler" aria-labelledby="v3-pricing-title">
     <div class="shell">
       <div class="v3-heading v3-heading--split" data-reveal>
         <div>
@@ -167,6 +139,44 @@ const landingFaqs = faqs.slice(0, 3);
       </div>
     </div>
   </section>
+
+  <section class="v3-section v3-process" id="nasil-calisir">
+    <div class="shell">
+      <div class="v3-heading v3-heading--center" data-reveal>
+        <p class="v3-eyebrow">Kurulum & Çalışma Mantığı</p>
+        <h2>5 adımda kolay kurulum ve otomatik satış.</h2>
+        <p>
+          İşletmenizin analizinden QR kod bağlantısına ve 7/24 canlı satışa kadar adım adım şeffaf süreç.
+        </p>
+      </div>
+
+      <div class="v3-process__track" data-reveal-group>
+        {
+          homeSteps.map((item, index) => (
+            <article class="v3-process__step" data-reveal>
+              <div class="v3-process__number">
+                <span>{item.step}</span>
+                {index < homeSteps.length - 1 && <i aria-hidden="true"></i>}
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.copy}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="v4-flow__outcomes" data-reveal>
+        <p>Ekibiniz için sonuç</p>
+        <ul>
+          <li><Check aria-hidden="true" /><span><strong>Daha hızlı dönüş</strong> Müşteri ilk yanıtı beklemez.</span></li>
+          <li><Check aria-hidden="true" /><span><strong>Daha net öncelik</strong> Hazır talepler öne çıkar.</span></li>
+          <li><Check aria-hidden="true" /><span><strong>Daha az tekrar</strong> Ekip gerçek görüşmeye odaklanır.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CostCalculator />
+
 
   <section class="v3-section v3-faq" id="sss">
     <div class="shell v3-faq__layout">

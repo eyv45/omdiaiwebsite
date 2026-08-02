@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, Clock3, Layers, ShieldCheck, Sun } from "@lucide/astro";
+import { ArrowRight, Clock3, Layers, ShieldCheck, TrendingUp } from "@lucide/astro";
 import { calculator } from "../data/content";
 
 const { defaults, limits } = calculator;
@@ -7,23 +7,23 @@ const { defaults, limits } = calculator;
 const advantages = [
   {
     icon: Clock3,
-    title: "7/24 açık",
-    copy: "Mesai saati yok. Gece ve hafta sonu gelen mesaj sabahı beklemez.",
+    title: "7/24 Kesintisiz Satış & Kazanç",
+    copy: "Mesai saati bitince satış durmaz. Gece ve hafta sonu gelen tüm mesajlar anında kazanca dönüşür.",
   },
   {
-    icon: Sun,
-    title: "Her gün aynı standart",
-    copy: "İzin, rapor ve yoğunluk fark etmez; aynı sorular aynı düzende sorulur.",
+    icon: TrendingUp,
+    title: "Sıfır Kaçan Müşteri",
+    copy: "Geç yanıt yüzünden rakibe giden müşterileri engeller; cironuzu ve satış kapatma oranınızı doğrudan artırır.",
   },
   {
     icon: Layers,
-    title: "Aynı anda birden çok konuşma",
-    copy: "Her konuşma kendi bağlamıyla ilerler; müşteri sıraya girmez.",
+    title: "%70'e Varan Operasyonel Tasarruf",
+    copy: "Ekstra satış personeli çalıştırma, eğitim ve işe alım maliyetlerini ortadan kaldırarak net kâr bırakır.",
   },
   {
     icon: ShieldCheck,
-    title: "Sınırların içinde kalır",
-    copy: "Fiyat yetkisi ve ekibe aktarım kuralları sizin belirlediğiniz kadardır.",
+    title: "Her Müşteriye Aynı Satış Kalitesi",
+    copy: "Yorulmaz, izin kullanmaz; en yüksek ikna kabiliyetiyle her müşteriyi aynı kalitede karşılar.",
   },
 ];
 ---
@@ -31,12 +31,10 @@ const advantages = [
 <section class="v3-section v3-roi" id="hesap" aria-labelledby="v3-roi-title">
   <div class="shell v3-roi__layout">
     <div class="v3-roi__copy" data-reveal>
-      <p class="v3-eyebrow">Karşılaştırma</p>
-      <h2 id="v3-roi-title">DM operasyonunun maliyeti — kendi rakamlarınızla.</h2>
+      <p class="v3-eyebrow">Yatırım Getirisi & Kazanç Hesabı</p>
+      <h2 id="v3-roi-title">OMDI işletmenize aylık ne kadar kazandırır?</h2>
       <p>
-        Bir satış personelinin aylık maliyeti yalnızca maaş değildir; sigorta,
-        izin, eğitim ve işe alım da aynı hanededir. Aşağıdaki hesap bu tutarı
-        sizin girdiğiniz rakamla çalıştırır — hazır bir tasarruf oranı yoktur.
+        7/24 kesintisiz müşteri karşılama, kaçan satışları kurtarma ve operasyonel personel tasarrufu ile bu sistemin işletmenize sağlayacağı aylık ve yıllık net kazancı kendi rakamlarınızla hesaplayın.
       </p>
 
       <ul class="v3-roi__advantages">
@@ -59,7 +57,7 @@ const advantages = [
 
     <div class="roi-card" data-reveal data-roi>
       <div class="roi-card__head">
-        <span>Maliyet hesabı</span>
+        <span>Kazanç & Kâr Hesabı</span>
         <small>kendi rakamlarınız</small>
       </div>
 
@@ -77,7 +75,7 @@ const advantages = [
           value={defaults.dailyConversations}
           data-roi-input="conversations"
         />
-        <p>Ortalama bir günü girin; bu sayı kaç kişi gerektiğini belirler.</p>
+        <p>Ortalama günlük mesaj trafiğiniz; bu sayı ihtiyaç duyulan kapasiteyi belirler.</p>
       </div>
 
       <div class="roi-field">
@@ -94,7 +92,7 @@ const advantages = [
           value={defaults.staffMonthlyCost}
           data-roi-input="staff"
         />
-        <p>Maaş, sigorta, izin, eğitim ve işe alım dahil — kişi başına.</p>
+        <p>Maaş, SGK, yemek, prim, eğitim ve operasyon dahil — kişi başına.</p>
       </div>
 
       <div class="roi-field">
@@ -111,55 +109,57 @@ const advantages = [
           value={defaults.workHours}
           data-roi-input="hours"
         />
-        <p>Mesai dışında kalan saatler cevapsız kalan mesajları belirler.</p>
+        <p>Mesai dışındaki saatlerde OMDI 7/24 çalışarak kaçan satışları kazanca dönüştürür.</p>
       </div>
 
       <dl class="roi-results" aria-live="polite">
         <div>
-          <dt>Bu hacim için gereken kişi</dt>
+          <dt>Bu hacim için gereken personel</dt>
           <dd><strong data-roi-out="people">1</strong><small>kişi</small></dd>
         </div>
         <div>
-          <dt>Aylık personel maliyeti</dt>
+          <dt>Klasik personel maliyeti</dt>
           <dd><strong data-roi-out="staffMonthly">—</strong><small>TL / ay</small></dd>
         </div>
         <div>
-          <dt>Yıllık karşılığı</dt>
-          <dd><strong data-roi-out="staffYearly">—</strong><small>TL / yıl</small></dd>
-        </div>
-        <div class="roi-results__omdi">
-          <dt>OMDI ile aylık <b data-roi-out="package">—</b></dt>
+          <dt>OMDI ile aylık bedel <b data-roi-out="package">—</b></dt>
           <dd><strong data-roi-out="omdiMonthly">—</strong><small>TL / ay</small></dd>
         </div>
         <div class="roi-results__saving" data-roi-saving>
           <dt>
-            <span class="roi-label" data-roi-out="savingLabel">Yıllık net kârınız</span>
-            <span>yalnızca personel maliyeti üzerinden</span>
+            <span class="roi-label" data-roi-out="monthlySavingLabel">Aylık Net Kazancınız</span>
+            <span>personel & operasyon tasarrufuyla</span>
+          </dt>
+          <dd><strong data-roi-out="monthlySaving">—</strong><small>TL / ay</small></dd>
+        </div>
+        <div class="roi-results__saving" data-roi-saving-yearly>
+          <dt>
+            <span class="roi-label" data-roi-out="savingLabel">Yıllık Toplam Net Kârınız</span>
+            <span>kasada kalan net tasarruf</span>
           </dt>
           <dd><strong data-roi-out="yearlySaving">—</strong><small>TL / yıl</small></dd>
         </div>
         <div class="roi-results__missed">
           <dt>
-            Mesai dışında cevapsız kalan
-            <span>günde <b data-roi-out="closedHours">—</b> saat kapalısınız</span>
+            7/24 Canlı Destekle Kurtarılan
+            <span>günde <b data-roi-out="closedHours">—</b> saat mesai dışı aktif</span>
           </dt>
-          <dd><strong data-roi-out="missed">—</strong><small>müşteri / gün</small></dd>
+          <dd><strong data-roi-out="missed">—</strong><small>potansiyel müşteri / gün</small></dd>
         </div>
       </dl>
 
       <p class="roi-card__note">
-        Kişi ihtiyacı, bir kişinin günde {calculator.conversationsPerPersonPerDay} görüşme
-        yürüttüğü kabulüyle hesaplanır. Hazır bir tasarruf oranı kullanılmaz;
-        tutarlar KDV dahildir.
+        Hesaplama, 1 personelin günde ortalama {calculator.conversationsPerPersonPerDay} kaliteli satış görüşmesi yürüttüğü kabulüyle yapılır. Tutarlar KDV dahildir.
       </p>
 
       <button class="button button--gold button--full button--arrow" type="button" data-demo-open>
-        Kendi rakamlarınızı konuşalım
+        Kendi kazanç oranınızı konuşalım
         <ArrowRight aria-hidden="true" />
       </button>
     </div>
   </div>
 </section>
+
 
 <script>
   import { calculator, pricing } from "../data/content";
@@ -194,7 +194,8 @@ const advantages = [
       const pack = packages.find((p) => monthlyConversations <= p.maxMonthly) ?? packages[1];
       const overQuota = monthlyConversations > packages[1].maxMonthly;
 
-      const yearlySaving = (staffMonthly - pack.monthly) * 12;
+      const monthlySaving = staffMonthly - pack.monthly;
+      const yearlySaving = monthlySaving * 12;
       const closedHours = Math.max(0, 24 - hours);
       const missed = Math.round((daily * closedHours) / 24);
 
@@ -208,17 +209,18 @@ const advantages = [
       set("hours", String(hours));
       set("people", String(people));
       set("staffMonthly", tl.format(staffMonthly));
-      set("staffYearly", tl.format(staffMonthly * 12));
       set("package", overQuota ? "· Scale — hacminize göre teklif" : `· ${pack.name}`);
       set("omdiMonthly", tl.format(pack.monthly));
       set("closedHours", String(closedHours));
       set("missed", tl.format(missed));
 
-      const saving = root.querySelector<HTMLElement>("[data-roi-saving]");
-
+      set("monthlySaving", tl.format(Math.abs(monthlySaving)));
+      set("monthlySavingLabel", monthlySaving >= 0 ? "Aylık Net Kazancınız" : "Aylık ek maliyet");
       set("yearlySaving", tl.format(Math.abs(yearlySaving)));
-      set("savingLabel", yearlySaving >= 0 ? "Yıllık net kârınız" : "Yıllık ek maliyet");
-      saving?.classList.toggle("is-negative", yearlySaving < 0);
+      set("savingLabel", yearlySaving >= 0 ? "Yıllık Toplam Net Kârınız" : "Yıllık ek maliyet");
+
+      const saving = root.querySelector<HTMLElement>("[data-roi-saving]");
+      saving?.classList.toggle("is-negative", monthlySaving < 0);
     };
 
     root.querySelectorAll<HTMLInputElement>("[data-roi-input]").forEach((el) => {

@@ -35,8 +35,8 @@ import { sectors } from "../data/content";
 
       <form class="demo-modal__form" data-demo-form novalidate>
         <p class="demo-modal__honeypot" aria-hidden="true">
-          <label for="demo-website">Web sitesi</label>
-          <input id="demo-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          <label for="demo-hp-website">Web sitesi hp</label>
+          <input id="demo-hp-website" name="hp_website" type="text" tabindex="-1" autocomplete="off" />
         </p>
 
         <div class="demo-field">
@@ -73,6 +73,16 @@ import { sectors } from "../data/content";
           <label for="demo-company">İşletme / marka</label>
           <input id="demo-company" name="company" type="text" autocomplete="organization" required />
           <small class="demo-field__error" data-error-for="company" hidden></small>
+        </div>
+
+        <div class="demo-field">
+          <label for="demo-web-or-social">Web sitesi veya Sosyal medya <small>(isteğe bağlı)</small></label>
+          <input
+            id="demo-web-or-social"
+            name="webOrSocial"
+            type="text"
+            placeholder="omdi.ai veya @instagram_sayfaniz"
+          />
         </div>
 
         <button class="demo-modal__more" type="button" aria-expanded="false" data-demo-more>
@@ -215,7 +225,7 @@ import { sectors } from "../data/content";
 
     const validated = Array.from(
       form.querySelectorAll<HTMLInputElement | HTMLSelectElement>("[name]"),
-    ).filter((field) => field.name !== "website" && field.name !== "solution");
+    ).filter((field) => field.name !== "hp_website" && field.name !== "solution" && field.name !== "webOrSocial");
 
     validated.forEach((field) => {
       field.addEventListener("blur", () => showError(field, !fieldValid(field)));
@@ -382,7 +392,7 @@ import { sectors } from "../data/content";
       if (alertBox) alertBox.hidden = true;
 
       // Spam eşiği: bot doldurdu ya da 3 saniyeden hızlı gönderdiyse sessizce dur.
-      const honeypot = form.querySelector<HTMLInputElement>('[name="website"]');
+      const honeypot = form.querySelector<HTMLInputElement>('[name="hp_website"]');
       if (honeypot?.value || Date.now() - openedAt < 3000) return;
 
       const invalid = validated.filter((field) => !fieldValid(field));
@@ -411,6 +421,7 @@ import { sectors } from "../data/content";
         phone: String(data.get("phone") ?? ""),
         sector: sectorName,
         solution: solutionName,
+        webOrSocial: String(data.get("webOrSocial") ?? ""),
         email: String(data.get("email") ?? ""),
         note: String(data.get("note") ?? ""),
       };

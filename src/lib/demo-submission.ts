@@ -6,6 +6,7 @@ export interface DemoRequest {
   phone: string;
   sector: string;
   solution: string;
+  webOrSocial?: string;
   email?: string;
   note?: string;
 }
@@ -25,6 +26,7 @@ export function formatRequest(request: DemoRequest): string {
     `Sektör: ${request.sector}`,
   ];
 
+  if (request.webOrSocial) lines.push(`Web / Sosyal Medya: ${request.webOrSocial}`);
   if (request.solution) lines.push(`Çözüm: ${request.solution}`);
   if (request.email) lines.push(`E-posta: ${request.email}`);
   if (request.note) lines.push(`Not: ${request.note}`);
